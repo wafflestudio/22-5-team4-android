@@ -8,7 +8,10 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.EditText
+import android.widget.ImageView
 import android.widget.LinearLayout
+import android.widget.ScrollView
+import android.widget.TextView
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
@@ -33,7 +36,19 @@ class MyFragment : Fragment() {
 
         viewModel = ViewModelProvider(this).get(MyPageViewModel::class.java)
 
-        val loggedOutStep1Layout = view.findViewById<LinearLayout>(R.id.layout_logged_out_step1)
+//        // 알림 아이콘 클릭 이벤트
+//        view.findViewById<ImageView>(R.id.iv_notification).setOnClickListener {
+//            // 알림 화면으로 이동하는 로직
+//            Toast.makeText(context, "알림 아이콘 클릭됨", Toast.LENGTH_SHORT).show()
+//        }
+//
+//        // 설정 아이콘 클릭 이벤트
+//        view.findViewById<ImageView>(R.id.iv_settings).setOnClickListener {
+//            // 설정 화면으로 이동하는 로직
+//            Toast.makeText(context, "설정 아이콘 클릭됨", Toast.LENGTH_SHORT).show()
+//        }
+
+        val loggedOutStep1Layout = view.findViewById<ScrollView>(R.id.layout_logged_out_step1) // 타입 수정
         val loggedOutStep2Layout = view.findViewById<LinearLayout>(R.id.layout_logged_out_step2)
         val loadingLayout = view.findViewById<LinearLayout>(R.id.layout_loading)
         val loggedInLayout = view.findViewById<LinearLayout>(R.id.layout_logged_in)
@@ -68,9 +83,12 @@ class MyFragment : Fragment() {
             }
         }
 
-        // 로그인 안내 화면 버튼 클릭
-        view.findViewById<Button>(R.id.btn_go_to_login).setOnClickListener {
-            viewModel.moveToLoginInput()
+        // ScrollView 안의 LinearLayout 가져오기
+        val loginPromptLayout = view.findViewById<TextView>(R.id.layout_login_prompt)
+
+        // "로그인 해주세요" 전체 클릭 이벤트 설정
+        loginPromptLayout.setOnClickListener {
+            viewModel.loginState.value = LoginState.LOGGED_OUT_STEP2 // 로그인 입력 화면으로 전환
         }
 
         // 로그인 입력 화면 버튼 클릭
