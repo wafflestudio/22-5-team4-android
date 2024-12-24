@@ -33,43 +33,54 @@ class MyFragment : Fragment() {
 
         viewModel = ViewModelProvider(this).get(MyPageViewModel::class.java)
 
-        val loggedOutLayout = view.findViewById<LinearLayout>(R.id.layout_logged_out)
+        val loggedOutStep1Layout = view.findViewById<LinearLayout>(R.id.layout_logged_out_step1)
+        val loggedOutStep2Layout = view.findViewById<LinearLayout>(R.id.layout_logged_out_step2)
         val loadingLayout = view.findViewById<LinearLayout>(R.id.layout_loading)
         val loggedInLayout = view.findViewById<LinearLayout>(R.id.layout_logged_in)
 
-        // 로그인 상태 변화 관찰
+        // 상태 변화 관찰
         viewModel.loginState.observe(viewLifecycleOwner) { state ->
             when (state) {
-                LoginState.LOGGED_OUT -> {
-                    loggedOutLayout.visibility = View.VISIBLE
+                LoginState.LOGGED_OUT_STEP1 -> {
+                    loggedOutStep1Layout.visibility = View.VISIBLE
+                    loggedOutStep2Layout.visibility = View.GONE
+                    loadingLayout.visibility = View.GONE
+                    loggedInLayout.visibility = View.GONE
+                }
+                LoginState.LOGGED_OUT_STEP2 -> {
+                    loggedOutStep1Layout.visibility = View.GONE
+                    loggedOutStep2Layout.visibility = View.VISIBLE
                     loadingLayout.visibility = View.GONE
                     loggedInLayout.visibility = View.GONE
                 }
                 LoginState.LOADING -> {
-                    loggedOutLayout.visibility = View.GONE
+                    loggedOutStep1Layout.visibility = View.GONE
+                    loggedOutStep2Layout.visibility = View.GONE
                     loadingLayout.visibility = View.VISIBLE
                     loggedInLayout.visibility = View.GONE
                 }
                 LoginState.LOGGED_IN -> {
-                    loggedOutLayout.visibility = View.GONE
+                    loggedOutStep1Layout.visibility = View.GONE
+                    loggedOutStep2Layout.visibility = View.GONE
                     loadingLayout.visibility = View.GONE
                     loggedInLayout.visibility = View.VISIBLE
                 }
             }
         }
 
-        // 로그인 버튼 클릭 이벤트 처리
-        view.findViewById<Button>(R.id.btn_login).setOnClickListener {
-            viewModel.loginState.value = LoginState.LOADING
-
-            // 예제: 서버 로그인 시뮬레이션
-            Handler(Looper.getMainLooper()).postDelayed({
-                viewModel.loginState.value = LoginState.LOGGED_IN
-            }, 2000) // 2초 후 로그인 완료로 변경
+        // 로그인 안내 화면 버튼 클릭
+        view.findViewById<Button>(R.id.btn_go_to_login).setOnClickListener {
+            viewModel.moveToLoginInput()
         }
 
+        // 로그인 입력 화면 버튼 클릭
+        view.findViewById<Button>(R.id.btn_login).setOnClickListener {
+            viewModel.login()
+        }
+
+        // 로그아웃 버튼 클릭
         view.findViewById<Button>(R.id.btn_logout).setOnClickListener {
-            viewModel.loginState.value = LoginState.LOGGED_OUT
+            viewModel.logout()
         }
 
     }

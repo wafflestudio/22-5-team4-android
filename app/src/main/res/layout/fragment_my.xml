@@ -4,19 +4,51 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <!-- 로그인 이전 화면 -->
+    <!-- 로그인 안내 화면 -->
     <LinearLayout
-        android:id="@+id/layout_logged_out"
+        android:id="@+id/layout_logged_out_step1"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
         android:gravity="center"
-        android:visibility="visible">
+        android:visibility="gone">
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="로그인 해주세요" />
+            android:text="로그인 해주세요"
+            android:textSize="18sp"
+            android:padding="16dp" />
+
+        <Button
+            android:id="@+id/btn_go_to_login"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="로그인하기" />
+
+    </LinearLayout>
+
+    <!-- 로그인 입력 화면 -->
+    <LinearLayout
+        android:id="@+id/layout_logged_out_step2"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:gravity="center"
+        android:visibility="gone">
+
+        <EditText
+            android:id="@+id/et_username"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="아이디" />
+
+        <EditText
+            android:id="@+id/et_password"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="비밀번호"
+            android:inputType="textPassword" />
 
         <Button
             android:id="@+id/btn_login"
