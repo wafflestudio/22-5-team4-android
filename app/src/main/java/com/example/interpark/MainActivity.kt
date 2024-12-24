@@ -4,6 +4,7 @@ import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.viewpager2.widget.ViewPager2
 import android.widget.ImageButton
+import com.example.interpark.fragments.ViewPagerAdapter
 
 class MainActivity : AppCompatActivity() {
 

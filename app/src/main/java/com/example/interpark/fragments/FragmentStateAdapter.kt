@@ -1,4 +1,4 @@
-package com.example.interpark
+package com.example.interpark.fragments
 
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
