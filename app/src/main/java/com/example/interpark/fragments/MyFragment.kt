@@ -49,7 +49,7 @@ class MyFragment : Fragment() {
 //        }
 
         val loggedOutStep1Layout = view.findViewById<ScrollView>(R.id.layout_logged_out_step1) // 타입 수정
-        val loggedOutStep2Layout = view.findViewById<LinearLayout>(R.id.layout_logged_out_step2)
+        val loggedOutStep2Layout = view.findViewById<ScrollView>(R.id.layout_logged_out_step2)
         val loadingLayout = view.findViewById<LinearLayout>(R.id.layout_loading)
         val loggedInLayout = view.findViewById<LinearLayout>(R.id.layout_logged_in)
 
