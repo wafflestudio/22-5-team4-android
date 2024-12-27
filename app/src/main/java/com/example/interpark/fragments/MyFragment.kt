@@ -39,7 +39,7 @@ class MyFragment : Fragment() {
         val loggedOutStep1Layout = view.findViewById<ScrollView>(R.id.layout_logged_out_step1) // 타입 수정
         val loggedOutStep2Layout = view.findViewById<ScrollView>(R.id.layout_logged_out_step2)
         val loadingLayout = view.findViewById<LinearLayout>(R.id.layout_loading)
-        val loggedInLayout = view.findViewById<LinearLayout>(R.id.layout_logged_in)
+        val loggedInLayout = view.findViewById<ScrollView>(R.id.layout_logged_in)
 
         // 상태 변화 관찰
         viewModel.loginState.observe(viewLifecycleOwner) { state ->
@@ -85,7 +85,7 @@ class MyFragment : Fragment() {
         }
 
         // 로그아웃 버튼 클릭
-        view.findViewById<Button>(R.id.btn_logout).setOnClickListener {
+        view.findViewById<TextView>(R.id.btn_logout).setOnClickListener {
             viewModel.logout()
         }
 
