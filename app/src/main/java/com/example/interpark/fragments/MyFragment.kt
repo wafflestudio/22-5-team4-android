@@ -36,18 +36,6 @@ class MyFragment : Fragment() {
 
         viewModel = ViewModelProvider(this).get(MyPageViewModel::class.java)
 
-//        // 알림 아이콘 클릭 이벤트
-//        view.findViewById<ImageView>(R.id.iv_notification).setOnClickListener {
-//            // 알림 화면으로 이동하는 로직
-//            Toast.makeText(context, "알림 아이콘 클릭됨", Toast.LENGTH_SHORT).show()
-//        }
-//
-//        // 설정 아이콘 클릭 이벤트
-//        view.findViewById<ImageView>(R.id.iv_settings).setOnClickListener {
-//            // 설정 화면으로 이동하는 로직
-//            Toast.makeText(context, "설정 아이콘 클릭됨", Toast.LENGTH_SHORT).show()
-//        }
-
         val loggedOutStep1Layout = view.findViewById<ScrollView>(R.id.layout_logged_out_step1) // 타입 수정
         val loggedOutStep2Layout = view.findViewById<ScrollView>(R.id.layout_logged_out_step2)
         val loadingLayout = view.findViewById<LinearLayout>(R.id.layout_loading)
