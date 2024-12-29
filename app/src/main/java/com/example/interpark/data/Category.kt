@@ -1,7 +1,7 @@
 package com.example.interpark.data
 
 
-data class Category(
-    val title: String,
-    val iconRes: Int
-)
+sealed class CategoryItem {
+    data class Category(val name: String, val iconResId: Int) : CategoryItem()
+    data class FooterItem(val name: String, val iconResId: Int) : CategoryItem()
+}

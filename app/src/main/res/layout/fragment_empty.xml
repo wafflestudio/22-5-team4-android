@@ -3,12 +3,17 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     android:gravity="center"
-    android:orientation="vertical">
+    android:padding="16dp">
 
+    <!-- 카테고리 이름 표시 -->
     <TextView
+        android:id="@+id/categoryTitleTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="카테고리 상세 정보"
-        android:textSize="20sp" />
+        android:text="카테고리 없음"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        android:textColor="#000000" />
 </LinearLayout>

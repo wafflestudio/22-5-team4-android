@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    app:startDestination="@id/categoryFragment">
+
+    <fragment
+        android:id="@+id/categoryFragment"
+        android:name="com.example.interpark.fragments.CategoryFragment"
+        android:label="Category">
+        <action
+            android:id="@+id/action_categoryFragment_to_emptyFragment"
+            app:destination="@id/emptyFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/emptyFragment"
+        android:name="com.example.interpark.fragments.EmptyFragment"
+        android:label="Empty Fragment" />
+</navigation>
