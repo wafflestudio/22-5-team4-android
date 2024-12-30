@@ -2,6 +2,7 @@ plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
     alias(libs.plugins.kotlin.compose)
+    alias(libs.plugins.androidx.navigation.safe.args)
 }
 
 android {
@@ -52,6 +53,9 @@ dependencies {
     implementation(libs.androidx.material3)
     implementation(libs.androidx.coordinatorlayout)
     implementation(libs.androidx.appcompat)
+    implementation(libs.androidx.recyclerview)
+    implementation(libs.androidx.navigation.fragment.ktx)
+    implementation(libs.androidx.navigation.ui.ktx)
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
@@ -68,4 +72,7 @@ dependencies {
 
     implementation(libs.material)
     implementation(libs.viewpager2)
+    implementation(libs.androidx.recyclerview)
+
+
 }
