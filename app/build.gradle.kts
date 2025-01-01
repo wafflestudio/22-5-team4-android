@@ -6,6 +6,12 @@ plugins {
 }
 
 android {
+
+    android {
+        buildFeatures {
+            viewBinding = true
+        }
+    }
     namespace = "com.example.interpark"
     compileSdk = 35
 
@@ -74,5 +80,6 @@ dependencies {
     implementation(libs.viewpager2)
     implementation(libs.androidx.recyclerview)
 
-
+    implementation("androidx.navigation:navigation-fragment-ktx:2.7.3") // Fragment 전환
+    implementation("androidx.navigation:navigation-ui-ktx:2.7.3")
 }

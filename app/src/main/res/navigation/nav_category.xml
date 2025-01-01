@@ -6,7 +6,7 @@
     <fragment
         android:id="@+id/categoryFragment"
         android:name="com.example.interpark.fragments.CategoryFragment"
-        android:label="Category">
+        android:label="카테고리">
         <action
             android:id="@+id/action_categoryFragment_to_emptyFragment"
             app:destination="@id/emptyFragment" />
@@ -15,5 +15,12 @@
     <fragment
         android:id="@+id/emptyFragment"
         android:name="com.example.interpark.fragments.EmptyFragment"
-        android:label="Empty Fragment" />
+        android:label="공연 목록">
+        <argument
+            android:name="category"
+            app:argType="string" />
+        <action
+            android:id="@+id/action_emptyFragment_to_categoryFragment"
+            app:destination="@id/categoryFragment"/>
+    </fragment>
 </navigation>
