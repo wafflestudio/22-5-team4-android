@@ -31,6 +31,25 @@
         <argument
             android:name="title"
             app:argType="string" />
+        <action
+            android:id="@+id/actionPerformanceDetailFragmentToCalendarFragment"
+            app:destination="@id/calendarFragment"/>
+    </fragment>
+
+    <fragment
+        android:id="@+id/calendarFragment"
+        android:name="com.example.interpark.fragments.CalendarFragment">
+        <action
+            android:id="@+id/actionCalendarFragmentToTimeSelectionFragment"
+            app:destination="@id/timeSelectionFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/timeSelectionFragment"
+        android:name="com.example.interpark.fragments.TimeSelectionFragment">
+        <argument
+            android:name="selectedDate"
+            app:argType="string" />
     </fragment>
 
 </navigation>
