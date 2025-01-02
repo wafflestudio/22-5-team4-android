@@ -9,8 +9,10 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.interpark.R
 import com.example.interpark.data.Performance
 
-class PerformanceAdapter(private val performances: List<Performance>) :
-    RecyclerView.Adapter<PerformanceAdapter.ViewHolder>() {
+class PerformanceAdapter(
+    private val performances: List<Performance>,
+    private val onClick: (Performance) -> Unit
+) : RecyclerView.Adapter<PerformanceAdapter.ViewHolder>() {
 
     class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         private val title: TextView = itemView.findViewById(R.id.performanceTitle)
@@ -18,11 +20,15 @@ class PerformanceAdapter(private val performances: List<Performance>) :
         private val dateRange: TextView = itemView.findViewById(R.id.performanceDateRange)
         private val imageView: ImageView = itemView.findViewById(R.id.performanceImage)
 
-        fun bind(performance: Performance) {
+        fun bind(performance: Performance, onClick: (Performance) -> Unit) {
             title.text = performance.title
             location.text = performance.location
             dateRange.text = performance.dateRange
             imageView.setImageResource(performance.imageUrl)
+
+            itemView.setOnClickListener{
+                onClick(performance)
+            }
         }
     }
 
@@ -33,7 +39,7 @@ class PerformanceAdapter(private val performances: List<Performance>) :
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.bind(performances[position])
+        holder.bind(performances[position], onClick)
     }
 
     override fun getItemCount(): Int = performances.size

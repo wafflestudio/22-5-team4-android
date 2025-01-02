@@ -20,7 +20,17 @@
             android:name="category"
             app:argType="string" />
         <action
-            android:id="@+id/action_emptyFragment_to_categoryFragment"
-            app:destination="@id/categoryFragment"/>
+            android:id="@+id/action_emptyFragment_to_performanceDetailFragment"
+            app:destination="@id/performanceDetailFragment"/>
     </fragment>
+
+    <fragment
+        android:id="@+id/performanceDetailFragment"
+        android:name="com.example.interpark.fragments.PerformanceDetailFragment"
+        android:label="공연 제목">
+        <argument
+            android:name="title"
+            app:argType="string" />
+    </fragment>
+
 </navigation>

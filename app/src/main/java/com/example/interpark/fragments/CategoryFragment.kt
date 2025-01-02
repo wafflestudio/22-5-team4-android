@@ -11,8 +11,7 @@ import com.example.interpark.R
 import com.example.interpark.adapters.CategoryAdapter
 import com.example.interpark.data.CategoryItem
 import com.example.interpark.databinding.FragmentCategoryBinding
-import androidx.navigation.NavController
-import androidx.navigation.fragment.findNavController
+
 
 class CategoryFragment : Fragment() {
 
@@ -75,11 +74,6 @@ class CategoryFragment : Fragment() {
             CategoryItem.FooterItem("티켓오픈", R.drawable.ic_chevron_right),
             CategoryItem.FooterItem("이벤트", R.drawable.ic_chevron_right)
         )
-    }
-
-    private fun onCategoryClick(category: CategoryItem.Category) {
-
-
     }
 
 

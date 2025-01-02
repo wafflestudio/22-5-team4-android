@@ -7,9 +7,7 @@ import android.view.ViewGroup
 import android.widget.ImageButton
 import android.widget.TextView
 import androidx.fragment.app.Fragment
-import androidx.navigation.NavController
 import androidx.navigation.findNavController
-import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -19,7 +17,6 @@ import com.example.interpark.data.Performance
 import com.example.interpark.databinding.FragmentEmptyBinding
 
 class EmptyFragment : Fragment() {
-    private lateinit var navController: NavController
     private var _binding: FragmentEmptyBinding? = null
     private val binding get() = _binding!!
 
@@ -44,6 +41,7 @@ class EmptyFragment : Fragment() {
             navController.navigateUp() // 이전 화면으로 이동
         }
 
+
         // TextView 초기화
         categoryTitleTextView = view.findViewById(R.id.categoryTitleTextView)
         categoryTitleTextView.text = args.category // Safe Args로 전달받은 데이터
@@ -51,7 +49,12 @@ class EmptyFragment : Fragment() {
         // RecyclerView 설정
         performanceRecyclerView = view.findViewById(R.id.performanceRecyclerView)
         performanceRecyclerView.layoutManager = LinearLayoutManager(context)
-        performanceRecyclerView.adapter = PerformanceAdapter(getDummyPerformances())
+        performanceRecyclerView.adapter = PerformanceAdapter(getDummyPerformances()) { performance ->
+            val navController = requireActivity().findNavController(R.id.categoryNavHost)
+            val action = EmptyFragmentDirections
+                .actionEmptyFragmentToPerformanceDetailFragment(performance.title)
+            navController.navigate(action)
+        }
     }
 
     private fun getDummyPerformances(): List<Performance> {
