@@ -1,0 +1,8 @@
+<TextView android:id="@+id/categoryName"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:textSize="16sp"
+    android:textColor="#000000"
+    android:layout_marginHorizontal="5dp"
+    android:background="@drawable/background_home_category_rank_category_button"
+    xmlns:android="http://schemas.android.com/apk/res/android"/>
