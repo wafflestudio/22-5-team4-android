@@ -52,21 +52,36 @@
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
-            <TextView
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/homeCategoryRecyclerView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:padding="16dp"
-                android:text="Scroll down to see the fixed AppBar!"
-                android:textSize="18sp" />
+                android:layout_marginTop="16dp"
+                android:scrollbars="vertical" />
 
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="5dp"
+                android:background="#E0E0E0" />
             <!-- 더 많은 콘텐츠 추가 -->
             <!-- 예시로 TextView 여러 개 추가 -->
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:padding="160dp"
-                android:text="More content..."
-                android:textSize="18sp" />
+                android:padding="20dp"
+                android:gravity="center"
+                android:textStyle="bold"
+                android:text="장르별 랭킹"
+                android:textColor="@color/black"
+                android:textSize="24sp" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/homeCategoryRank_CategoryList"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:scrollbars="horizontal" />
+
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
