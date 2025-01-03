@@ -5,11 +5,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
-import android.widget.ImageButton
 import android.widget.ImageView
 import android.widget.TextView
-import androidx.appcompat.app.AppCompatActivity
-import androidx.appcompat.widget.Toolbar
 import androidx.fragment.app.Fragment
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
@@ -52,19 +49,7 @@ class PerformanceDetailFragment : Fragment(R.layout.fragment_performance_detail)
             navController.navigateUp() // 이전 화면으로 이동
         }
 
-//        val toolbar = view.findViewById<Toolbar>(R.id.toolbar)
-//        setupToolbar(toolbar)
-
     }
 
-//    private fun setupToolbar(toolbar: Toolbar) {
-//        (activity as AppCompatActivity).setSupportActionBar(toolbar)
-//        toolbar.title = ""
-//        toolbar.setLogo(R.drawable.main_logo)
-//        toolbar.setNavigationIcon(R.drawable.ic_back)
-//        toolbar.setNavigationOnClickListener {
-//            findNavController().popBackStack()
-//        }
-//
-//    }
+
 }

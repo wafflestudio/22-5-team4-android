@@ -6,8 +6,10 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.CalendarView
+import android.widget.ImageView
 import android.widget.TextView
 import androidx.fragment.app.Fragment
+import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
 import com.example.interpark.R
 import java.text.SimpleDateFormat
@@ -53,5 +55,17 @@ class CalendarFragment : Fragment() {
         }
 
         return view
+    }
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+
+        // 뒤로가기 버튼 동작 연결
+        val backButton: ImageView = view.findViewById(R.id.backButton)
+        backButton.setOnClickListener {
+            val navController = requireActivity().findNavController(R.id.categoryNavHost)
+            navController.navigateUp() // 이전 화면으로 이동
+        }
+
     }
 }
