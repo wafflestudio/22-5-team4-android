@@ -22,7 +22,7 @@ class CategoryAdapter(
     override fun getItemViewType(position: Int): Int {
         return when (items[position]) {
             is CategoryItem.Category -> TYPE_CATEGORY
-            is CategoryItem.FooterItem -> TYPE_FOOTER
+            else -> TYPE_FOOTER
         }
     }
 

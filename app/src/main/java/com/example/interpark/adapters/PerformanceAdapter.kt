@@ -6,6 +6,7 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import coil.load
 import com.example.interpark.R
 import com.example.interpark.data.Performance
 
@@ -23,9 +24,9 @@ class PerformanceAdapter(
         fun bind(performance: Performance, onClick: (Performance) -> Unit) {
             title.text = performance.title
             location.text = performance.location
-            dateRange.text = performance.dateRange
-            imageView.setImageResource(performance.imageUrl)
-
+            dateRange.text = "${performance.date.first()} - ${performance.date.last()}"
+//            imageView.setImageResource(performance.url)
+            imageView.load(performance.posterUrl)
             itemView.setOnClickListener{
                 onClick(performance)
             }

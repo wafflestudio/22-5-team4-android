@@ -69,6 +69,15 @@ dependencies {
     androidTestImplementation(libs.androidx.ui.test.junit4)
     debugImplementation(libs.androidx.ui.tooling)
     debugImplementation(libs.androidx.ui.test.manifest)
+    implementation(libs.moshi)
+    implementation(libs.moshiKotlin)
+    implementation(libs.retrofit)
+    implementation(libs.gson)
+    implementation(libs.retrofit.gson)
+    implementation(libs.retrofitMoshiConverter)
+    implementation(libs.okhttp)
+    implementation(libs.okhttpLoggingInterceptor)
+    implementation(libs.coil)
 
     val fragment_version = "1.8.5"
     // Java language implementation
@@ -83,9 +92,7 @@ dependencies {
     implementation("androidx.navigation:navigation-fragment-ktx:2.7.3") // Fragment 전환
     implementation("androidx.navigation:navigation-ui-ktx:2.7.3")
 
-    implementation(libs.retrofit)
 //    implementation (libs.retrofit.gson)
-    implementation (libs.okhttp)
 //    implementation (libs.okhttp.logging)
 
 }
