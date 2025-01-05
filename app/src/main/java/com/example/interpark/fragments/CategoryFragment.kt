@@ -1,22 +1,27 @@
 package com.example.interpark.fragments
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import com.example.interpark.R
 import com.example.interpark.adapters.CategoryAdapter
 import com.example.interpark.data.CategoryItem
 import com.example.interpark.databinding.FragmentCategoryBinding
+import com.example.interpark.viewModels.PerformanceViewModel
+import com.example.interpark.viewModels.PerformanceViewModelFactory
 
 
 class CategoryFragment : Fragment() {
 
     private var _binding: FragmentCategoryBinding? = null
     private val binding get() = _binding!!
+    private val performanceViewModel: PerformanceViewModel by viewModels { PerformanceViewModelFactory(requireContext()) }
 
     private lateinit var categoryAdapter: CategoryAdapter
 
@@ -38,6 +43,8 @@ class CategoryFragment : Fragment() {
         // 데이터 생성 및 어댑터 설정
         val items = getCategoryItems()
         categoryAdapter = CategoryAdapter(items) { category ->
+            Log.d("clicked", category.toString())
+            performanceViewModel.fetchPerformanceList(category.name, title=null)
             val navController = requireActivity().findNavController(R.id.categoryNavHost)
             val action = CategoryFragmentDirections
                 .actionCategoryFragmentToEmptyFragment(category.name)
