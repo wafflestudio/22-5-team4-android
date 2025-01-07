@@ -8,7 +8,17 @@
         android:id="@+id/SearchFragment"
         android:name="com.example.interpark.fragments.SearchFragment"
         android:label="search">
+        <action
+            android:id="@+id/action_SearchFragment_to_SearchResultFragment"
+            app:destination="@id/SearchResultFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/SearchResultFragment"
+        android:name="com.example.interpark.fragments.SearchResultFragment"
+        android:label="searchresult">
+        <argument
+            android:name="searchtitle"
+            app:argType="string" />
 
     </fragment>
-
 </navigation>

@@ -23,4 +23,8 @@ interface ApiClient {
         @Query("title") title: String?
     ): ResponseWrapper<Performance>
 
+    @GET("/performances/search")
+    suspend fun searchPerformances(
+        @Query("query") query: String
+    ): ResponseWrapper<Performance>
 }

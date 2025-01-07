@@ -1,14 +1,50 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout android:id="@+id/searchBar"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:gravity="center"
-    android:orientation="vertical">
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:background="@drawable/search_bar_background"
+    android:layout_marginBottom="8dp"
+    android:layout_marginTop="50dp"
+    android:padding="8dp"
+    android:layout_marginStart="8dp"
+    android:layout_marginEnd="8dp"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Search Fragment"
-        android:textSize="20sp" />
+    <!-- 뒤로 가기 버튼 -->
+    <ImageButton
+    android:id="@+id/buttonBack"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:src="@drawable/ic_back"
+    android:background="@null"
+    android:contentDescription="뒤로 가기"
+    app:tint="@color/black" />
+
+        <!-- 검색 입력 필드 -->
+    <EditText
+    android:id="@+id/editTextSearch"
+    android:layout_width="0dp"
+    android:layout_height="wrap_content"
+    android:layout_weight="1"
+    android:hint="검색어를 입력하세요"
+    android:background="@null"
+    android:textSize="16sp"
+    android:paddingStart="8dp"
+    android:paddingEnd="8dp"
+    android:imeOptions="actionSearch"
+    android:inputType="text"
+        app:tint="@color/black"
+    android:drawablePadding="8dp" />
+
+        <!-- 필터 버튼 -->
+    <ImageButton
+    android:id="@+id/buttonSearch"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:src="@drawable/ic_search"
+    android:background="@null"
+    android:contentDescription="필터"
+    app:tint="@color/black" />
 </LinearLayout>
