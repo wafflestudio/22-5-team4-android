@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    app:startDestination="@id/SearchFragment">
+
+    <fragment
+        android:id="@+id/SearchFragment"
+        android:name="com.example.interpark.fragments.SearchFragment"
+        android:label="search">
+        <action
+            android:id="@+id/action_SearchFragment_to_SearchResultFragment"
+            app:destination="@id/SearchResultFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/SearchResultFragment"
+        android:name="com.example.interpark.fragments.SearchResultFragment"
+        android:label="searchresult">
+        <argument
+            android:name="searchtitle"
+            app:argType="string" />
+        <action
+            android:id="@+id/action_SearchResultFragment_to_performanceDetailFragment"
+            app:destination="@id/performanceDetailFragment" />
+
+    </fragment>
+
+    <fragment
+        android:id="@+id/performanceDetailFragment"
+        android:name="com.example.interpark.fragments.PerformanceDetailFragment"
+        android:label="공연 제목">
+        <argument
+            android:name="title"
+            app:argType="string" />
+
+    </fragment>
+</navigation>
