@@ -1,13 +1,18 @@
 package com.example.interpark
 
+import android.os.Build
 import android.os.Bundle
+import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import androidx.viewpager2.widget.ViewPager2
 import android.widget.ImageButton
+import androidx.annotation.RequiresApi
 import com.example.interpark.adapters.ViewPagerAdapter
+
 
 class MainActivity : AppCompatActivity() {
 
+    @RequiresApi(Build.VERSION_CODES.O)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
@@ -32,4 +37,6 @@ class MainActivity : AppCompatActivity() {
             viewPager.currentItem = 3 // 네 번째 페이지(My)
         }
     }
+
+
 }

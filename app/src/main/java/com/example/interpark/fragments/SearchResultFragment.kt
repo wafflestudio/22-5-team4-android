@@ -68,9 +68,9 @@ class SearchResultFragment : Fragment() {
     private fun setRecyclerView(data: List<Performance>) {
         performanceRecyclerView.adapter = PerformanceAdapter(data) { performance ->
             val navController = requireActivity().findNavController(R.id.searchNavHost)
-//            val action = SearchResultFragmentDirections
-//                .actionSearchResultFragmentToPerformanceDetailFragment(performance.title)
-//            navController.navigate(action)
+            val action = SearchResultFragmentDirections
+                .actionSearchResultFragmentToPerformanceDetailFragment(performance.title)
+            navController.navigate(action)
         }
     }
 

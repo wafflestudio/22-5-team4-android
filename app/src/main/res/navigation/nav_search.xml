@@ -19,6 +19,19 @@
         <argument
             android:name="searchtitle"
             app:argType="string" />
+        <action
+            android:id="@+id/action_SearchResultFragment_to_performanceDetailFragment"
+            app:destination="@id/performanceDetailFragment" />
+
+    </fragment>
+
+    <fragment
+        android:id="@+id/performanceDetailFragment"
+        android:name="com.example.interpark.fragments.PerformanceDetailFragment"
+        android:label="공연 제목">
+        <argument
+            android:name="title"
+            app:argType="string" />
 
     </fragment>
 </navigation>
