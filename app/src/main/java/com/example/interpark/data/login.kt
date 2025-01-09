@@ -15,13 +15,25 @@ data class SignUpRequest(
     val email: String
 )
 
+data class SignUpResponseUser(
+    val id: String,
+    val username: String,
+    val nickname: String,
+    val phoneNumber: String,
+    val email: String
+)
+
+data class SignUpResponse(
+    val user: SignUpResponseUser
+)
+
 data class SignInRequest(
     val username: String,
     val password: String
 )
 
 data class SignInResponse(
-    val token: String
+    val accessToken: String
 )
 
 data class UserProfile(

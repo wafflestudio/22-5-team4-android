@@ -39,7 +39,7 @@ object RetrofitInstance {
             .create(ApiClientDev::class.java)
     }
 
-    private const val BASE_URL_SERVER = "http://localhost:8080/api/v1/"
+    private const val BASE_URL_SERVER = "http://172.30.1.87:8080/"
     private val client = OkHttpClient.Builder()
         .addInterceptor { chain ->
             val request = chain.request().newBuilder()
@@ -52,4 +52,12 @@ object RetrofitInstance {
         })
         .build()
 
+    val api1: ApiClient by lazy {
+        Retrofit.Builder()
+            .baseUrl(BASE_URL_SERVER)
+            .client(client)
+            .addConverterFactory(MoshiConverterFactory.create(moshi))
+            .build()
+            .create(ApiClient::class.java)
+    }
 }

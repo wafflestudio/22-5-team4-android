@@ -18,6 +18,8 @@ import com.example.interpark.R
 import com.example.interpark.adapters.PerformanceAdapter
 import com.example.interpark.data.Performance
 import com.example.interpark.databinding.FragmentEmptyBinding
+import com.example.interpark.viewModels.MyPageViewModel
+import com.example.interpark.viewModels.MyPageViewModelFactory
 import com.example.interpark.viewModels.PerformanceViewModel
 import com.example.interpark.viewModels.PerformanceViewModelFactory
 
@@ -25,6 +27,8 @@ class EmptyFragment : Fragment() {
     private var _binding: FragmentEmptyBinding? = null
     private val binding get() = _binding!!
     private val performanceViewModel: PerformanceViewModel by viewModels { PerformanceViewModelFactory(requireContext()) }
+    private val myPageViewModel: MyPageViewModel by viewModels { MyPageViewModelFactory(requireContext()) }
+
 
     private lateinit var categoryTitleTextView: TextView
     private lateinit var performanceRecyclerView: RecyclerView
@@ -60,14 +64,12 @@ class EmptyFragment : Fragment() {
         performanceRecyclerView = view.findViewById(R.id.performanceRecyclerView)
         performanceRecyclerView.layoutManager = LinearLayoutManager(context)
         performanceViewModel.performanceList.observe(viewLifecycleOwner){ performanceList ->
-            Log.d("?", "???")
             setRecyclerView(performanceList)
         }
         performanceViewModel.fetchPerformanceList(category = args.category, title = null)
     }
 
     private fun setRecyclerView(data: List<Performance>){
-        Log.d("top", data.toString())
         performanceRecyclerView.adapter = PerformanceAdapter(data) { performance ->
             val navController = requireActivity().findNavController(R.id.categoryNavHost)
             val action = EmptyFragmentDirections

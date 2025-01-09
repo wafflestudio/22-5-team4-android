@@ -15,17 +15,18 @@ import android.widget.ScrollView
 import android.widget.TextView
 import android.widget.Toast
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
 import com.example.interpark.R
-import com.example.interpark.viewModels.LoginState
 import com.example.interpark.viewModels.MyPageViewModel
+import com.example.interpark.viewModels.MyPageViewModelFactory
 
 
 class LoginFragment : Fragment() {
 
-    private lateinit var viewModel: MyPageViewModel
+    private val myPageViewModel: MyPageViewModel by viewModels { MyPageViewModelFactory(requireContext()) }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -37,7 +38,13 @@ class LoginFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        viewModel = ViewModelProvider(this).get(MyPageViewModel::class.java)
+        val usernameEditText: EditText = view.findViewById(R.id.et_username)
+        val passwordEditText: EditText = view.findViewById(R.id.et_password)
+        val loginButton: Button = view.findViewById(R.id.btn_login)
+
+        loginButton.setOnClickListener{
+            myPageViewModel.login(usernameEditText.text.toString(), passwordEditText.text.toString())
+        }
 
         val signUpTextView: TextView = view.findViewById(R.id.text_signup)
 

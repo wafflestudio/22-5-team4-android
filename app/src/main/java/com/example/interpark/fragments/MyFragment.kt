@@ -14,16 +14,18 @@ import android.widget.ScrollView
 import android.widget.TextView
 import android.widget.Toast
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.findNavController
 import com.example.interpark.R
-import com.example.interpark.viewModels.LoginState
 import com.example.interpark.viewModels.MyPageViewModel
+import com.example.interpark.viewModels.MyPageViewModelFactory
 
 
 class MyFragment : Fragment() {
 
-    private lateinit var viewModel: MyPageViewModel
+    private val myPageViewModel: MyPageViewModel by viewModels { MyPageViewModelFactory(requireContext()) }
+
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -35,7 +37,6 @@ class MyFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        viewModel = ViewModelProvider(this).get(MyPageViewModel::class.java)
 
         // ScrollView 안의 LinearLayout 가져오기
         val loginPromptLayout = view.findViewById<TextView>(R.id.layout_login_prompt)
