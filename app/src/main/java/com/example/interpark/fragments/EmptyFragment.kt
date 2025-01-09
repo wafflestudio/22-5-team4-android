@@ -71,7 +71,7 @@ class EmptyFragment : Fragment() {
         performanceRecyclerView.adapter = PerformanceAdapter(data) { performance ->
             val navController = requireActivity().findNavController(R.id.categoryNavHost)
             val action = EmptyFragmentDirections
-                .actionEmptyFragmentToPerformanceDetailFragment(performance.title)
+                .actionEmptyFragmentToPerformanceDetailFragment(performance.id)
             navController.navigate(action)
         }
     }

@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    app:startDestination="@id/MyFragment">
+
+    <fragment
+        android:id="@+id/MyFragment"
+        android:name="com.example.interpark.fragments.MyFragment"
+        android:label="카테고리">
+        <action
+            android:id="@+id/action_MyFragment_to_MyFragmentAccount"
+            app:destination="@id/MyFragmentAccount" />
+
+    </fragment>
+    <fragment
+        android:id="@+id/MyFragmentAccount"
+        android:name="com.example.interpark.fragments.MyFragmentAccount"
+        android:label="카테고리">
+
+    </fragment>
+</navigation>
