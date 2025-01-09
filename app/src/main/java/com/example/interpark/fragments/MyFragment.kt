@@ -15,6 +15,8 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.findNavController
+import androidx.navigation.fragment.findNavController
 import com.example.interpark.R
 import com.example.interpark.viewModels.LoginState
 import com.example.interpark.viewModels.MyPageViewModel
@@ -87,6 +89,13 @@ class MyFragment : Fragment() {
         // 로그아웃 버튼 클릭
         view.findViewById<TextView>(R.id.btn_logout).setOnClickListener {
             viewModel.logout()
+        }
+
+        view.findViewById<TextView>(R.id.account).setOnClickListener {
+
+
+            val action = MyFragmentDirections.actionMyFragmentToMyFragmentAccount()
+            findNavController().navigate(action)
         }
 
     }

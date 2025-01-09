@@ -16,10 +16,8 @@ class SeatAdapter(
 
     inner class SeatViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         private val seatImage: ImageView = itemView.findViewById(R.id.imageViewSeat)
-        private val seatNumber: TextView = itemView.findViewById(R.id.textViewSeatNumber)
 
         fun bind(seat: Seat) {
-            seatNumber.text = seat.number.toString()
             seatImage.setImageResource(
                 when {
                     seat.isSelected -> R.drawable.ic_seat_selected
