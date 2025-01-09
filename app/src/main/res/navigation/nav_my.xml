@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    app:startDestination="@id/MyFragment">
+
+    <fragment
+        android:id="@+id/MyFragment"
+        android:name="com.example.interpark.fragments.MyFragment"
+        android:label="myFragment">
+        <action
+            android:id="@+id/action_MyFragment_to_LoginFragment"
+            app:destination="@id/LoginFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/LoginFragment"
+        android:name="com.example.interpark.fragments.LoginFragment"
+        android:label="loginFragment">
+        <action
+            android:id="@+id/action_LoginFragment_to_SignUpFragment"
+            app:destination="@id/SignUpFragment"/>
+    </fragment>
+
+    <fragment
+        android:id="@+id/SignUpFragment"
+        android:name="com.example.interpark.fragments.SignUpFragment"
+        android:label="SignUpFragment">
+    </fragment>
+
+    <fragment
+        android:id="@+id/EmptyFragment"
+        android:name="com.example.interpark.fragments.EmptyFragment"
+        android:label="EmptyFragment">
+        <argument
+            android:name="category"
+            app:argType="string" />
+        <action
+            android:id="@+id/action_emptyFragment_to_performanceDetailFragment"
+            app:destination="@id/performanceDetailFragment"/>
+    </fragment>
+
+    <fragment
+        android:id="@+id/performanceDetailFragment"
+        android:name="com.example.interpark.fragments.PerformanceDetailFragment"
+        android:label="공연 제목">
+        <argument
+            android:name="title"
+            app:argType="string" />
+        <action
+            android:id="@+id/actionPerformanceDetailFragmentToCalendarFragment"
+            app:destination="@id/calendarFragment"/>
+    </fragment>
+
+    <fragment
+        android:id="@+id/calendarFragment"
+        android:name="com.example.interpark.fragments.CalendarFragment">
+        <action
+            android:id="@+id/actionCalendarFragmentToTimeSelectionFragment"
+            app:destination="@id/timeSelectionFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/timeSelectionFragment"
+        android:name="com.example.interpark.fragments.TimeSelectionFragment"
+        android:label="Time Selection"
+        tools:layout="@layout/fragment_time_selection">
+        <argument
+            android:name="selectedDate"
+            app:argType="string" />
+        <action
+            android:id="@+id/action_timeSelection_to_seatSelectionFragment"
+            app:destination="@id/seatSelectionFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/seatSelectionFragment"
+        android:name="com.example.interpark.fragments.SeatSelectionFragment"
+        android:label="Seat Selection"
+        tools:layout="@layout/fragment_seat_selection">
+        <argument
+            android:name="selectedDate"
+            app:argType="string" />
+        <argument
+            android:name="selectedTime"
+            app:argType="string" />
+    </fragment>
+
+
+</navigation>

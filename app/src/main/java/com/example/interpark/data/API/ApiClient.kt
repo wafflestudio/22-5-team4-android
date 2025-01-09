@@ -19,7 +19,7 @@ data class ResponseWrapper<T>(
     val result: List<T>
 )
 
-interface ApiClient {
+interface ApiClientDev {
     @GET("/performances")
     suspend fun geAllPerformances(
     ): ResponseWrapper<Performance>
@@ -29,6 +29,4 @@ interface ApiClient {
         @Query("category") category: String?,
         @Query("title") title: String?
     ): ResponseWrapper<Performance>
-
-
 }

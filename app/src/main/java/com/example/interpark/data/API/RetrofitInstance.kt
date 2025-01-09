@@ -17,7 +17,29 @@ val moshi: Moshi = Moshi.Builder()
 
 @RequiresApi(Build.VERSION_CODES.O)
 object RetrofitInstance {
-    private const val BASE_URL = "http://54.180.136.166:3000/"
+    private const val BASE_URL_DEV = "http://54.180.136.166:3000/"
+    private val clientDev = OkHttpClient.Builder()
+        .addInterceptor { chain ->
+            val request = chain.request().newBuilder()
+                .addHeader("accept", "application/json")
+                .build()
+            chain.proceed(request)
+        }
+        .addInterceptor(HttpLoggingInterceptor().apply {
+            level = HttpLoggingInterceptor.Level.BODY
+        })
+        .build()
+
+    val api: ApiClientDev by lazy {
+        Retrofit.Builder()
+            .baseUrl(BASE_URL_DEV)
+            .client(clientDev)
+            .addConverterFactory(MoshiConverterFactory.create(moshi))
+            .build()
+            .create(ApiClientDev::class.java)
+    }
+
+    private const val BASE_URL_SERVER = "http://localhost:8080/api/v1/"
     private val client = OkHttpClient.Builder()
         .addInterceptor { chain ->
             val request = chain.request().newBuilder()
@@ -30,12 +52,4 @@ object RetrofitInstance {
         })
         .build()
 
-    val api: ApiClient by lazy {
-        Retrofit.Builder()
-            .baseUrl(BASE_URL)
-            .client(client)
-            .addConverterFactory(MoshiConverterFactory.create(moshi))
-            .build()
-            .create(ApiClient::class.java)
-    }
 }

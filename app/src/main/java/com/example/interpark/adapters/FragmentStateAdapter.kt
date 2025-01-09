@@ -7,6 +7,7 @@ import com.example.interpark.fragments.CategoryFragment
 import com.example.interpark.fragments.CategoryFragmentHome
 import com.example.interpark.fragments.HomeFragment
 import com.example.interpark.fragments.MyFragment
+import com.example.interpark.fragments.MyFragmentHome
 import com.example.interpark.fragments.SearchFragment
 import com.example.interpark.fragments.SearchFragmentHome
 
@@ -15,7 +16,7 @@ class ViewPagerAdapter(activity: FragmentActivity) : FragmentStateAdapter(activi
         HomeFragment(),
         CategoryFragmentHome(),
         SearchFragmentHome(),
-        MyFragment()
+        MyFragmentHome()
     )
 
     override fun getItemCount(): Int = fragments.size
