@@ -1,8 +1,5 @@
 package com.example.interpark.viewModels
 
-import android.os.Bundle
-import android.os.Handler
-import android.os.Looper
 import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -15,7 +12,6 @@ import com.example.interpark.data.PerformanceRepository
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
-
 
 class PerformanceViewModel(private val repository: PerformanceRepository) : ViewModel() {
     private val _performance = MutableLiveData<Performance>()
@@ -30,7 +26,6 @@ class PerformanceViewModel(private val repository: PerformanceRepository) : View
                 repository.fetchPerformances(category, title)
             }
             _performanceList.postValue(performances)
-            Log.d("viewmodel", performances.toString())
         }
     }
 
@@ -46,7 +41,5 @@ class PerformanceViewModel(private val repository: PerformanceRepository) : View
             Log.d("viewmodel", "Filtered performances (any match): $performances")
         }
     }
-
-
 }
 

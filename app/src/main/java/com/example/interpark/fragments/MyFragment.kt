@@ -3,6 +3,7 @@ package com.example.interpark.fragments
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -14,17 +15,21 @@ import android.widget.ScrollView
 import android.widget.TextView
 import android.widget.Toast
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.findNavController
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
 import com.example.interpark.R
-import com.example.interpark.viewModels.LoginState
 import com.example.interpark.viewModels.MyPageViewModel
+import com.example.interpark.viewModels.MyPageViewModelFactory
+import org.w3c.dom.Text
 
 
 class MyFragment : Fragment() {
 
-    private lateinit var viewModel: MyPageViewModel
+    private val myPageViewModel: MyPageViewModel by viewModels { MyPageViewModelFactory(requireContext()) }
+
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -36,67 +41,50 @@ class MyFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        viewModel = ViewModelProvider(this).get(MyPageViewModel::class.java)
-
-        val loggedOutStep1Layout = view.findViewById<ScrollView>(R.id.layout_logged_out_step1) // 타입 수정
-        val loggedOutStep2Layout = view.findViewById<ScrollView>(R.id.layout_logged_out_step2)
-        val loadingLayout = view.findViewById<LinearLayout>(R.id.layout_loading)
-        val loggedInLayout = view.findViewById<ScrollView>(R.id.layout_logged_in)
-
-        // 상태 변화 관찰
-        viewModel.loginState.observe(viewLifecycleOwner) { state ->
-            when (state) {
-                LoginState.LOGGED_OUT_STEP1 -> {
-                    loggedOutStep1Layout.visibility = View.VISIBLE
-                    loggedOutStep2Layout.visibility = View.GONE
-                    loadingLayout.visibility = View.GONE
-                    loggedInLayout.visibility = View.GONE
-                }
-                LoginState.LOGGED_OUT_STEP2 -> {
-                    loggedOutStep1Layout.visibility = View.GONE
-                    loggedOutStep2Layout.visibility = View.VISIBLE
-                    loadingLayout.visibility = View.GONE
-                    loggedInLayout.visibility = View.GONE
-                }
-                LoginState.LOADING -> {
-                    loggedOutStep1Layout.visibility = View.GONE
-                    loggedOutStep2Layout.visibility = View.GONE
-                    loadingLayout.visibility = View.VISIBLE
-                    loggedInLayout.visibility = View.GONE
-                }
-                LoginState.LOGGED_IN -> {
-                    loggedOutStep1Layout.visibility = View.GONE
-                    loggedOutStep2Layout.visibility = View.GONE
-                    loadingLayout.visibility = View.GONE
-                    loggedInLayout.visibility = View.VISIBLE
-                }
-            }
-        }
 
         // ScrollView 안의 LinearLayout 가져오기
         val loginPromptLayout = view.findViewById<TextView>(R.id.layout_login_prompt)
-
+        val nickNamePrompt = view.findViewById<TextView>(R.id.logged_in_prompt)
+        val footerView = view.findViewById<LinearLayout>(R.id.footer)
+        val logOutTextView = view.findViewById<TextView>(R.id.btn_logout)
         // "로그인 해주세요" 전체 클릭 이벤트 설정
         loginPromptLayout.setOnClickListener {
-            viewModel.loginState.value = LoginState.LOGGED_OUT_STEP2 // 로그인 입력 화면으로 전환
+            val navController = requireActivity().findNavController(R.id.myNavHost)
+            val action = MyFragmentDirections
+                .actionMyFragmentToLoginFragment()
+            navController.navigate(action)
         }
 
-        // 로그인 입력 화면 버튼 클릭
-        view.findViewById<Button>(R.id.btn_login).setOnClickListener {
-            viewModel.login()
+        logOutTextView.setOnClickListener {
+            myPageViewModel.logout()
         }
 
-        // 로그아웃 버튼 클릭
-        view.findViewById<TextView>(R.id.btn_logout).setOnClickListener {
-            viewModel.logout()
+        myPageViewModel.user.observe(viewLifecycleOwner){ user ->
+            Log.d("user-value: ", user.toString())
+            if(user != null){
+                nickNamePrompt.text = "반갑습니다 ${user.nickname}님"
+            }
         }
 
-        view.findViewById<TextView>(R.id.account).setOnClickListener {
-
-
-            val action = MyFragmentDirections.actionMyFragmentToMyFragmentAccount()
-            findNavController().navigate(action)
+        myPageViewModel.isLoggedIn.observe(viewLifecycleOwner){isLoggedIn ->
+            if(isLoggedIn){
+                nickNamePrompt.visibility = View.VISIBLE
+                loginPromptLayout.visibility = View.GONE
+                footerView.visibility = View.VISIBLE
+            }
+            else{
+                nickNamePrompt.visibility = View.GONE
+                loginPromptLayout.visibility = View.VISIBLE
+                footerView.visibility = View.GONE
+            }
         }
+
+//        view.findViewById<TextView>(R.id.account).setOnClickListener {
+//
+//
+//            val action = MyFragmentDirections.actionMyFragmentToMyFragmentAccount()
+//            findNavController().navigate(action)
+//        }
 
     }
 }

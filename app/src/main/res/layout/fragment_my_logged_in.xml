@@ -4,16 +4,13 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-
-    <!-- 로그인 안내 화면 -->
+    <!-- 로그인 완료 화면 -->
     <ScrollView
-        android:id="@+id/layout_logged_out_step1"
+        android:id="@+id/layout_logged_in"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="#FFFFFF"
         android:paddingTop="32dp">
-        <!-- 상단 헤더 -->
-
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -46,7 +43,7 @@
 
                 <!-- 알림 아이콘 -->
                 <ImageView
-                    android:id="@+id/iv_notification"
+                    android:id="@+id/iv_notification2"
                     android:layout_width="24dp"
                     android:layout_height="24dp"
                     android:layout_marginStart="16dp"
@@ -55,7 +52,7 @@
 
                 <!-- 설정 아이콘 -->
                 <ImageView
-                    android:id="@+id/iv_settings"
+                    android:id="@+id/iv_settings2"
                     android:layout_width="24dp"
                     android:layout_height="24dp"
                     android:layout_marginStart="16dp"
@@ -63,48 +60,27 @@
                     android:contentDescription="설정 아이콘" />
             </LinearLayout>
 
-            <!-- 아이콘 + 로그인 해주세요 -->
+            <!-- 아이콘 + 로그인 메시지 -->
             <LinearLayout
-
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
                 android:gravity="center_vertical"
-                android:padding="30dp"
-                >
+                android:padding="30dp">
 
-                <ImageView
-                    android:layout_width="24dp"
-                    android:layout_height="24dp"
-                    android:src="@drawable/ic_logout_icon" />
-                <FrameLayout
+                <TextView
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content">
-                    <TextView
-                        android:id="@+id/layout_login_prompt"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="16dp"
-                        android:text="로그인 해주세요"
-                        android:textSize="16sp"
-                        android:textColor="#000000" />
-                    <TextView
-                        android:id="@+id/logged_in_prompt"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="16dp"
-                        android:text="반갑습니다 박정현님"
-                        android:textSize="16sp"
-                        android:textColor="#000000"
-                        android:visibility="gone"/>
-                </FrameLayout> <!-- 로그아웃 아이콘 -->
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:text="반갑습니다 박정현님"
+                    android:textSize="16sp"
+                    android:textColor="#000000" />
 
                 <ImageView
                     android:layout_width="24dp"
                     android:layout_height="24dp"
-                    android:src="@drawable/ic_chevron_right" /> <!-- 오른쪽 화살표 -->
+                    android:src="@drawable/ic_chevron_right" />
             </LinearLayout>
-
 
             <!-- 구분선 -->
             <View
@@ -114,7 +90,7 @@
 
             <!-- 티켓 예매/취소 내역 -->
             <LinearLayout
-                android:id="@+id/btn_ticket_history"
+                android:id="@+id/btn_ticket_history2"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
@@ -138,7 +114,7 @@
 
             <!-- 인터파크페이 카드 관리 -->
             <LinearLayout
-                android:id="@+id/btn_card_management"
+                android:id="@+id/btn_card_management2"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
@@ -161,8 +137,7 @@
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
                 android:gravity="center"
-                android:paddingTop="16dp"
-                android:visibility="gone">
+                android:paddingTop="16dp">
 
                 <TextView
                     android:id="@+id/btn_customer_support"
