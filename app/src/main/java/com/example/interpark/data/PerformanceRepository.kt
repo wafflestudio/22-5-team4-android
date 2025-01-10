@@ -17,7 +17,7 @@ class PerformanceRepository(private val ApiClientDev: ApiClientDev, private val 
     }
 
     suspend fun fetchPerformanceById(id: String?): Performance {
-        val result = ApiClient.getPerformanceById(id) // 서버 API 호출
+        val result = ApiClientDev.getPerformanceById(id) // 서버 API 호출
         Log.d("repository", result.toString()) // 결과를 로그로 출력
         return result.result
     }

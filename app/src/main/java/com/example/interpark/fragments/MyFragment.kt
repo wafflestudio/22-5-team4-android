@@ -3,6 +3,7 @@ package com.example.interpark.fragments
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -58,25 +59,32 @@ class MyFragment : Fragment() {
             myPageViewModel.logout()
         }
 
+        myPageViewModel.user.observe(viewLifecycleOwner){ user ->
+            Log.d("user-value: ", user.toString())
+            if(user != null){
+                nickNamePrompt.text = "반갑습니다 ${user.nickname}님"
+            }
+        }
+
         myPageViewModel.isLoggedIn.observe(viewLifecycleOwner){isLoggedIn ->
             if(isLoggedIn){
-//                nickNamePrompt.visibility = View.VISIBLE
-//                loginPromptLayout.visibility = View.GONE
+                nickNamePrompt.visibility = View.VISIBLE
+                loginPromptLayout.visibility = View.GONE
                 footerView.visibility = View.VISIBLE
             }
             else{
-//                nickNamePrompt.visibility = View.GONE
-//                loginPromptLayout.visibility = View.VISIBLE
+                nickNamePrompt.visibility = View.GONE
+                loginPromptLayout.visibility = View.VISIBLE
                 footerView.visibility = View.GONE
             }
         }
 
-        view.findViewById<TextView>(R.id.account).setOnClickListener {
-
-
-            val action = MyFragmentDirections.actionMyFragmentToMyFragmentAccount()
-            findNavController().navigate(action)
-        }
+//        view.findViewById<TextView>(R.id.account).setOnClickListener {
+//
+//
+//            val action = MyFragmentDirections.actionMyFragmentToMyFragmentAccount()
+//            findNavController().navigate(action)
+//        }
 
     }
 }

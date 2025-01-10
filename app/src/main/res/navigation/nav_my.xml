@@ -37,6 +37,9 @@
         android:id="@+id/SignUpFragment"
         android:name="com.example.interpark.fragments.SignUpFragment"
         android:label="SignUpFragment">
+        <action
+            android:id="@+id/action_SignUpFragment_to_MyFragment"
+            app:destination="@id/MyFragment"/>
     </fragment>
 
     <fragment

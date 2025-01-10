@@ -1,5 +1,6 @@
 package com.example.interpark.fragments
 
+import android.media.Image
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
@@ -56,6 +57,12 @@ class SignUpFragment : Fragment() {
             myPageViewModel.signup(usernameEditText.text.toString(), passwordEditText.text.toString(), nicknameEditText.text.toString(), emailEditText.text.toString(), phoneEditText.text.toString())
         }
 
+        val logo = view.findViewById<ImageView>(R.id.logo_interpark)
+        logo.setOnClickListener {
+            val navController = requireActivity().findNavController(R.id.myNavHost)
+            val action = SignUpFragmentDirections.actionSignUpFragmentToMyFragment()
+            navController.navigate(action)
+        }
 
     }
 }

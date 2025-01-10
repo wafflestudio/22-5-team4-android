@@ -9,6 +9,7 @@ import com.example.interpark.data.PerformanceRepository
 import com.example.interpark.data.SharedPreferences.deleteAccessToken
 import com.example.interpark.data.SharedPreferences.getAccessToken
 import com.example.interpark.data.SharedPreferences.saveAccessToken
+import com.example.interpark.data.User
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
@@ -16,10 +17,14 @@ import kotlinx.coroutines.withContext
 class MyPageViewModel(private val repository: PerformanceRepository, private val appContext: Context) : ViewModel() {
 
     val isLoggedIn = MutableLiveData<Boolean>().apply{
-        Log.d("token:", getAccessToken(appContext).toString())
         value = getAccessToken(appContext) != null
     }
 
+    val user = MutableLiveData<User?>()
+
+    fun updateLoggedIn(){
+        isLoggedIn.value = getAccessToken(appContext) != null
+    }
     fun signup(username: String, password: String, nickname: String, phoneNumber: String, email: String) {
         viewModelScope.launch {
             val result = withContext(Dispatchers.IO){
@@ -39,6 +44,15 @@ class MyPageViewModel(private val repository: PerformanceRepository, private val
                 isLoggedIn.value = true
                 result.accessToken.let { saveAccessToken(appContext, it) }
             }
+
+            val token = getAccessToken(appContext)
+            val setUser = withContext(Dispatchers.IO){
+                when(isLoggedIn.value){
+                    true -> repository.me(token)
+                    else -> null
+                }
+            }
+            user.value = setUser
         }
     }
 
@@ -46,10 +60,11 @@ class MyPageViewModel(private val repository: PerformanceRepository, private val
         viewModelScope.launch {
             val token = getAccessToken(appContext)
             Log.d("accesstoken:", token.toString())
-            val result = withContext(Dispatchers.IO){
-                repository.signOut(token)
-            }
+//            val result = withContext(Dispatchers.IO){
+//                repository.signOut(token)
+//            }
             deleteAccessToken(appContext)
+            updateLoggedIn()
         }
     }
 
@@ -57,12 +72,12 @@ class MyPageViewModel(private val repository: PerformanceRepository, private val
         viewModelScope.launch {
             val token = getAccessToken(appContext)
             val result = withContext(Dispatchers.IO){
-                if(isLoggedIn.value == true){
-                    repository.me(token)
+                when(isLoggedIn.value){
+                    true -> repository.me(token)
+                    else -> null
                 }
             }
-            Log.d("accesstoken:", token.toString())
-            Log.d("result:", result.toString())
+            user.value = result
         }
     }
 }
