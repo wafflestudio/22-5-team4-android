@@ -11,15 +11,15 @@ import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
+import androidx.navigation.fragment.navArgs
 import com.example.interpark.R
+import com.example.interpark.databinding.FragmentCalendarBinding
 import java.text.SimpleDateFormat
 import java.util.*
 
 class CalendarFragment : Fragment() {
-
-    private lateinit var calendarView: CalendarView
-    private lateinit var selectedDateText: TextView
-    private lateinit var confirmDateButton: Button
+    private var _binding: FragmentCalendarBinding? = null
+    private val binding get() = _binding!!
 
     private var selectedDate: String? = null
 
@@ -27,26 +27,22 @@ class CalendarFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val view = inflater.inflate(R.layout.fragment_calendar, container, false)
-
-        calendarView = view.findViewById(R.id.calendarView)
-        selectedDateText = view.findViewById(R.id.selectedDateText)
-        confirmDateButton = view.findViewById(R.id.confirmDateButton)
+        _binding = FragmentCalendarBinding.inflate(inflater, container, false)
 
         // 날짜 선택 시 동작
-        calendarView.setOnDateChangeListener { _, year, month, dayOfMonth ->
+        binding.calendarView.setOnDateChangeListener { _, year, month, dayOfMonth ->
             val calendar = Calendar.getInstance()
             calendar.set(year, month, dayOfMonth)
 
             val formatter = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
             selectedDate = formatter.format(calendar.time)
 
-            selectedDateText.text = "선택한 날짜: $selectedDate"
-            confirmDateButton.visibility = View.VISIBLE
+            binding.selectedDateText.text = "선택한 날짜: $selectedDate"
+            binding.confirmDateButton.visibility = View.VISIBLE
         }
 
         // "확인" 버튼 클릭 시 동작
-        confirmDateButton.setOnClickListener {
+        binding.confirmDateButton.setOnClickListener {
             selectedDate?.let {
                 val action = CalendarFragmentDirections
                     .actionCalendarFragmentToTimeSelectionFragment(it)
@@ -54,18 +50,20 @@ class CalendarFragment : Fragment() {
             }
         }
 
-        return view
+        return binding.root
     }
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-
         // 뒤로가기 버튼 동작 연결
-        val backButton: ImageView = view.findViewById(R.id.backButton)
-        backButton.setOnClickListener {
-            val navController = requireActivity().findNavController(R.id.categoryNavHost)
-            navController.navigateUp() // 이전 화면으로 이동
+        binding.backButton.setOnClickListener {
+            findNavController().navigateUp()
         }
+    }
 
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
     }
 }

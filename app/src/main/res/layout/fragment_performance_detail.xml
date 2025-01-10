@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@color/white">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -11,76 +12,113 @@
         android:orientation="vertical"
         android:padding="16dp">
 
+        <!-- AppBarLayout과 Toolbar -->
+        <com.google.android.material.appbar.AppBarLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <androidx.appcompat.widget.Toolbar
+                android:id="@+id/toolbar"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="?attr/colorPrimary"
+                android:theme="?attr/actionBarTheme">
+
+                <ImageView
+                    android:id="@+id/backButton"
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:layout_gravity="start"
+                    android:src="@drawable/ic_back"
+                    android:contentDescription="뒤로가기" />
+
+                <TextView
+                    android:id="@+id/title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:text="공연 상세"
+                    android:textColor="@android:color/white"
+                    android:textSize="18sp"
+                    android:textStyle="bold" />
+
+            </androidx.appcompat.widget.Toolbar>
+        </com.google.android.material.appbar.AppBarLayout>
+
         <!-- 포스터 이미지 -->
         <ImageView
             android:id="@+id/posterImageView"
             android:layout_width="match_parent"
             android:layout_height="200dp"
-            android:scaleType="centerCrop"
-            tools:src="@drawable/sample_poster" />
+            android:scaleType="fitCenter"
+            android:layout_marginTop="16dp"
+            app:srcCompat="@drawable/performance3" />
 
-        <!-- 제목 -->
+
+        <!-- 공연 제목 -->
         <TextView
             android:id="@+id/titleTextView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="24sp"
+            android:text="공연 제목"
+            android:textSize="20sp"
             android:textStyle="bold"
-            tools:text="Performance Title" />
+            android:layout_marginTop="8dp" />
 
-        <!-- 내용 -->
+        <!-- 공연 내용 -->
         <TextView
             android:id="@+id/contentTextView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:text="공연 내용"
             android:textSize="16sp"
-            tools:text="This is the content of the performance." />
+            android:layout_marginTop="4dp" />
 
-        <!-- 상세 설명 -->
+        <!-- 공연 상세 설명 -->
         <TextView
             android:id="@+id/detailTextView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:text="상세 설명"
             android:textSize="16sp"
-            tools:text="Detailed description about the performance." />
+            android:layout_marginTop="4dp" />
 
         <!-- 날짜 -->
         <TextView
             android:id="@+id/dateTextView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:text="기간: 2024.12.07 ~ 2025.02.16"
             android:textSize="14sp"
-            tools:text="Date: 2025-01-01" />
+            android:layout_marginTop="4dp" />
 
         <!-- 카테고리 -->
         <TextView
             android:id="@+id/categoryTextView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:text="카테고리: 뮤지컬"
             android:textSize="14sp"
-            tools:text="Category: Music" />
+            android:layout_marginTop="4dp" />
 
         <!-- 장소 -->
         <TextView
             android:id="@+id/locationTextView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:text="장소: 한전아트센터"
             android:textSize="14sp"
-            tools:text="Location: Seoul, South Korea" />
+            android:layout_marginTop="4dp" />
 
         <!-- 예매하기 버튼 -->
         <Button
             android:id="@+id/bookButton"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="예매하기" />
-
-        <!-- 뒤로가기 버튼 -->
-        <ImageView
-            android:id="@+id/backButton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/ic_back" />
+            android:text="예매하기"
+            android:backgroundTint="@color/purple_500"
+            android:textColor="@android:color/white"
+            android:layout_marginTop="16dp" />
 
     </LinearLayout>
 </ScrollView>

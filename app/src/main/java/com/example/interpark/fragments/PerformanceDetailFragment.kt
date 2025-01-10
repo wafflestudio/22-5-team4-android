@@ -9,12 +9,13 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.bumptech.glide.Glide
+import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
 import com.example.interpark.R
 import com.example.interpark.databinding.FragmentPerformanceDetailBinding
 import com.example.interpark.viewModels.PerformanceDetailViewModel
 import com.example.interpark.viewModels.PerformanceDetailViewModelFactory
 
-class PerformanceDetailFragment : Fragment(R.layout.fragment_performance_detail) {
+class PerformanceDetailFragment : Fragment() {
     private var _binding: FragmentPerformanceDetailBinding? = null
     private val binding get() = _binding!!
     private val args: PerformanceDetailFragmentArgs by navArgs()
@@ -38,18 +39,24 @@ class PerformanceDetailFragment : Fragment(R.layout.fragment_performance_detail)
 
         // LiveData 관찰하여 UI 업데이트
         performanceDetailViewModel.performanceDetail.observe(viewLifecycleOwner) { performance ->
-            binding.apply {
-                titleTextView.text = performance.title
-                contentTextView.text = performance.content
-                detailTextView.text = performance.detail
-                dateTextView.text = performance.date.joinToString { it.toString() }
-                categoryTextView.text = performance.category
-                locationTextView.text = performance.location
+            performance?.let {
+                binding.apply {
+                    titleTextView.text = it.title
+                    contentTextView.text = it.content
+                    detailTextView.text = it.detail
+                    dateTextView.text = it.date.joinToString { date -> date.toString() }
+                    categoryTextView.text = it.category
+                    locationTextView.text = it.location
 
-                // 포스터 이미지 로드 (예시: Glide 사용)
-                Glide.with(this@PerformanceDetailFragment)
-                    .load(performance.posterUrl)
-                    .into(posterImageView)
+                    // 포스터 이미지 로드 (Glide 사용, 플레이스홀더 추가)
+                    Glide.with(this@PerformanceDetailFragment)
+//                        .load(it.posterUrl)
+                        .load(R.drawable.performance3)
+                        .placeholder(R.drawable.performance3) // 로드 중 보여줄 이미지
+                        .error(R.drawable.performance3)       // 오류 시 보여줄 이미지
+                        .transition(DrawableTransitionOptions.withCrossFade())
+                        .into(posterImageView)
+                }
             }
         }
 
