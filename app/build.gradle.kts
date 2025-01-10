@@ -88,7 +88,7 @@ dependencies {
     implementation(libs.material)
     implementation(libs.viewpager2)
     implementation(libs.androidx.recyclerview)
-
+    implementation("com.squareup.okhttp3:okhttp-urlconnection:4.9.1")
     implementation("androidx.navigation:navigation-fragment-ktx:2.7.3") // Fragment 전환
     implementation("androidx.navigation:navigation-ui-ktx:2.7.3")
 

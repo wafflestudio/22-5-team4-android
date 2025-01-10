@@ -27,4 +27,13 @@ class PerformanceRepository(private val ApiClientDev: ApiClientDev, private val 
         return result.body()
     }
 
+    suspend fun signOut(token: String?){
+        ApiClient.signout("Bearer $token")
+    }
+
+    suspend fun me(token: String?): User?{
+        val result = ApiClient.me("Bearer $token")
+        Log.d("result", result.toString())
+        return result
+    }
 }

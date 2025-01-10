@@ -20,6 +20,9 @@
         <action
             android:id="@+id/action_LoginFragment_to_SignUpFragment"
             app:destination="@id/SignUpFragment"/>
+        <action
+            android:id="@+id/action_LoginFragment_to_MyFragment"
+            app:destination="@id/MyFragment"/>
     </fragment>
 
     <fragment

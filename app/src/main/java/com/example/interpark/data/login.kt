@@ -15,7 +15,7 @@ data class SignUpRequest(
     val email: String
 )
 
-data class SignUpResponseUser(
+data class User(
     val id: String,
     val username: String,
     val nickname: String,
@@ -24,7 +24,7 @@ data class SignUpResponseUser(
 )
 
 data class SignUpResponse(
-    val user: SignUpResponseUser
+    val user: User
 )
 
 data class SignInRequest(

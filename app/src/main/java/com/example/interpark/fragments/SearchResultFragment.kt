@@ -57,7 +57,6 @@ class SearchResultFragment : Fragment() {
 
         // ViewModel을 통해 공연 데이터 가져오기
         performanceViewModel.performanceList.observe(viewLifecycleOwner) { performanceList ->
-            Log.d("SearchResult", "Performance List: $performanceList")
             setRecyclerView(performanceList)
         }
 

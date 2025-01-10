@@ -76,16 +76,28 @@
                 <ImageView
                     android:layout_width="24dp"
                     android:layout_height="24dp"
-                    android:src="@drawable/ic_logout_icon" /> <!-- 로그아웃 아이콘 -->
-
-                <TextView
-                    android:id="@+id/layout_login_prompt"
+                    android:src="@drawable/ic_logout_icon" />
+                <FrameLayout
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="16dp"
-                    android:text="로그인 해주세요"
-                    android:textSize="16sp"
-                    android:textColor="#000000" />
+                    android:layout_height="wrap_content">
+                    <TextView
+                        android:id="@+id/layout_login_prompt"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="16dp"
+                        android:text="로그인 해주세요"
+                        android:textSize="16sp"
+                        android:textColor="#000000" />
+                    <TextView
+                        android:id="@+id/logged_in_prompt"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="16dp"
+                        android:text="반갑습니다 박정현님"
+                        android:textSize="16sp"
+                        android:textColor="#000000"
+                        android:visibility="gone"/>
+                </FrameLayout> <!-- 로그아웃 아이콘 -->
 
                 <ImageView
                     android:layout_width="24dp"
@@ -143,6 +155,57 @@
                     android:textSize="16sp"
                     android:textColor="#000000" />
 
+            </LinearLayout>
+
+            <!-- Footer -->
+            <LinearLayout
+                android:id="@+id/footer"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center"
+                android:paddingTop="16dp"
+                android:visibility="gone">
+
+                <TextView
+                    android:id="@+id/btn_customer_support"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="고객센터"
+                    android:textColor="#777777"
+                    android:textSize="14sp"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text=" | "
+                    android:textSize="14sp"
+                    android:textColor="#777777"
+                    android:paddingHorizontal="8dp" />
+
+                <TextView
+                    android:id="@+id/btn_inquiry"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="1:1문의하기"
+                    android:textSize="14sp"
+                    android:textColor="#777777"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text=" | "
+                    android:textSize="14sp"
+                    android:textColor="#777777"
+                    android:paddingHorizontal="8dp" />
+
+                <TextView
+                    android:id="@+id/btn_logout"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="로그아웃"
+                    android:textSize="14sp"
+                    android:textColor="#777777"/>
             </LinearLayout>
         </LinearLayout>
     </ScrollView>

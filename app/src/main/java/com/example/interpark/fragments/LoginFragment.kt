@@ -44,17 +44,28 @@ class LoginFragment : Fragment() {
 
         loginButton.setOnClickListener{
             myPageViewModel.login(usernameEditText.text.toString(), passwordEditText.text.toString())
+
         }
 
         val signUpTextView: TextView = view.findViewById(R.id.text_signup)
 
         signUpTextView.setOnClickListener {
-            Log.d("signup", "Text")
             val navController = requireActivity().findNavController(R.id.myNavHost)
             val action = LoginFragmentDirections
                 .actionLoginFragmentToSignUpFragment()
             navController.navigate(action)
         }
+
+        val tempButton: ImageView = view.findViewById(R.id.logo_interpark)
+
+        tempButton.setOnClickListener {
+            myPageViewModel.me()
+            val navController = requireActivity().findNavController(R.id.myNavHost)
+            val action = LoginFragmentDirections.actionLoginFragmentToMyFragment()
+            navController.navigate(action)
+        }
+
+
 
     }
 }

@@ -16,7 +16,7 @@ class MyPageViewModelFactory(private val context: Context):ViewModelProvider.Fac
             val apiServiceDev = RetrofitInstance.api
             val apiServiceServer = RetrofitInstance.api1
             val repository = PerformanceRepository(apiServiceDev, apiServiceServer)
-            return MyPageViewModel(repository) as T
+            return MyPageViewModel(repository, context) as T
         }
         throw IllegalArgumentException("Unknown ViewModel class")
     }

@@ -20,6 +20,7 @@ import androidx.navigation.findNavController
 import com.example.interpark.R
 import com.example.interpark.viewModels.MyPageViewModel
 import com.example.interpark.viewModels.MyPageViewModelFactory
+import org.w3c.dom.Text
 
 
 class MyFragment : Fragment() {
@@ -40,7 +41,9 @@ class MyFragment : Fragment() {
 
         // ScrollView 안의 LinearLayout 가져오기
         val loginPromptLayout = view.findViewById<TextView>(R.id.layout_login_prompt)
-
+        val nickNamePrompt = view.findViewById<TextView>(R.id.logged_in_prompt)
+        val footerView = view.findViewById<LinearLayout>(R.id.footer)
+        val logOutTextView = view.findViewById<TextView>(R.id.btn_logout)
         // "로그인 해주세요" 전체 클릭 이벤트 설정
         loginPromptLayout.setOnClickListener {
             val navController = requireActivity().findNavController(R.id.myNavHost)
@@ -49,5 +52,21 @@ class MyFragment : Fragment() {
             navController.navigate(action)
         }
 
+        logOutTextView.setOnClickListener {
+            myPageViewModel.logout()
+        }
+
+        myPageViewModel.isLoggedIn.observe(viewLifecycleOwner){isLoggedIn ->
+            if(isLoggedIn){
+//                nickNamePrompt.visibility = View.VISIBLE
+//                loginPromptLayout.visibility = View.GONE
+                footerView.visibility = View.VISIBLE
+            }
+            else{
+//                nickNamePrompt.visibility = View.GONE
+//                loginPromptLayout.visibility = View.VISIBLE
+                footerView.visibility = View.GONE
+            }
+        }
     }
 }

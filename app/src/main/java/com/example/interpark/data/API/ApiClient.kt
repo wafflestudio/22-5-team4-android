@@ -5,12 +5,14 @@ import com.example.interpark.data.SignInRequest
 import com.example.interpark.data.SignInResponse
 import com.example.interpark.data.SignUpRequest
 import com.example.interpark.data.SignUpResponse
+import com.example.interpark.data.User
 import com.example.interpark.data.UserProfile
 import com.squareup.moshi.JsonClass
 import retrofit2.Call
 import retrofit2.Response
 import retrofit2.http.Body
 import retrofit2.http.GET
+import retrofit2.http.Header
 import retrofit2.http.POST
 import retrofit2.http.Query
 
@@ -41,4 +43,14 @@ interface ApiClient {
     suspend fun signin(
         @Body signInRequest: SignInRequest
     ): Response<SignInResponse>
+
+    @POST("/api/v1/signout")
+    suspend fun signout(
+        @Header("Authorization") token: String
+    ): Unit
+
+    @GET("/api/v1/users/me")
+    suspend fun me(
+        @Header("Authorization") token:String
+    ):User?
 }

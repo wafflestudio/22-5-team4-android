@@ -26,7 +26,6 @@ class PerformanceViewModel(private val repository: PerformanceRepository) : View
                 repository.fetchPerformances(category, title)
             }
             _performanceList.postValue(performances)
-            Log.d("viewmodel", performances.toString())
         }
     }
 
@@ -42,7 +41,5 @@ class PerformanceViewModel(private val repository: PerformanceRepository) : View
             Log.d("viewmodel", "Filtered performances (any match): $performances")
         }
     }
-
-
 }
 
