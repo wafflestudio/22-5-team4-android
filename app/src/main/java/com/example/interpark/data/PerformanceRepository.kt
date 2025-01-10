@@ -16,6 +16,12 @@ class PerformanceRepository(private val ApiClientDev: ApiClientDev, private val 
         return result.result
     }
 
+    suspend fun fetchPerformanceById(id: String?): Performance {
+        val result = ApiClient.getPerformanceById(id) // 서버 API 호출
+        Log.d("repository", result.toString()) // 결과를 로그로 출력
+        return result.result
+    }
+
     suspend fun signUp(username: String, password: String, nickname: String, phoneNumber: String, email: String): SignUpResponse? {
         val result = ApiClient.signup(SignUpRequest(username, password, nickname, phoneNumber, email))
         Log.d("SignUp", result.body().toString())

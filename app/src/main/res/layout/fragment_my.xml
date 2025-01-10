@@ -128,8 +128,6 @@
                     android:text="티켓 예매/취소 내역"
                     android:textSize="16sp"
                     android:textColor="#000000" />
-
-
             </LinearLayout>
 
             <!-- 구분선 -->
@@ -154,7 +152,6 @@
                     android:text="인터파크페이 카드 관리"
                     android:textSize="16sp"
                     android:textColor="#000000" />
-
             </LinearLayout>
 
             <!-- Footer -->
@@ -209,7 +206,5 @@
             </LinearLayout>
         </LinearLayout>
     </ScrollView>
-
-
 
 </FrameLayout>

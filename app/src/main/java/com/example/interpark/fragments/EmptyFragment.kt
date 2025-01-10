@@ -11,6 +11,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.findNavController
+import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -38,18 +39,21 @@ class EmptyFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-
         _binding = FragmentEmptyBinding.inflate(inflater, container, false)
-        return binding.root    }
+        return binding.root
+    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
         // 뒤로가기 버튼 동작 연결
-        val backButton: ImageButton = view.findViewById(R.id.backButton)
-        backButton.setOnClickListener {
-            val navController = requireActivity().findNavController(R.id.categoryNavHost)
-            navController.navigateUp() // 이전 화면으로 이동
+//        val backButton: ImageButton = view.findViewById(R.id.backButton)
+//        backButton.setOnClickListener {
+//            val navController = requireActivity().findNavController(R.id.categoryNavHost)
+//            navController.navigateUp() // 이전 화면으로 이동
+//        }
+        binding.backButton.setOnClickListener{
+            findNavController().navigateUp()
         }
 
 
@@ -71,10 +75,13 @@ class EmptyFragment : Fragment() {
 
     private fun setRecyclerView(data: List<Performance>){
         performanceRecyclerView.adapter = PerformanceAdapter(data) { performance ->
-            val navController = requireActivity().findNavController(R.id.categoryNavHost)
             val action = EmptyFragmentDirections
-                .actionEmptyFragmentToPerformanceDetailFragment(performance.title)
-            navController.navigate(action)
+                .actionEmptyFragmentToPerformanceDetailFragment(performance.id)
+            findNavController().navigate(action)
+//            val navController = requireActivity().findNavController(R.id.categoryNavHost)
+//            val action = EmptyFragmentDirections
+//                .actionEmptyFragmentToPerformanceDetailFragment(performance.id)
+//            navController.navigate(action)
         }
     }
 

@@ -17,6 +17,8 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.findNavController
+import androidx.navigation.findNavController
+import androidx.navigation.fragment.findNavController
 import com.example.interpark.R
 import com.example.interpark.viewModels.MyPageViewModel
 import com.example.interpark.viewModels.MyPageViewModelFactory
@@ -68,5 +70,13 @@ class MyFragment : Fragment() {
                 footerView.visibility = View.GONE
             }
         }
+
+        view.findViewById<TextView>(R.id.account).setOnClickListener {
+
+
+            val action = MyFragmentDirections.actionMyFragmentToMyFragmentAccount()
+            findNavController().navigate(action)
+        }
+
     }
 }
