@@ -45,7 +45,7 @@ object RetrofitInstance {
             .build()
             .create(ApiClientDev::class.java)
     }
-    private const val BASE_URL_SERVER = "http://172.30.1.57:8080/"
+    private const val BASE_URL_SERVER = "http://192.168.219.104:8080/"
     private val client = OkHttpClient.Builder()
         .addInterceptor { chain ->
             val request = chain.request().newBuilder()

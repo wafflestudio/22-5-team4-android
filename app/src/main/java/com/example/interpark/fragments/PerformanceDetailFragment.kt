@@ -42,11 +42,11 @@ class PerformanceDetailFragment : Fragment() {
             performance?.let {
                 binding.apply {
                     titleTextView.text = it.title
-                    contentTextView.text = it.content
+//                    contentTextView.text = it.content
                     detailTextView.text = it.detail
-                    dateTextView.text = it.date.joinToString { date -> date.toString() }
+//                    dateTextView.text = it.date.joinToString { date -> date.toString() }
                     categoryTextView.text = it.category
-                    locationTextView.text = it.location
+//                    locationTextView.text = it.location
 
                     // 포스터 이미지 로드 (Glide 사용, 플레이스홀더 추가)
                     Glide.with(this@PerformanceDetailFragment)

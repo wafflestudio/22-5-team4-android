@@ -47,6 +47,7 @@ interface ApiClient {
     suspend fun signup(
         @Body signUpRequest: SignUpRequest
     ): Response<SignUpResponse>
+
     @POST("/api/v1/signin")
     suspend fun signin(
         @Body signInRequest: SignInRequest
@@ -61,4 +62,10 @@ interface ApiClient {
     suspend fun me(
         @Header("Authorization") token:String
     ):User?
+
+    @GET("/v1/performance/search")
+    suspend fun getPerformances(
+//        @Query("title") category: String?,
+//        @Query("category") title: String?
+    ): Response<List<Performance>>
 }

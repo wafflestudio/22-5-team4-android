@@ -22,6 +22,12 @@ class PerformanceRepository(private val ApiClientDev: ApiClientDev, private val 
         return result.result
     }
 
+    suspend fun getPerformances(category: String?, title: String?): List<Performance>? {
+        val result = ApiClient.getPerformances()
+        return result.body()
+    }
+
+
     suspend fun signUp(username: String, password: String, nickname: String, phoneNumber: String, email: String): SignUpResponse? {
         val result = ApiClient.signup(SignUpRequest(username, password, nickname, phoneNumber, email))
         Log.d("SignUp", result.body().toString())

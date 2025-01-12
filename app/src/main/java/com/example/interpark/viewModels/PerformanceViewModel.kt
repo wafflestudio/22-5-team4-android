@@ -23,7 +23,8 @@ class PerformanceViewModel(private val repository: PerformanceRepository) : View
     fun fetchPerformanceList(category: String?, title: String?){
         viewModelScope.launch {
             val performances = withContext(Dispatchers.IO){
-                repository.fetchPerformances(category, title)
+                repository.getPerformances(category, title)
+                // repository.fetchPerformances(category, title)
             }
             _performanceList.postValue(performances)
         }
