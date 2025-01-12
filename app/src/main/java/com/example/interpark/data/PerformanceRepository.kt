@@ -23,7 +23,7 @@ class PerformanceRepository(private val ApiClientDev: ApiClientDev, private val 
     }
 
     suspend fun getPerformances(category: String?, title: String?): List<Performance>? {
-        val result = ApiClient.getPerformances()
+        val result = ApiClient.getPerformances(title, category)
         return result.body()
     }
 

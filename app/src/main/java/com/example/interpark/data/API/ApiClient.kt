@@ -65,7 +65,7 @@ interface ApiClient {
 
     @GET("/v1/performance/search")
     suspend fun getPerformances(
-//        @Query("title") category: String?,
-//        @Query("category") title: String?
+        @Query("title") category: String?,
+        @Query("category") title: String?
     ): Response<List<Performance>>
 }
