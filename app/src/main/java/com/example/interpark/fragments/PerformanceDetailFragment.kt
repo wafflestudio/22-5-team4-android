@@ -4,6 +4,9 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
+import android.widget.ImageView
+import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
@@ -15,6 +18,7 @@ import com.example.interpark.R
 import com.example.interpark.databinding.FragmentPerformanceDetailBinding
 import com.example.interpark.viewModels.PerformanceDetailViewModel
 import com.example.interpark.viewModels.PerformanceDetailViewModelFactory
+import org.w3c.dom.Text
 
 class PerformanceDetailFragment : Fragment() {
     private var _binding: FragmentPerformanceDetailBinding? = null
@@ -28,8 +32,8 @@ class PerformanceDetailFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        _binding = FragmentPerformanceDetailBinding.inflate(inflater, container, false)
-        return binding.root
+//        _binding = FragmentPerformanceDetailBinding.inflate(inflater, container, false)
+        return inflater.inflate(R.layout.fragment_performance_detail, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -38,41 +42,46 @@ class PerformanceDetailFragment : Fragment() {
         // ViewModel을 통해 공연 상세 정보 가져오기
         performanceDetailViewModel.fetchPerformanceDetail(args.title)
 
+        val titleTextView = view.findViewById<TextView>(R.id.titleTextView)
+        val contentTextView = view.findViewById<TextView>(R.id.contentTextView)
+        val detailTextView = view.findViewById<TextView>(R.id.detailTextView)
+        val dateTextView = view.findViewById<TextView>(R.id.dateTextView)
+        val categoryTextView = view.findViewById<TextView>(R.id.categoryTextView)
+        val locationTextView = view.findViewById<TextView>(R.id.locationTextView)
+        val title = view.findViewById<TextView>(R.id.title)
         // LiveData 관찰하여 UI 업데이트
+        val posterImageView = view.findViewById<ImageView>(R.id.posterImageView)
         performanceDetailViewModel.performanceDetail.observe(viewLifecycleOwner) { performance ->
             performance?.let {
-                binding.apply {
                     titleTextView.text = it.title
 //                    contentTextView.text = it.content
-
+                    detailTextView.text = it.detail
                     dateTextView.text = it.date.joinToString { date -> date.toString() }
                     categoryTextView.text = it.category
                     locationTextView.text = it.location
                     posterImageView.load(it.posterUrl)
-                    backdropImageView.load(it.backdropUrl)
-                    detailImageView.load(it.detail)
+//                    backdropImageView.load(it.backdropUrl)
+//                    detailImageView.load(it.detail)
 
 //                    // 포스터 이미지 로드 (Glide 사용, 플레이스홀더 추가)
 //                    Glide.with(this@PerformanceDetailFragment)
-//                        .load(it.posterUrl)
-//                        .load(R.drawable.performance3)
-//                        .placeholder(R.drawable.performance3) // 로드 중 보여줄 이미지
-//                        .error(R.drawable.performance3)       // 오류 시 보여줄 이미지
-//                        .transition(DrawableTransitionOptions.withCrossFade())
-//                        .into(posterImageView)
-                }
+                    title.text = it.title
+                    title.isSelected = true
+                    // 포스터 이미지 로드 (Glide 사용, 플레이스홀더 추가)
+
             }
         }
 
         // 예매하기 버튼 동작 연결
-        binding.bookButton.setOnClickListener {
+        val bookButton = view.findViewById<Button>(R.id.bookButton)
+        bookButton.setOnClickListener {
             val action = PerformanceDetailFragmentDirections
                 .actionPerformanceDetailFragmentToCalendarFragment()
             findNavController().navigate(action)
         }
 
-        // 뒤로가기 버튼 동작 연결
-        binding.backButton.setOnClickListener {
+        val backButton = view.findViewById<ImageView>(R.id.backButton)
+        backButton.setOnClickListener {
             findNavController().navigateUp()
         }
     }
