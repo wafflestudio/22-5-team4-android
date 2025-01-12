@@ -11,13 +11,15 @@ import com.example.interpark.fragments.MyFragment
 import com.example.interpark.fragments.MyFragmentHome
 import com.example.interpark.fragments.SearchFragment
 import com.example.interpark.fragments.SearchFragmentHome
+import com.example.interpark.fragments.detailFragments.PerformanceInformation
+import com.example.interpark.fragments.detailFragments.Reviews
+import com.example.interpark.fragments.detailFragments.SalesInformation
 
 class FragmentViewPagerAdapter(fragment: Fragment) : FragmentStateAdapter(fragment) {
     private val fragments = listOf(
-        HomeFragmentHome(),
-        CategoryFragmentHome(),
-        SearchFragmentHome(),
-        MyFragmentHome()
+        PerformanceInformation(),
+        SalesInformation(),
+        Reviews()
     )
 
     override fun getItemCount(): Int = fragments.size

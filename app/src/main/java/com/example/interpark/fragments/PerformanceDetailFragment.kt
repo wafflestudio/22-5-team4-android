@@ -11,12 +11,16 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
+import androidx.viewpager2.widget.ViewPager2
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
 import com.example.interpark.R
+import com.example.interpark.adapters.FragmentViewPagerAdapter
 import com.example.interpark.databinding.FragmentPerformanceDetailBinding
 import com.example.interpark.viewModels.PerformanceDetailViewModel
 import com.example.interpark.viewModels.PerformanceDetailViewModelFactory
+import com.google.android.material.tabs.TabLayout
+import com.google.android.material.tabs.TabLayoutMediator
 import org.w3c.dom.Text
 
 class PerformanceDetailFragment : Fragment() {
@@ -71,6 +75,19 @@ class PerformanceDetailFragment : Fragment() {
 
             }
         }
+
+        val viewPager = view.findViewById<ViewPager2>(R.id.viewPager)
+        val tabLayout = view.findViewById<TabLayout>(R.id.tabLayout)
+        val adapter = FragmentViewPagerAdapter(this)
+        viewPager.adapter = adapter
+        TabLayoutMediator(tabLayout, viewPager) { tab, position ->
+            tab.text = when (position) {
+                0 -> "Tab 1"
+                1 -> "Tab 2"
+                2 -> "Tab 3"
+                else -> null
+            }
+        }.attach()
 
         // 예매하기 버튼 동작 연결
         val bookButton = view.findViewById<Button>(R.id.bookButton)
