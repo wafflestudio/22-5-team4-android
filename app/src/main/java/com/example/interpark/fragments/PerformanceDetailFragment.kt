@@ -12,12 +12,16 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import coil.load
+import androidx.viewpager2.widget.ViewPager2
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
 import com.example.interpark.R
+import com.example.interpark.adapters.FragmentViewPagerAdapter
 import com.example.interpark.databinding.FragmentPerformanceDetailBinding
 import com.example.interpark.viewModels.PerformanceDetailViewModel
 import com.example.interpark.viewModels.PerformanceDetailViewModelFactory
+import com.google.android.material.tabs.TabLayout
+import com.google.android.material.tabs.TabLayoutMediator
 import org.w3c.dom.Text
 
 class PerformanceDetailFragment : Fragment() {
@@ -68,9 +72,29 @@ class PerformanceDetailFragment : Fragment() {
                     title.text = it.title
                     title.isSelected = true
                     // 포스터 이미지 로드 (Glide 사용, 플레이스홀더 추가)
+                    Glide.with(this@PerformanceDetailFragment)
+//                        .load(it.posterUrl)
+                        .load(R.drawable.performance3)
+                        .placeholder(R.drawable.performance3) // 로드 중 보여줄 이미지
+                        .error(R.drawable.performance3)       // 오류 시 보여줄 이미지
+                        .transition(DrawableTransitionOptions.withCrossFade())
+                        .into(posterImageView)
 
             }
         }
+
+        val viewPager = view.findViewById<ViewPager2>(R.id.viewPager)
+//        val tabLayout = view.findViewById<TabLayout>(R.id.tabLayout)
+        val adapter = FragmentViewPagerAdapter(this)
+        viewPager.adapter = adapter
+//        TabLayoutMediator(tabLayout, viewPager) { tab, position ->
+//            tab.text = when (position) {
+//                0 -> "Tab 1"
+//                1 -> "Tab 2"
+//                2 -> "Tab 3"
+//                else -> null
+//            }
+//        }.attach()
 
         // 예매하기 버튼 동작 연결
         val bookButton = view.findViewById<Button>(R.id.bookButton)
