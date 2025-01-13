@@ -16,17 +16,29 @@ class PerformanceRepository(private val ApiClientDev: ApiClientDev, private val 
         return result.result
     }
 
-    suspend fun fetchPerformanceById(id: String?): Performance {
-        val result = ApiClientDev.getPerformanceById(id) // 서버 API 호출
+    suspend fun fetchPerformanceById(id: String): Performance? {
+        val result = ApiClient.getPerformanceDetail(id) // 서버 API 호출
         Log.d("repository", result.toString()) // 결과를 로그로 출력
-        return result.result
+        return result.body()
     }
 
     suspend fun getPerformances(category: String?, title: String?): List<Performance>? {
         val result = ApiClient.getPerformances(title, category)
         return result.body()
     }
-
+    suspend fun getPerformanceDetail(performanceId: String): Performance? {
+        return try {
+            val response = ApiClient.getPerformanceDetail(performanceId)
+            if (response.isSuccessful) {
+                response.body()
+            } else {
+                null // 실패 시 null 반환
+            }
+        } catch (e: Exception) {
+            e.printStackTrace()
+            null
+        }
+    }
 
     suspend fun signUp(username: String, password: String, nickname: String, phoneNumber: String, email: String): SignUpResponse? {
         val result = ApiClient.signup(SignUpRequest(username, password, nickname, phoneNumber, email))

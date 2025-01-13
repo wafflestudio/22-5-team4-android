@@ -55,8 +55,6 @@ class HomeFragment : Fragment() {
             val action = HomeFragmentDirections
                 .actionHomeFragmentToEmptyFragment(category.name)
             navController.navigate(action)
-
-
         }
         binding.homeCategoryRecyclerView.adapter = homeCategoryAdapter
 

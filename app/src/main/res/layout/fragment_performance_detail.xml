@@ -1,124 +1,192 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView
+<RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/white">
 
-    <LinearLayout
+    <!-- 상단 툴바 -->
+    <com.google.android.material.appbar.AppBarLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:padding="16dp">
+        android:layout_height="wrap_content">
 
-        <!-- AppBarLayout과 Toolbar -->
-        <com.google.android.material.appbar.AppBarLayout
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbar"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:background="@color/white"
+            android:paddingTop="30dp"
+            android:padding="8dp">
 
-            <androidx.appcompat.widget.Toolbar
-                android:id="@+id/toolbar"
+            <!-- 뒤로가기 버튼 -->
+            <ImageView
+                android:id="@+id/backButton"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:src="@drawable/ic_back"
+                android:contentDescription="뒤로가기"
+                android:layout_gravity="start" />
+
+            <!-- 제목 -->
+            <TextView
+                android:id="@+id/categoryTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:text="뮤지컬"
+                android:textColor="@color/black"
+                android:textSize="18sp"
+                android:textStyle="bold" />
+
+            <!-- 검색 아이콘 -->
+            <ImageView
+                android:id="@+id/searchButton"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:src="@drawable/ic_search"
+                android:contentDescription="검색"
+                android:layout_gravity="end" />
+        </androidx.appcompat.widget.Toolbar>
+    </com.google.android.material.appbar.AppBarLayout>
+
+    <!-- Scrollable Content -->
+    <ScrollView
+        android:id="@+id/scrollView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@id/bookButton">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <!-- 백드롭 이미지와 포스터 이미지 영역 -->
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="300dp">
+
+                <!-- 백드롭 이미지 -->
+                <ImageView
+                    android:id="@+id/backdropImageView"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:scaleType="centerCrop"
+                    app:srcCompat="@drawable/performance1" />
+
+                <!-- 포스터 이미지 -->
+                <ImageView
+                    android:id="@+id/posterImageView"
+                    android:layout_width="150dp"
+                    android:layout_height="220dp"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="40dp"
+                    android:scaleType="fitCenter"
+                    app:srcCompat="@drawable/performance1"
+                    android:elevation="8dp" />
+            </FrameLayout>
+
+            <!-- 공연 제목 -->
+            <TextView
+                android:id="@+id/titleTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="뮤지컬 웃는 남자"
+                android:textSize="24sp"
+                android:textStyle="bold"
+                android:layout_marginTop="16dp"
+                android:layout_marginBottom="8dp" />
+
+            <!-- 공연 설명 -->
+            <TextView
+                android:id="@+id/subtitleTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="뮤지컬 · 180분 (인터미션 20분 포함) · 초등학생 이상 관람가"
+                android:textSize="14sp"
+                android:textColor="@color/black"
+                android:layout_marginBottom="8dp" />
+
+            <!-- 장소 -->
+            <TextView
+                android:id="@+id/locationTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="장소: 예술의전당 오페라극장"
+                android:textSize="14sp"
+                android:layout_marginBottom="4dp" />
+
+            <!-- 기간 -->
+            <TextView
+                android:id="@+id/dateTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="기간: 2025.01.09 ~ 2025.03.09"
+                android:textSize="14sp"
+                android:layout_marginBottom="16dp" />
+
+
+            <!-- 탭 메뉴 -->
+            <com.google.android.material.tabs.TabLayout
+                android:id="@+id/tabLayout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="?attr/colorPrimary"
-                android:theme="?attr/actionBarTheme">
+                android:layout_marginBottom="16dp"
+                app:tabIndicatorColor="@color/purple_500"
+                app:tabSelectedTextColor="@color/purple_500"
+                app:tabTextColor="@color/black">
 
-                <ImageView
-                    android:id="@+id/backButton"
-                    android:layout_width="24dp"
-                    android:layout_height="24dp"
-                    android:layout_gravity="start"
-                    android:src="@drawable/ic_back"
-                    android:contentDescription="뒤로가기" />
+<!--                <com.google.android.material.tabs.TabItem-->
+<!--                    android:id="@+id/tabPerformanceInfo"-->
+<!--                    android:layout_width="wrap_content"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:text="공연정보" />-->
 
-                <TextView
-                    android:id="@+id/title"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:text="공연 상세"
-                    android:textColor="@android:color/white"
-                    android:textSize="18sp"
-                    android:textStyle="bold" />
-
-            </androidx.appcompat.widget.Toolbar>
-        </com.google.android.material.appbar.AppBarLayout>
-
-        <!-- 포스터 이미지 -->
-        <ImageView
-            android:id="@+id/posterImageView"
-            android:layout_width="match_parent"
-            android:layout_height="200dp"
-            android:scaleType="fitCenter"
-            android:layout_marginTop="16dp"
-            app:srcCompat="@drawable/performance3" />
+<!--                <com.google.android.material.tabs.TabItem-->
+<!--                    android:id="@+id/tabSalesInfo"-->
+<!--                    android:layout_width="wrap_content"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:text="판매정보" />-->
 
 
-        <!-- 공연 제목 -->
-        <TextView
-            android:id="@+id/titleTextView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="공연 제목"
-            android:textSize="20sp"
-            android:textStyle="bold"
-            android:layout_marginTop="8dp" />
+<!--                <com.google.android.material.tabs.TabItem-->
+<!--                    android:id="@+id/tabReviews"-->
+<!--                    android:layout_width="wrap_content"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:text="관람후기/Q/A" />-->
+            </com.google.android.material.tabs.TabLayout>
 
-        <!-- 공연 내용 -->
-        <TextView
-            android:id="@+id/contentTextView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="공연 내용"
-            android:textSize="16sp"
-            android:layout_marginTop="4dp" />
+            <!-- 공지사항 -->
+            <TextView
+                android:id="@+id/noticeTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="NOTICE\n※ 본 공연은 예매 티켓 배송 및 예술의전당 현장 수령만 가능합니다."
+                android:textSize="14sp"
+                android:textColor="@color/black"
+                android:layout_marginBottom="16dp" />
 
-        <!-- 공연 상세 설명 -->
-        <TextView
-            android:id="@+id/detailTextView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="상세 설명"
-            android:textSize="16sp"
-            android:layout_marginTop="4dp" />
+            <!-- 상세 이미지 -->
+            <ImageView
+                android:id="@+id/detailImageView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="16dp"
+                android:scaleType="fitCenter"
+                android:adjustViewBounds="true"
+                app:srcCompat="@drawable/performance1" />
+        </LinearLayout>
+    </ScrollView>
 
-        <!-- 날짜 -->
-        <TextView
-            android:id="@+id/dateTextView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="기간: 2024.12.07 ~ 2025.02.16"
-            android:textSize="14sp"
-            android:layout_marginTop="4dp" />
-
-        <!-- 카테고리 -->
-        <TextView
-            android:id="@+id/categoryTextView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="카테고리: 뮤지컬"
-            android:textSize="14sp"
-            android:layout_marginTop="4dp" />
-
-        <!-- 장소 -->
-        <TextView
-            android:id="@+id/locationTextView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="장소: 한전아트센터"
-            android:textSize="14sp"
-            android:layout_marginTop="4dp" />
-
-        <!-- 예매하기 버튼 -->
-        <Button
-            android:id="@+id/bookButton"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="예매하기"
-            android:backgroundTint="@color/purple_500"
-            android:textColor="@android:color/white"
-            android:layout_marginTop="16dp" />
-
-    </LinearLayout>
-</ScrollView>
+    <!-- 예매하기 버튼 -->
+    <Button
+        android:id="@+id/bookButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="예매하기"
+        android:backgroundTint="@color/purple_500"
+        android:textColor="@android:color/white"
+        android:layout_alignParentBottom="true"
+        android:layout_margin="16dp" />
+</RelativeLayout>

@@ -14,6 +14,7 @@ import retrofit2.http.Body
 import retrofit2.http.GET
 import retrofit2.http.Header
 import retrofit2.http.POST
+import retrofit2.http.Path
 import retrofit2.http.Query
 
 @JsonClass(generateAdapter = true)
@@ -63,9 +64,15 @@ interface ApiClient {
         @Header("Authorization") token:String
     ):User?
 
-    @GET("/v1/performance/search")
+    @GET("/api/v1/performance/search")
     suspend fun getPerformances(
         @Query("title") category: String?,
         @Query("category") title: String?
     ): Response<List<Performance>>
+
+    @GET("api/v1/performance/{performanceId}")
+    suspend fun getPerformanceDetail(
+        @Path("performanceId") performanceId: String
+    ): Response<Performance>
+
 }
