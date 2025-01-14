@@ -1,9 +1,13 @@
 package com.example.interpark.data
 
+import android.os.Build
 import android.util.Log
+import androidx.annotation.RequiresApi
 import com.example.interpark.data.API.ApiClient
 import com.example.interpark.data.API.ApiClientDev
 import com.example.interpark.data.API.ResponseWrapper
+import com.example.interpark.data.types.Review
+import java.time.LocalDateTime
 
 class PerformanceRepository(private val ApiClientDev: ApiClientDev, private val ApiClient: ApiClient) {
     suspend fun getAllPerformances(): List<Performance> {
@@ -42,4 +46,19 @@ class PerformanceRepository(private val ApiClientDev: ApiClientDev, private val 
         Log.d("result", result.toString())
         return result
     }
+
+    @RequiresApi(Build.VERSION_CODES.O)
+    suspend fun fetchPerformanceReview(perfId: String?): List<Review>{
+
+        val result = listOf(Review("1234", "qdrptd", "perf_id", 4.5f, "title_string", "content_string", LocalDateTime.now(), LocalDateTime.now()),
+            Review("1234", "qdrptd", "perf_id", 4.5f, "title_string", "content_string", LocalDateTime.now(), LocalDateTime.now()),
+            Review("1234", "qdrptd", "perf_id", 4.5f, "title_string", "content_string", LocalDateTime.now(), LocalDateTime.now()),
+            Review("1234", "qdrptd", "perf_id", 4.5f, "title_string", "content_string", LocalDateTime.now(), LocalDateTime.now()),
+            Review("1234", "qdrptd", "perf_id", 4.5f, "title_string", "content_string", LocalDateTime.now(), LocalDateTime.now()),
+            Review("1234", "qdrptd", "perf_id", 4.5f, "title_string", "content_string", LocalDateTime.now(), LocalDateTime.now()),
+            Review("1234", "qdrptd", "perf_id", 4.5f, "title_string", "content_string", LocalDateTime.now(), LocalDateTime.now()),
+            Review("1234", "qdrptd", "perf_id", 4.5f, "title_string", "content_string", LocalDateTime.now(), LocalDateTime.now()))
+        return result
+    }
+
 }
