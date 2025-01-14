@@ -30,7 +30,6 @@ class EmptyFragment : Fragment() {
     private val performanceViewModel: PerformanceViewModel by viewModels { PerformanceViewModelFactory(requireContext()) }
     private val myPageViewModel: MyPageViewModel by viewModels { MyPageViewModelFactory(requireContext()) }
 
-
     private lateinit var categoryTitleTextView: TextView
     private lateinit var performanceRecyclerView: RecyclerView
     private val args: EmptyFragmentArgs by navArgs() // Safe Args로 전달된 데이터
@@ -46,12 +45,11 @@ class EmptyFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        // 뒤로가기 버튼 동작 연결
-//        val backButton: ImageButton = view.findViewById(R.id.backButton)
-//        backButton.setOnClickListener {
-//            val navController = requireActivity().findNavController(R.id.categoryNavHost)
-//            navController.navigateUp() // 이전 화면으로 이동
-//        }
+        val backButton: ImageButton = view.findViewById(R.id.backButton)
+        backButton.setOnClickListener {
+            val navController = requireActivity().findNavController(R.id.categoryNavHost)
+            navController.navigateUp() // 이전 화면으로 이동
+        }
         binding.backButton.setOnClickListener{
             findNavController().navigateUp()
         }

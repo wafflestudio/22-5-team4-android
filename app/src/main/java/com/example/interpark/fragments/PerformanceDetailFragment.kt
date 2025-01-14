@@ -1,5 +1,6 @@
 package com.example.interpark.fragments
 
+import android.os.Build
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -7,6 +8,8 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.annotation.RequiresApi
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
@@ -40,6 +43,7 @@ class PerformanceDetailFragment : Fragment() {
         return inflater.inflate(R.layout.fragment_performance_detail, container, false)
     }
 
+    @RequiresApi(Build.VERSION_CODES.O)
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
@@ -87,13 +91,18 @@ class PerformanceDetailFragment : Fragment() {
 //        val tabLayout = view.findViewById<TabLayout>(R.id.tabLayout)
         val adapter = FragmentViewPagerAdapter(this)
         viewPager.adapter = adapter
+        viewPager.offscreenPageLimit = 3
+
 //        TabLayoutMediator(tabLayout, viewPager) { tab, position ->
-//            tab.text = when (position) {
-//                0 -> "Tab 1"
-//                1 -> "Tab 2"
-//                2 -> "Tab 3"
+//            val customTab = LayoutInflater.from(context).inflate(R.layout.tab_customized, null)
+//            val tabTitle = customTab.findViewById<TextView>(R.id.tabTitle)
+//            tabTitle.text = when (position) {
+//                0 -> "공연정보"
+//                1 -> "판매정보"
+//                2 -> "관람후기"
 //                else -> null
 //            }
+//            tab.customView = customTab
 //        }.attach()
 
         // 예매하기 버튼 동작 연결
