@@ -41,7 +41,8 @@ class TimeSelectionFragment : Fragment() {
             // 선택된 시간 전달 (예: "18:00")
             val action = TimeSelectionFragmentDirections.actionTimeSelectionToSeatSelectionFragment(
                 selectedDate = args.selectedDate,
-                selectedTime = "18:00"
+                selectedTime = "18:00",
+                id = args.id
             )
             it.findNavController().navigate(action)
         }

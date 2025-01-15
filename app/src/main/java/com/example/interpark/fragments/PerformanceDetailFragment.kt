@@ -67,7 +67,7 @@ class PerformanceDetailFragment : Fragment() {
         // 예매하기 버튼 동작 연결
         binding.bookButton.setOnClickListener {
             val action = PerformanceDetailFragmentDirections
-                .actionPerformanceDetailFragmentToCalendarFragment()
+                .actionPerformanceDetailFragmentToCalendarFragment(args.title)
             findNavController().navigate(action)
         }
 

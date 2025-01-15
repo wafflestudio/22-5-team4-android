@@ -20,6 +20,7 @@ import java.util.*
 class CalendarFragment : Fragment() {
     private var _binding: FragmentCalendarBinding? = null
     private val binding get() = _binding!!
+    private val args: CalendarFragmentArgs by navArgs()
 
     private var selectedDate: String? = null
 
@@ -45,7 +46,7 @@ class CalendarFragment : Fragment() {
         binding.confirmDateButton.setOnClickListener {
             selectedDate?.let {
                 val action = CalendarFragmentDirections
-                    .actionCalendarFragmentToTimeSelectionFragment(it)
+                    .actionCalendarFragmentToTimeSelectionFragment(it, args.id)
                 findNavController().navigate(action)
             }
         }

@@ -26,6 +26,7 @@ class PerformanceRepository(private val ApiClientDev: ApiClientDev, private val 
         val result = ApiClient.getPerformances(title, category)
         return result.body()
     }
+
     suspend fun getPerformanceDetail(performanceId: String): Performance? {
         return try {
             val response = ApiClient.getPerformanceDetail(performanceId)

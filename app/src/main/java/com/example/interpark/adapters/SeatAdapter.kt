@@ -5,10 +5,10 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
+import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import com.example.interpark.R
 import com.example.interpark.data.Seat
-
 class SeatAdapter(
     private val seatList: List<Seat>,
     private val onSeatClick: (Seat) -> Unit
@@ -20,15 +20,18 @@ class SeatAdapter(
         fun bind(seat: Seat) {
             seatImage.setImageResource(
                 when {
-                    seat.isSelected -> R.drawable.ic_seat_selected
-                    seat.isAvailable -> R.drawable.ic_seat_available
-                    else -> R.drawable.ic_seat_unavailable
+                    seat.isSelected -> R.drawable.ic_seat_selected // 선택된 좌석 아이콘
+                    seat.isAvailable -> R.drawable.ic_seat_available // 예약 가능 좌석 아이콘
+                    else -> R.drawable.ic_seat_unavailable // 예약 불가 좌석 아이콘
                 }
             )
 
+            // 좌석 클릭 리스너
             itemView.setOnClickListener {
                 if (seat.isAvailable) {
-                    onSeatClick(seat)
+                    onSeatClick(seat) // 클릭 이벤트 전달
+                } else {
+                    Toast.makeText(itemView.context, "해당 좌석은 예약할 수 없습니다.", Toast.LENGTH_SHORT).show()
                 }
             }
         }
@@ -44,4 +47,11 @@ class SeatAdapter(
     }
 
     override fun getItemCount() = seatList.size
+
+    // 좌석 리스트 갱신 메서드
+    fun updateSeats(newSeats: List<Seat>) {
+        (seatList as MutableList).clear()
+        seatList.addAll(newSeats)
+        notifyDataSetChanged()
+    }
 }

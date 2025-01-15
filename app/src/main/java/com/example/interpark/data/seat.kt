@@ -1,0 +1,41 @@
+package com.example.interpark.data
+
+data class Seat(
+    val row: Int,
+    val number: Int,
+    var isAvailable: Boolean,
+    var isSelected: Boolean = false // 사용자가 선택하면 true로 변경
+)
+
+
+
+data class SeatRequest(
+    val row: Int,
+    val number: Int
+)
+
+data class CancelRequest(
+    val row: String,
+    val number: Int,
+    val performanceEventId: String
+)
+
+data class SeatResponse(
+    val availableSeats: List<AvailableSeat>
+)
+
+data class AvailableSeat(
+    val reservationId: String,
+    val seat: SeatDetail
+)
+
+data class SeatDetail(
+    val id: String,
+    val seatNumber: SeatNumber,
+    val price: Int
+)
+
+data class SeatNumber(
+    val first: Int,
+    val second: Int
+)

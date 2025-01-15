@@ -43,6 +43,9 @@
         <action
             android:id="@+id/actionCalendarFragmentToTimeSelectionFragment"
             app:destination="@id/timeSelectionFragment" />
+        <argument
+            android:name="id"
+            app:argType="string" />
     </fragment>
 
     <fragment
@@ -52,6 +55,9 @@
         tools:layout="@layout/fragment_time_selection">
         <argument
             android:name="selectedDate"
+            app:argType="string" />
+        <argument
+            android:name="id"
             app:argType="string" />
         <action
             android:id="@+id/action_timeSelection_to_seatSelectionFragment"
@@ -68,6 +74,9 @@
             app:argType="string" />
         <argument
             android:name="selectedTime"
+            app:argType="string" />
+        <argument
+            android:name="id"
             app:argType="string" />
     </fragment>
 
