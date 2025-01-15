@@ -52,7 +52,8 @@
         </androidx.appcompat.widget.Toolbar>
     </com.google.android.material.appbar.AppBarLayout>
 
-    <ScrollView
+    <androidx.core.widget.NestedScrollView
+        android:id="@+id/performanceDetailScrollView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         app:layout_constraintTop_toTopOf="@id/topBar">
@@ -185,7 +186,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent" />
         </LinearLayout>
-    </ScrollView>
+    </androidx.core.widget.NestedScrollView>
     <Button
         android:id="@+id/bookButton"
         android:layout_width="match_parent"

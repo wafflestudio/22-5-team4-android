@@ -1,5 +1,8 @@
 package com.example.interpark.fragments
 
+import android.animation.ArgbEvaluator
+import android.animation.ObjectAnimator
+import android.graphics.drawable.ColorDrawable
 import android.os.Build
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -7,9 +10,11 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.ImageView
+import android.widget.ScrollView
 import android.widget.TextView
 import androidx.annotation.RequiresApi
 import androidx.core.content.ContextCompat
+import androidx.core.widget.NestedScrollView
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
@@ -23,6 +28,7 @@ import com.example.interpark.adapters.FragmentViewPagerAdapter
 import com.example.interpark.databinding.FragmentPerformanceDetailBinding
 import com.example.interpark.viewModels.PerformanceDetailViewModel
 import com.example.interpark.viewModels.PerformanceDetailViewModelFactory
+import com.google.android.material.appbar.AppBarLayout
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
 import org.w3c.dom.Text
@@ -87,9 +93,12 @@ class PerformanceDetailFragment : Fragment() {
             }
         }
 
+
+        val topBar = view.findViewById<AppBarLayout>(R.id.topBar)
         val viewPager = view.findViewById<ViewPager2>(R.id.viewPager)
 //        val tabLayout = view.findViewById<TabLayout>(R.id.tabLayout)
         val adapter = FragmentViewPagerAdapter(this)
+        val scrollView = view.findViewById<NestedScrollView>(R.id.performanceDetailScrollView)
         viewPager.adapter = adapter
         viewPager.offscreenPageLimit = 3
 
@@ -104,6 +113,31 @@ class PerformanceDetailFragment : Fragment() {
 //            }
 //            tab.customView = customTab
 //        }.attach()
+
+        tabLayout.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
+            override fun onTabSelected(tab: TabLayout.Tab?) {
+                scrollView.post {
+                    val tabLocation = IntArray(2)
+                    tabLayout.getLocationOnScreen(tabLocation)
+                    val tabTopY = tabLocation[1]
+
+                    val scrollViewLocation = IntArray(2)
+                    scrollView.getLocationOnScreen(scrollViewLocation)
+                    val scrollViewTopY = scrollViewLocation[1]
+
+                    // AppBarLayout의 높이 가져오기
+                    val appBarHeight = topBar.height
+
+                    // TabLayout이 화면 맨 위로 스크롤되되 AppBarLayout 높이만큼 오프셋 유지
+                    val scrollOffset = tabTopY - scrollViewTopY - appBarHeight
+                    scrollView.smoothScrollTo(0, scrollView.scrollY + scrollOffset)
+                }
+            }
+
+            override fun onTabUnselected(tab: TabLayout.Tab?) {}
+            override fun onTabReselected(tab: TabLayout.Tab?) {}
+        })
+
 
         // 예매하기 버튼 동작 연결
         val bookButton = view.findViewById<Button>(R.id.bookButton)
