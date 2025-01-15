@@ -5,6 +5,7 @@ import android.animation.ObjectAnimator
 import android.graphics.drawable.ColorDrawable
 import android.os.Build
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -55,10 +56,7 @@ class PerformanceDetailFragment : Fragment() {
 
         // ViewModel을 통해 공연 상세 정보 가져오기
         performanceDetailViewModel.fetchPerformanceDetail(args.title)
-
         val titleTextView = view.findViewById<TextView>(R.id.titleTextView)
-        val contentTextView = view.findViewById<TextView>(R.id.contentTextView)
-        val detailTextView = view.findViewById<TextView>(R.id.detailTextView)
         val dateTextView = view.findViewById<TextView>(R.id.dateTextView)
         val categoryTextView = view.findViewById<TextView>(R.id.categoryTextView)
         val locationTextView = view.findViewById<TextView>(R.id.locationTextView)
@@ -69,7 +67,7 @@ class PerformanceDetailFragment : Fragment() {
             performance?.let {
                     titleTextView.text = it.title
 //                    contentTextView.text = it.content
-                    detailTextView.text = it.detail
+//                    detailTextView.text = it.detail
                     dateTextView.text = it.date.joinToString { date -> date.toString() }
                     categoryTextView.text = it.category
                     locationTextView.text = it.location
@@ -77,42 +75,36 @@ class PerformanceDetailFragment : Fragment() {
 //                    backdropImageView.load(it.backdropUrl)
 //                    detailImageView.load(it.detail)
 
-//                    // 포스터 이미지 로드 (Glide 사용, 플레이스홀더 추가)
-//                    Glide.with(this@PerformanceDetailFragment)
                     title.text = it.title
                     title.isSelected = true
-                    // 포스터 이미지 로드 (Glide 사용, 플레이스홀더 추가)
-                    Glide.with(this@PerformanceDetailFragment)
-//                        .load(it.posterUrl)
-                        .load(R.drawable.performance3)
-                        .placeholder(R.drawable.performance3) // 로드 중 보여줄 이미지
-                        .error(R.drawable.performance3)       // 오류 시 보여줄 이미지
-                        .transition(DrawableTransitionOptions.withCrossFade())
-                        .into(posterImageView)
+
 
             }
         }
 
+        val performanceArgs = Bundle().apply {
+            putString("key", args.title)
+        }
 
         val topBar = view.findViewById<AppBarLayout>(R.id.topBar)
         val viewPager = view.findViewById<ViewPager2>(R.id.viewPager)
-//        val tabLayout = view.findViewById<TabLayout>(R.id.tabLayout)
-        val adapter = FragmentViewPagerAdapter(this)
+        val tabLayout = view.findViewById<TabLayout>(R.id.tabLayout)
+        val adapter = FragmentViewPagerAdapter(this, performanceArgs)
         val scrollView = view.findViewById<NestedScrollView>(R.id.performanceDetailScrollView)
         viewPager.adapter = adapter
         viewPager.offscreenPageLimit = 3
 
-//        TabLayoutMediator(tabLayout, viewPager) { tab, position ->
-//            val customTab = LayoutInflater.from(context).inflate(R.layout.tab_customized, null)
-//            val tabTitle = customTab.findViewById<TextView>(R.id.tabTitle)
-//            tabTitle.text = when (position) {
-//                0 -> "공연정보"
-//                1 -> "판매정보"
-//                2 -> "관람후기"
-//                else -> null
-//            }
-//            tab.customView = customTab
-//        }.attach()
+        TabLayoutMediator(tabLayout, viewPager) { tab, position ->
+            val customTab = LayoutInflater.from(context).inflate(R.layout.tab_customized, null)
+            val tabTitle = customTab.findViewById<TextView>(R.id.tabTitle)
+            tabTitle.text = when (position) {
+                0 -> "공연정보"
+                1 -> "판매정보"
+                2 -> "관람후기"
+                else -> null
+            }
+            tab.customView = customTab
+        }.attach()
 
         tabLayout.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
             override fun onTabSelected(tab: TabLayout.Tab?) {

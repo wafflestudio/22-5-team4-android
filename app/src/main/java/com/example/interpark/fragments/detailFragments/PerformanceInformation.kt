@@ -1,6 +1,7 @@
 package com.example.interpark.fragments.detailFragments
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -11,6 +12,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
+import coil.load
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
 import com.example.interpark.R
@@ -25,7 +27,6 @@ import com.example.interpark.viewModels.PerformanceDetailViewModelFactory
 class PerformanceInformation : Fragment() {
     private var _binding: FragmentPerformanceDetailPerformanceInformationBinding? = null
     private val binding get() = _binding!!
-    private val args: PerformanceDetailFragmentArgs by navArgs()
     private val performanceDetailViewModel: PerformanceDetailViewModel by viewModels {
         PerformanceDetailViewModelFactory(requireContext())
     }
@@ -35,11 +36,19 @@ class PerformanceInformation : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         _binding = FragmentPerformanceDetailPerformanceInformationBinding.inflate(inflater, container, false)
-        return inflater.inflate(R.layout.fragment_performance_detail_performance_information, container, false)
+        return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        val perfId = arguments?.getString("key") ?: "No Data"
+        performanceDetailViewModel.fetchPerformanceDetail(perfId)
+        performanceDetailViewModel.performanceDetail.observe(viewLifecycleOwner) { performance ->
+            binding.apply{
+                detailImageView.load(performance.detail)
+            }
+        }
 
     }
 

@@ -22,7 +22,6 @@ class PerformanceDetailViewModel(private val repository: PerformanceRepository) 
     private val _performanceReviews = MutableLiveData<List<Review>>()
     val performanceReviews: LiveData<List<Review>> get() = _performanceReviews
 
-    fun fetchPerformanceDetail(id: String?) {
     fun fetchPerformanceDetail(id: String) {
         viewModelScope.launch {
             val performance = withContext(Dispatchers.IO) {

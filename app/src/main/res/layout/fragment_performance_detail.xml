@@ -68,11 +68,13 @@
             <!-- 포스터 이미지 -->
             <ImageView
                 android:id="@+id/posterImageView"
-                android:layout_width="match_parent"
-                android:layout_height="200dp"
+                android:layout_width="150dp"
+                android:layout_height="220dp"
+                android:layout_gravity="center"
+                android:layout_marginTop="40dp"
                 android:scaleType="fitCenter"
-                android:layout_marginTop="16dp"
-                app:srcCompat="@drawable/performance3" />
+                app:srcCompat="@drawable/performance1"
+                android:elevation="8dp" />
 
 
             <!-- 공연 제목 -->
@@ -160,27 +162,14 @@
                     android:textStyle="bold"/>
             </LinearLayout>
             <!-- 공연 내용 -->
-            <TextView
-                android:id="@+id/contentTextView"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="공연 내용"
-                android:textSize="16sp"
-                android:layout_marginTop="4dp" />
-
-            <!-- 공연 상세 설명 -->
-            <TextView
-                android:id="@+id/detailTextView"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="상세 설명"
-                android:textSize="16sp"
-                android:layout_marginTop="4dp" />
 
             <com.google.android.material.tabs.TabLayout
                 android:id="@+id/tabLayout"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"/>
+                android:layout_height="wrap_content"
+                app:tabIndicatorColor="@color/purple_500"
+                app:tabSelectedTextColor="@color/purple_500"
+                app:tabTextColor="@color/black"/>
             <androidx.viewpager2.widget.ViewPager2
                 android:id="@+id/viewPager"
                 android:layout_width="match_parent"
