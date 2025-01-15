@@ -50,7 +50,6 @@ class HomeFragment : Fragment() {
 
         // 어댑터 설정
         homeCategoryAdapter = HomeCategoryAdapter(categories) { category ->
-            Toast.makeText(context, "Clicked: ${category.name}", Toast.LENGTH_SHORT).show()
             val navController = requireActivity().findNavController(R.id.homeNavHost)
             val action = HomeFragmentDirections
                 .actionHomeFragmentToEmptyFragment(category.name)
@@ -76,6 +75,6 @@ class HomeFragment : Fragment() {
 
 
     private fun categoryRankCategoryListClicked(category: Category){
-        Toast.makeText(context, "Clicked: ${category.name}", Toast.LENGTH_SHORT).show()
+//        Toast.makeText(context, "Clicked: ${category.name}", Toast.LENGTH_SHORT).show()
     }
 }
