@@ -1,32 +1,19 @@
-package com.example.interpark.fragments
+package com.example.interpark.fragments.MyPage
 
-import android.media.Image
 import android.os.Bundle
-import android.os.Handler
-import android.os.Looper
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.EditText
 import android.widget.ImageView
-import android.widget.LinearLayout
-import android.widget.ScrollView
-import android.widget.TextView
-import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.findNavController
-import androidx.navigation.fragment.findNavController
 import com.example.interpark.R
-import com.example.interpark.databinding.FragmentEmptyBinding
 import com.example.interpark.databinding.FragmentMySignupBinding
 import com.example.interpark.viewModels.MyPageViewModel
 import com.example.interpark.viewModels.MyPageViewModelFactory
-import com.example.interpark.viewModels.PerformanceViewModel
-import com.example.interpark.viewModels.PerformanceViewModelFactory
 
 
 class SignUpFragment : Fragment() {

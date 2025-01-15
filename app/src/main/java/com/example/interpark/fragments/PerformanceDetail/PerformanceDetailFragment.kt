@@ -1,20 +1,14 @@
-package com.example.interpark.fragments
+package com.example.interpark.fragments.PerformanceDetail
 
-import android.animation.ArgbEvaluator
-import android.animation.ObjectAnimator
-import android.graphics.drawable.ColorDrawable
 import android.os.Build
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.ImageView
-import android.widget.ScrollView
 import android.widget.TextView
 import androidx.annotation.RequiresApi
-import androidx.core.content.ContextCompat
 import androidx.core.widget.NestedScrollView
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
@@ -22,17 +16,14 @@ import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import coil.load
 import androidx.viewpager2.widget.ViewPager2
-import com.bumptech.glide.Glide
-import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
 import com.example.interpark.R
-import com.example.interpark.adapters.FragmentViewPagerAdapter
+import com.example.interpark.adapters.ViewPagers.FragmentViewPagerAdapter
 import com.example.interpark.databinding.FragmentPerformanceDetailBinding
 import com.example.interpark.viewModels.PerformanceDetailViewModel
 import com.example.interpark.viewModels.PerformanceDetailViewModelFactory
 import com.google.android.material.appbar.AppBarLayout
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
-import org.w3c.dom.Text
 
 class PerformanceDetailFragment : Fragment() {
     private var _binding: FragmentPerformanceDetailBinding? = null

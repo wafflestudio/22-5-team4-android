@@ -7,7 +7,7 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.interpark.R
-import com.example.interpark.data.CategoryItem
+import com.example.interpark.data.types.CategoryItem
 
 class HomeCategoryAdapter(
     private val items: List<CategoryItem.Category>,

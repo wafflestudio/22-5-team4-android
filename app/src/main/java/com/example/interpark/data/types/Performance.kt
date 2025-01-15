@@ -1,6 +1,5 @@
-package com.example.interpark.data
+package com.example.interpark.data.types
 
-import com.google.gson.annotations.SerializedName
 import com.squareup.moshi.Json
 import java.time.LocalDate
 

@@ -5,8 +5,13 @@ import android.util.Log
 import androidx.annotation.RequiresApi
 import com.example.interpark.data.API.ApiClient
 import com.example.interpark.data.API.ApiClientDev
-import com.example.interpark.data.API.ResponseWrapper
+import com.example.interpark.data.types.Performance
 import com.example.interpark.data.types.Review
+import com.example.interpark.data.types.SignInRequest
+import com.example.interpark.data.types.SignInResponse
+import com.example.interpark.data.types.SignUpRequest
+import com.example.interpark.data.types.SignUpResponse
+import com.example.interpark.data.types.User
 import java.time.LocalDateTime
 
 class PerformanceRepository(private val ApiClientDev: ApiClientDev, private val ApiClient: ApiClient) {

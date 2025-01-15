@@ -1,4 +1,4 @@
-package com.example.interpark.fragments
+package com.example.interpark.fragments.CategoryPage
 
 import android.os.Bundle
 import android.util.Log
@@ -11,7 +11,7 @@ import androidx.navigation.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import com.example.interpark.R
 import com.example.interpark.adapters.CategoryAdapter
-import com.example.interpark.data.CategoryItem
+import com.example.interpark.data.types.CategoryItem
 import com.example.interpark.databinding.FragmentCategoryBinding
 import com.example.interpark.viewModels.PerformanceViewModel
 import com.example.interpark.viewModels.PerformanceViewModelFactory

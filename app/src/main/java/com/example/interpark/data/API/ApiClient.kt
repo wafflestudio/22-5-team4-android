@@ -1,14 +1,12 @@
 package com.example.interpark.data.API
 
-import com.example.interpark.data.Performance
-import com.example.interpark.data.SignInRequest
-import com.example.interpark.data.SignInResponse
-import com.example.interpark.data.SignUpRequest
-import com.example.interpark.data.SignUpResponse
-import com.example.interpark.data.User
-import com.example.interpark.data.UserProfile
+import com.example.interpark.data.types.Performance
+import com.example.interpark.data.types.SignInRequest
+import com.example.interpark.data.types.SignInResponse
+import com.example.interpark.data.types.SignUpRequest
+import com.example.interpark.data.types.SignUpResponse
+import com.example.interpark.data.types.User
 import com.squareup.moshi.JsonClass
-import retrofit2.Call
 import retrofit2.Response
 import retrofit2.http.Body
 import retrofit2.http.GET

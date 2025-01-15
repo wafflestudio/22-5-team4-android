@@ -1,4 +1,4 @@
-package com.example.interpark.fragments
+package com.example.interpark.fragments.bookFlow
 
 import android.app.AlertDialog
 import android.os.Bundle
@@ -12,7 +12,7 @@ import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.interpark.R
 import com.example.interpark.adapters.SeatAdapter
-import com.example.interpark.data.Seat
+import com.example.interpark.data.types.Seat
 import com.example.interpark.databinding.FragmentSeatSelectionBinding
 
 class SeatSelectionFragment : Fragment(R.layout.fragment_seat_selection) {

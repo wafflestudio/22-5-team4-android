@@ -4,7 +4,6 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
@@ -14,9 +13,9 @@ import com.example.interpark.R
 import com.example.interpark.adapters.HomeCategoryAdapter
 import com.example.interpark.adapters.HomeCategoryRankCategory
 import com.example.interpark.adapters.HomeCategoryRankCategoryListAdapter
-import com.example.interpark.data.Category
-import com.example.interpark.data.CategoryItem
-import com.example.interpark.data.list_categories
+import com.example.interpark.data.types.Category
+import com.example.interpark.data.types.CategoryItem
+import com.example.interpark.data.types.list_categories
 import com.example.interpark.databinding.FragmentHomeBinding
 
 class HomeFragment : Fragment() {

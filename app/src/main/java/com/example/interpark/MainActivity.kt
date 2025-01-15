@@ -2,12 +2,11 @@ package com.example.interpark
 
 import android.os.Build
 import android.os.Bundle
-import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import androidx.viewpager2.widget.ViewPager2
 import android.widget.ImageButton
 import androidx.annotation.RequiresApi
-import com.example.interpark.adapters.ViewPagerAdapter
+import com.example.interpark.adapters.ViewPagers.ViewPagerAdapter
 
 
 class MainActivity : AppCompatActivity() {

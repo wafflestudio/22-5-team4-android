@@ -1,10 +1,4 @@
-package com.example.interpark.data
-
-import retrofit2.Call
-import retrofit2.http.Body
-import retrofit2.http.GET
-import retrofit2.http.Header
-import retrofit2.http.POST
+package com.example.interpark.data.types
 
 // 요청에 필요한 데이터 클래스 정의
 data class SignUpRequest(

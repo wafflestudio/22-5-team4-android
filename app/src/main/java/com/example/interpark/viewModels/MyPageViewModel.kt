@@ -9,7 +9,7 @@ import com.example.interpark.data.PerformanceRepository
 import com.example.interpark.data.SharedPreferences.deleteAccessToken
 import com.example.interpark.data.SharedPreferences.getAccessToken
 import com.example.interpark.data.SharedPreferences.saveAccessToken
-import com.example.interpark.data.User
+import com.example.interpark.data.types.User
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext

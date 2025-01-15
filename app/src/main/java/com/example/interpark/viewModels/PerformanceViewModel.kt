@@ -5,9 +5,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.interpark.R
-import com.example.interpark.data.CategoryItem
-import com.example.interpark.data.Performance
+import com.example.interpark.data.types.Performance
 import com.example.interpark.data.PerformanceRepository
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch

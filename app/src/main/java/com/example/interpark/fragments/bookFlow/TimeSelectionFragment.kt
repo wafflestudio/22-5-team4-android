@@ -1,4 +1,4 @@
-package com.example.interpark.fragments
+package com.example.interpark.fragments.bookFlow
 
 import android.os.Bundle
 import android.view.LayoutInflater

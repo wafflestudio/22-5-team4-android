@@ -1,16 +1,12 @@
-package com.example.interpark.adapters
+package com.example.interpark.adapters.ViewPagers
 
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
 import androidx.viewpager2.adapter.FragmentStateAdapter
-import com.example.interpark.fragments.CategoryFragment
-import com.example.interpark.fragments.CategoryFragmentHome
-import com.example.interpark.fragments.HomeFragment
+import com.example.interpark.fragments.CategoryPage.CategoryFragmentHome
 import com.example.interpark.fragments.HomeFragmentHome
-import com.example.interpark.fragments.MyFragment
-import com.example.interpark.fragments.MyFragmentHome
-import com.example.interpark.fragments.SearchFragment
-import com.example.interpark.fragments.SearchFragmentHome
+import com.example.interpark.fragments.MyPage.MyFragmentHome
+import com.example.interpark.fragments.SearchPage.SearchFragmentHome
 
 class ViewPagerAdapter(activity: FragmentActivity) : FragmentStateAdapter(activity) {
     private val fragments = listOf(

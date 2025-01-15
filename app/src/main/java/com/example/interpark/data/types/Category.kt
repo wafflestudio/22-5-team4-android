@@ -1,4 +1,4 @@
-package com.example.interpark.data
+package com.example.interpark.data.types
 
 
 data class Category(val name: String, val kname: String, val iconResId: Int)

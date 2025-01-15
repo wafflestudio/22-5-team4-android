@@ -14,7 +14,7 @@
 
     <fragment
         android:id="@+id/categoryFragment"
-        android:name="com.example.interpark.fragments.CategoryFragment"
+        android:name="com.example.interpark.fragments.CategoryPage.CategoryFragment"
         android:label="카테고리">
         <action
             android:id="@+id/action_categoryFragment_to_emptyFragment"
@@ -23,7 +23,7 @@
 
     <fragment
         android:id="@+id/emptyFragment"
-        android:name="com.example.interpark.fragments.EmptyFragment"
+        android:name="com.example.interpark.fragments.CategoryPage.EmptyFragment"
         android:label="공연 목록">
         <argument
             android:name="category"
@@ -35,7 +35,7 @@
 
     <fragment
         android:id="@+id/performanceDetailFragment"
-        android:name="com.example.interpark.fragments.PerformanceDetailFragment"
+        android:name="com.example.interpark.fragments.PerformanceDetail.PerformanceDetailFragment"
         android:label="공연 제목">
         <argument
             android:name="title"
@@ -47,7 +47,7 @@
 
     <fragment
         android:id="@+id/calendarFragment"
-        android:name="com.example.interpark.fragments.CalendarFragment">
+        android:name="com.example.interpark.fragments.bookFlow.CalendarFragment">
         <action
             android:id="@+id/actionCalendarFragmentToTimeSelectionFragment"
             app:destination="@id/timeSelectionFragment" />
@@ -55,7 +55,7 @@
 
     <fragment
         android:id="@+id/timeSelectionFragment"
-        android:name="com.example.interpark.fragments.TimeSelectionFragment"
+        android:name="com.example.interpark.fragments.bookFlow.TimeSelectionFragment"
         android:label="Time Selection"
         tools:layout="@layout/fragment_time_selection">
         <argument
@@ -68,7 +68,7 @@
 
     <fragment
         android:id="@+id/seatSelectionFragment"
-        android:name="com.example.interpark.fragments.SeatSelectionFragment"
+        android:name="com.example.interpark.fragments.bookFlow.SeatSelectionFragment"
         android:label="Seat Selection"
         tools:layout="@layout/fragment_seat_selection">
         <argument

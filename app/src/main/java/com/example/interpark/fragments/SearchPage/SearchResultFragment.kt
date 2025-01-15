@@ -1,7 +1,6 @@
-package com.example.interpark.fragments
+package com.example.interpark.fragments.SearchPage
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -15,7 +14,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.interpark.R
 import com.example.interpark.adapters.PerformanceAdapter
-import com.example.interpark.data.Performance
+import com.example.interpark.data.types.Performance
 import com.example.interpark.databinding.FragmentSearchResultBinding
 import com.example.interpark.viewModels.PerformanceViewModel
 import com.example.interpark.viewModels.PerformanceViewModelFactory

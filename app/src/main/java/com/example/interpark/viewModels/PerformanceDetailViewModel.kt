@@ -7,7 +7,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.interpark.data.Performance
+import com.example.interpark.data.types.Performance
 import com.example.interpark.data.PerformanceRepository
 import com.example.interpark.data.types.Review
 import kotlinx.coroutines.Dispatchers
