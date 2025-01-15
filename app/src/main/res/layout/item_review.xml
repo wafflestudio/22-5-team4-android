@@ -17,7 +17,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:isIndicator="true"
-            android:progressTint="#FFD700"/>
+            android:progressTint="#FFD700"
+            android:layout_marginBottom="-10dp"/>
 
         <TextView
             android:id="@+id/reviewTitle"
@@ -27,25 +28,31 @@
             android:layout_marginEnd="20dp"
             android:textSize="24sp"/>
 
-        <TextView
-            android:id="@+id/author"
+        <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="qdrp**"
-            android:layout_marginEnd="20dp"/>
+            android:orientation="horizontal">
 
-        <TextView
-            android:id="@+id/replies"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="qdrp**"
-            android:layout_marginEnd="20dp"/>
+            <TextView
+                android:id="@+id/author"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="qdrp**"
+                android:layout_marginEnd="20dp"/>
 
-        <TextView
-            android:id="@+id/views"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="qdrp**"/>
+            <TextView
+                android:id="@+id/replies"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="qdrp**"
+                android:layout_marginEnd="20dp"/>
+
+            <TextView
+                android:id="@+id/views"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="qdrp**"/>
+        </LinearLayout>
 
     </LinearLayout>
 
