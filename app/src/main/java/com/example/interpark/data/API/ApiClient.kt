@@ -62,7 +62,7 @@ interface ApiClient {
     @GET("/api/v1/users/me")
     suspend fun me(
         @Header("Authorization") token:String
-    ):User?
+    ): User?
 
     @GET("/api/v1/performance/search")
     suspend fun getPerformances(
@@ -70,7 +70,7 @@ interface ApiClient {
         @Query("category") title: String?
     ): Response<List<Performance>>
 
-    @GET("api/v1/performance/{performanceId}")
+    @GET("/api/v1/performance/{performanceId}")
     suspend fun getPerformanceDetail(
         @Path("performanceId") performanceId: String
     ): Response<Performance>
