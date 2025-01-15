@@ -20,14 +20,20 @@ class PerformanceViewModel(private val repository: PerformanceRepository) : View
     private val _performanceList = MutableLiveData<List<Performance>>(listOf())
     val performanceList: LiveData<List<Performance>> get() = _performanceList
 
-    fun fetchPerformanceList(category: String?, title: String?){
+    fun fetchPerformanceList(category: String?, title: String?) {
         viewModelScope.launch {
-            val performances = withContext(Dispatchers.IO){
-                repository.fetchPerformances(category, title)
+            val performances = withContext(Dispatchers.IO) {
+                try {
+                    repository.getPerformances(category, title) ?: listOf() // null일 경우 빈 리스트 반환
+                } catch (e: Exception) {
+                    Log.e("PerformanceViewModel", "Error fetching performances", e)
+                    listOf<Performance>() // 오류가 발생하면 빈 리스트 반환
+                }
             }
             _performanceList.postValue(performances)
         }
     }
+
 
     fun fetchPerformanceListAnyMatch(category: String?, title: String?) {
         viewModelScope.launch {

@@ -70,11 +70,11 @@ class CategoryFragment : Fragment() {
     private fun getCategoryItems(): List<CategoryItem> {
         return listOf(
             // 카테고리 항목
-            CategoryItem.Category("뮤지컬", R.drawable.ic_musical),
-            CategoryItem.Category("콘서트", R.drawable.ic_concert),
-            CategoryItem.Category("연극", R.drawable.ic_drama),
-            CategoryItem.Category("클래식/무용", R.drawable.ic_classic),
-            CategoryItem.Category("스포츠", R.drawable.ic_sports),
+            CategoryItem.Category("MUSICAL", R.drawable.ic_musical),
+            CategoryItem.Category("CONCERT", R.drawable.ic_concert),
+            CategoryItem.Category("PLAY", R.drawable.ic_drama),
+            CategoryItem.Category("CLASSIC", R.drawable.ic_classic),
+            CategoryItem.Category("SPORT", R.drawable.ic_sports),
 
             // Footer 항목
             CategoryItem.FooterItem("랭킹", R.drawable.ic_chevron_right),

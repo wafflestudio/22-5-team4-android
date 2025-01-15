@@ -25,7 +25,6 @@ class PerformanceAdapter(
             title.text = performance.title
             location.text = performance.location
             dateRange.text = "${performance.date.first()} - ${performance.date.last()}"
-
             imageView.load(performance.posterUrl)
             itemView.setOnClickListener{
                 onClick(performance)

@@ -8,6 +8,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
+import coil.load
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
 import com.example.interpark.R
@@ -42,20 +43,23 @@ class PerformanceDetailFragment : Fragment() {
             performance?.let {
                 binding.apply {
                     titleTextView.text = it.title
-                    contentTextView.text = it.content
-                    detailTextView.text = it.detail
+//                    contentTextView.text = it.content
+
                     dateTextView.text = it.date.joinToString { date -> date.toString() }
                     categoryTextView.text = it.category
                     locationTextView.text = it.location
+                    posterImageView.load(it.posterUrl)
+                    backdropImageView.load(it.backdropUrl)
+                    detailImageView.load(it.detail)
 
-                    // 포스터 이미지 로드 (Glide 사용, 플레이스홀더 추가)
-                    Glide.with(this@PerformanceDetailFragment)
+//                    // 포스터 이미지 로드 (Glide 사용, 플레이스홀더 추가)
+//                    Glide.with(this@PerformanceDetailFragment)
 //                        .load(it.posterUrl)
-                        .load(R.drawable.performance3)
-                        .placeholder(R.drawable.performance3) // 로드 중 보여줄 이미지
-                        .error(R.drawable.performance3)       // 오류 시 보여줄 이미지
-                        .transition(DrawableTransitionOptions.withCrossFade())
-                        .into(posterImageView)
+//                        .load(R.drawable.performance3)
+//                        .placeholder(R.drawable.performance3) // 로드 중 보여줄 이미지
+//                        .error(R.drawable.performance3)       // 오류 시 보여줄 이미지
+//                        .transition(DrawableTransitionOptions.withCrossFade())
+//                        .into(posterImageView)
                 }
             }
         }

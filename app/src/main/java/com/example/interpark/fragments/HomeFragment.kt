@@ -40,11 +40,12 @@ class HomeFragment : Fragment() {
 
         // 데이터 설정
         val categories = listOf(
-            CategoryItem.Category("뮤지컬", R.drawable.ic_musical),
-            CategoryItem.Category("콘서트", R.drawable.ic_concert),
-            CategoryItem.Category("연극", R.drawable.ic_drama),
-            CategoryItem.Category("클래식/무용", R.drawable.ic_classic),
-            CategoryItem.Category("스포츠", R.drawable.ic_sports),
+            CategoryItem.Category("MUSICAL", R.drawable.ic_musical),
+            CategoryItem.Category("CONCERT", R.drawable.ic_concert),
+            CategoryItem.Category("PLAY", R.drawable.ic_drama),
+            CategoryItem.Category("CLASSIC", R.drawable.ic_classic),
+            CategoryItem.Category("SPORT", R.drawable.ic_sports),
+
         )
 
         // 어댑터 설정
@@ -54,8 +55,6 @@ class HomeFragment : Fragment() {
             val action = HomeFragmentDirections
                 .actionHomeFragmentToEmptyFragment(category.name)
             navController.navigate(action)
-
-
         }
         binding.homeCategoryRecyclerView.adapter = homeCategoryAdapter
 

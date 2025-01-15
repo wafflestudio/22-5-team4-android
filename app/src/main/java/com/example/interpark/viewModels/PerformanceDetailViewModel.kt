@@ -16,7 +16,7 @@ class PerformanceDetailViewModel(private val repository: PerformanceRepository) 
     private val _performanceDetail = MutableLiveData<Performance>()
     val performanceDetail: LiveData<Performance> get() = _performanceDetail
 
-    fun fetchPerformanceDetail(id: String?) {
+    fun fetchPerformanceDetail(id: String) {
         viewModelScope.launch {
             val performance = withContext(Dispatchers.IO) {
                 repository.fetchPerformanceById(id) // 서버에서 ID로 공연 정보 가져오기

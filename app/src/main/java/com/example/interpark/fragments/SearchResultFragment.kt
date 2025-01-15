@@ -61,7 +61,7 @@ class SearchResultFragment : Fragment() {
         }
 
         // ViewModel을 통해 검색어에 해당하는 공연 목록 가져오기
-        performanceViewModel.fetchPerformanceListAnyMatch(category = null, title = args.searchtitle)
+        performanceViewModel.fetchPerformanceList(category = null, title = args.searchtitle)
     }
 
     private fun setRecyclerView(data: List<Performance>) {
