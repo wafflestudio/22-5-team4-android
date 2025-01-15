@@ -9,6 +9,7 @@ import android.view.ViewGroup
 import androidx.annotation.RequiresApi
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -34,7 +35,7 @@ class Reviews : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         _binding = FragmentPerformanceDetailReviewsBinding.inflate(inflater, container, false)
-        return inflater.inflate(R.layout.fragment_performance_detail_reviews, container, false)
+        return binding.root
     }
 
     @RequiresApi(Build.VERSION_CODES.O)
@@ -47,6 +48,11 @@ class Reviews : Fragment() {
             setRecyclerView(reviews)
         }
         performanceDetailViewModel.fetchPerformanceReviews("")
+
+        binding.NavWriteReviewButton.setOnClickListener {
+            val action = PerformanceDetailFragmentDirections.actionPerformanceDetailFragmentToWriteReviewFragment("")
+            findNavController().navigate(action)
+        }
     }
 
     private fun setRecyclerView(data: List<Review>?){

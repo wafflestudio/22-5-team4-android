@@ -43,6 +43,33 @@
         <action
             android:id="@+id/actionPerformanceDetailFragmentToCalendarFragment"
             app:destination="@id/calendarFragment"/>
+        <action
+            android:id="@+id/actionPerformanceDetailFragmentToWriteReviewFragment"
+            app:destination="@id/performanceDetailWriteReviewFragment"/>
+    </fragment>
+
+    <fragment
+        android:id="@+id/performanceDetailReviewFragment"
+        android:name="com.example.interpark.fragments.PerformanceDetail.Reviews"
+        android:label="공연 제목">
+        <argument
+            android:name="title"
+            app:argType="string" />
+        <action
+            android:id="@+id/actionReviewListFragmentToWriteReviewFragment"
+            app:destination="@id/performanceDetailWriteReviewFragment"/>
+    </fragment>
+
+    <fragment
+        android:id="@+id/performanceDetailWriteReviewFragment"
+        android:name="com.example.interpark.fragments.PerformanceDetail.WriteReview"
+        android:label="공연 제목">
+        <argument
+            android:name="title"
+            app:argType="string" />
+        <action
+            android:id="@+id/actionWriteReviewFragmentToPerformanceDetailFragment"
+            app:destination="@id/performanceDetailFragment"/>
     </fragment>
 
     <fragment
