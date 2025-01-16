@@ -6,8 +6,7 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.interpark.R
-import com.example.interpark.data.Category
-import com.example.interpark.data.CategoryItem
+import com.example.interpark.data.types.Category
 
 data class HomeCategoryRankCategory(
     val category: Category,

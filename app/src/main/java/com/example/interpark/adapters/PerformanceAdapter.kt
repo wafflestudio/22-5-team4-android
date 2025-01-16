@@ -8,7 +8,7 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import coil.load
 import com.example.interpark.R
-import com.example.interpark.data.Performance
+import com.example.interpark.data.types.Performance
 
 class PerformanceAdapter(
     private val performances: List<Performance>,
