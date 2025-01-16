@@ -70,6 +70,11 @@ class PerformanceRepository(private val ApiClientDev: ApiClientDev, private val 
         return result
     }
 
+    suspend fun refresh_token(): String?{
+        val result = ApiClient.refresh_token()
+        return result.body()?.accessToken
+    }
+
     @RequiresApi(Build.VERSION_CODES.O)
     suspend fun fetchPerformanceReview(perfId: String?): List<Review>{
 

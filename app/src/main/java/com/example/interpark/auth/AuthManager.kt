@@ -33,6 +33,10 @@ object AuthManager {
         clearSession(context)
     }
 
+    fun refreshToken(context: Context, token: String) {
+        this.authToken = token
+    }
+
     fun isLoggedIn(): Boolean = isLoggedIn
 
     fun getUserId(): String? = userId
