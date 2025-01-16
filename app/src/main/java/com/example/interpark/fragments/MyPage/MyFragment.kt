@@ -48,10 +48,10 @@ class MyFragment : Fragment() {
             myPageViewModel.logout()
         }
 
-        myPageViewModel.user.observe(viewLifecycleOwner){ user ->
+        myPageViewModel.userName.observe(viewLifecycleOwner){ user ->
             Log.d("user-value: ", user.toString())
             if(user != null){
-                nickNamePrompt.text = "반갑습니다 ${user.nickname}님"
+                nickNamePrompt.text = "반갑습니다 ${user}님"
             }
         }
 

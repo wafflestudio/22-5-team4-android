@@ -5,11 +5,11 @@ import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.interpark.auth.AuthManager
 import com.example.interpark.data.PerformanceRepository
 import com.example.interpark.data.SharedPreferences.deleteAccessToken
 import com.example.interpark.data.SharedPreferences.getAccessToken
-import com.example.interpark.data.SharedPreferences.saveAccessToken
-import com.example.interpark.data.types.User
+import com.google.rpc.context.AttributeContext.Auth
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
@@ -17,14 +17,13 @@ import kotlinx.coroutines.withContext
 class MyPageViewModel(private val repository: PerformanceRepository, private val appContext: Context) : ViewModel() {
 
     val isLoggedIn = MutableLiveData<Boolean>().apply{
-        value = getAccessToken(appContext) != null
+        value = AuthManager.isLoggedIn()
     }
 
-    val user = MutableLiveData<User?>()
-
-    fun updateLoggedIn(){
-        isLoggedIn.value = getAccessToken(appContext) != null
+    val userName = MutableLiveData<String?>().apply {
+        value = AuthManager.getUserId()
     }
+
     fun signup(username: String, password: String, nickname: String, phoneNumber: String, email: String) {
         viewModelScope.launch {
             val result = withContext(Dispatchers.IO){
@@ -38,46 +37,22 @@ class MyPageViewModel(private val repository: PerformanceRepository, private val
     fun login(username: String, password: String) {
         viewModelScope.launch {
             val result = withContext(Dispatchers.IO){
-                repository.signIn(username, password)
+                repository.signIn(username, password, appContext)
             }
-            if(result != null) {
-                isLoggedIn.value = true
-                result.accessToken.let { saveAccessToken(appContext, it) }
-            }
-
-            val token = getAccessToken(appContext)
-            val setUser = withContext(Dispatchers.IO){
-                when(isLoggedIn.value){
-                    true -> repository.me(token)
-                    else -> null
-                }
-            }
-            user.value = setUser
+            isLoggedIn.value = AuthManager.isLoggedIn()
+            userName.value = AuthManager.getUserId()
         }
     }
 
     fun logout(){
         viewModelScope.launch {
-            val token = getAccessToken(appContext)
-            Log.d("accesstoken:", token.toString())
-//            val result = withContext(Dispatchers.IO){
-//                repository.signOut(token)
-//            }
-            deleteAccessToken(appContext)
-            updateLoggedIn()
+            val result = withContext(Dispatchers.IO){
+                repository.signOut(appContext)
+            }
+            isLoggedIn.value = AuthManager.isLoggedIn()
+            userName.value = AuthManager.getUserId()
         }
     }
 
-    fun me(){
-        viewModelScope.launch {
-            val token = getAccessToken(appContext)
-            val result = withContext(Dispatchers.IO){
-                when(isLoggedIn.value){
-                    true -> repository.me(token)
-                    else -> null
-                }
-            }
-            user.value = result
-        }
-    }
+
 }

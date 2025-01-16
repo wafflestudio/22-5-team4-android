@@ -51,7 +51,7 @@ class LoginFragment : Fragment() {
         val tempButton: ImageView = view.findViewById(R.id.logo_interpark)
 
         tempButton.setOnClickListener {
-            myPageViewModel.me()
+//            myPageViewModel.me()
             val navController = requireActivity().findNavController(R.id.myNavHost)
             val action = LoginFragmentDirections.actionLoginFragmentToMyFragment()
             navController.navigate(action)

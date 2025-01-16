@@ -7,6 +7,7 @@ import androidx.viewpager2.widget.ViewPager2
 import android.widget.ImageButton
 import androidx.annotation.RequiresApi
 import com.example.interpark.adapters.ViewPagers.ViewPagerAdapter
+import com.example.interpark.auth.AuthManager
 
 
 class MainActivity : AppCompatActivity() {
@@ -14,6 +15,7 @@ class MainActivity : AppCompatActivity() {
     @RequiresApi(Build.VERSION_CODES.O)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        AuthManager.initialize(applicationContext)
         setContentView(R.layout.activity_main)
 
         val viewPager: ViewPager2 = findViewById(R.id.viewPager)
