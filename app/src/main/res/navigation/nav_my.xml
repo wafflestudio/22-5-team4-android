@@ -6,7 +6,7 @@
 
     <fragment
         android:id="@+id/MyFragment"
-        android:name="com.example.interpark.fragments.MyFragment"
+        android:name="com.example.interpark.fragments.MyPage.MyFragment"
         android:label="myFragment">
         <action
             android:id="@+id/action_MyFragment_to_LoginFragment"
@@ -18,12 +18,12 @@
     </fragment>
     <fragment
         android:id="@+id/MyFragmentAccount"
-        android:name="com.example.interpark.fragments.MyFragmentAccount"
+        android:name="com.example.interpark.fragments.MyPage.MyFragmentAccount"
         android:label="카테고리">
     </fragment>
     <fragment
         android:id="@+id/LoginFragment"
-        android:name="com.example.interpark.fragments.LoginFragment"
+        android:name="com.example.interpark.fragments.MyPage.LoginFragment"
         android:label="loginFragment">
         <action
             android:id="@+id/action_LoginFragment_to_SignUpFragment"
@@ -35,7 +35,7 @@
 
     <fragment
         android:id="@+id/SignUpFragment"
-        android:name="com.example.interpark.fragments.SignUpFragment"
+        android:name="com.example.interpark.fragments.MyPage.SignUpFragment"
         android:label="SignUpFragment">
         <action
             android:id="@+id/action_SignUpFragment_to_MyFragment"
@@ -44,7 +44,7 @@
 
     <fragment
         android:id="@+id/EmptyFragment"
-        android:name="com.example.interpark.fragments.EmptyFragment"
+        android:name="com.example.interpark.fragments.CategoryPage.EmptyFragment"
         android:label="EmptyFragment">
         <argument
             android:name="category"
@@ -56,7 +56,7 @@
 
     <fragment
         android:id="@+id/performanceDetailFragment"
-        android:name="com.example.interpark.fragments.PerformanceDetailFragment"
+        android:name="com.example.interpark.fragments.PerformanceDetail.PerformanceDetailFragment"
         android:label="공연 제목">
         <argument
             android:name="title"
@@ -68,7 +68,7 @@
 
     <fragment
         android:id="@+id/calendarFragment"
-        android:name="com.example.interpark.fragments.CalendarFragment">
+        android:name="com.example.interpark.fragments.bookFlow.CalendarFragment">
         <action
             android:id="@+id/actionCalendarFragmentToTimeSelectionFragment"
             app:destination="@id/timeSelectionFragment" />
@@ -76,7 +76,7 @@
 
     <fragment
         android:id="@+id/timeSelectionFragment"
-        android:name="com.example.interpark.fragments.TimeSelectionFragment"
+        android:name="com.example.interpark.fragments.bookFlow.TimeSelectionFragment"
         android:label="Time Selection"
         tools:layout="@layout/fragment_time_selection">
         <argument
@@ -89,7 +89,7 @@
 
     <fragment
         android:id="@+id/seatSelectionFragment"
-        android:name="com.example.interpark.fragments.SeatSelectionFragment"
+        android:name="com.example.interpark.fragments.bookFlow.SeatSelectionFragment"
         android:label="Seat Selection"
         tools:layout="@layout/fragment_seat_selection">
         <argument

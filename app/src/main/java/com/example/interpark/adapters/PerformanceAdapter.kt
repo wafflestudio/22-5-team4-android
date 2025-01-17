@@ -8,7 +8,7 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import coil.load
 import com.example.interpark.R
-import com.example.interpark.data.Performance
+import com.example.interpark.data.types.Performance
 
 class PerformanceAdapter(
     private val performances: List<Performance>,
@@ -25,7 +25,6 @@ class PerformanceAdapter(
             title.text = performance.title
             location.text = performance.location
             dateRange.text = "${performance.date.first()} - ${performance.date.last()}"
-
             imageView.load(performance.posterUrl)
             itemView.setOnClickListener{
                 onClick(performance)

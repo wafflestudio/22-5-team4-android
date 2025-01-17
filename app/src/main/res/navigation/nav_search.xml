@@ -6,7 +6,7 @@
 
     <fragment
         android:id="@+id/SearchFragment"
-        android:name="com.example.interpark.fragments.SearchFragment"
+        android:name="com.example.interpark.fragments.SearchPage.SearchFragment"
         android:label="search">
         <action
             android:id="@+id/action_SearchFragment_to_SearchResultFragment"
@@ -14,7 +14,7 @@
     </fragment>
     <fragment
         android:id="@+id/SearchResultFragment"
-        android:name="com.example.interpark.fragments.SearchResultFragment"
+        android:name="com.example.interpark.fragments.SearchPage.SearchResultFragment"
         android:label="searchresult">
         <argument
             android:name="searchtitle"
@@ -27,7 +27,7 @@
 
     <fragment
         android:id="@+id/performanceDetailFragment"
-        android:name="com.example.interpark.fragments.PerformanceDetailFragment"
+        android:name="com.example.interpark.fragments.PerformanceDetail.PerformanceDetailFragment"
         android:label="공연 제목">
         <argument
             android:name="title"
@@ -35,12 +35,39 @@
         <action
             android:id="@+id/actionPerformanceDetailFragmentToCalendarFragment"
             app:destination="@id/calendarFragment"/>
+        <action
+            android:id="@+id/actionPerformanceDetailFragmentToWriteReviewFragment"
+            app:destination="@id/performanceDetailWriteReviewFragment"/>
+    </fragment>
+
+    <fragment
+        android:id="@+id/performanceDetailReviewFragment"
+        android:name="com.example.interpark.fragments.PerformanceDetail.Reviews"
+        android:label="공연 제목">
+        <argument
+            android:name="title"
+            app:argType="string" />
+        <action
+            android:id="@+id/actionReviewListFragmentToWriteReviewFragment"
+            app:destination="@id/performanceDetailWriteReviewFragment"/>
+    </fragment>
+
+    <fragment
+        android:id="@+id/performanceDetailWriteReviewFragment"
+        android:name="com.example.interpark.fragments.PerformanceDetail.WriteReview"
+        android:label="공연 제목">
+        <argument
+            android:name="title"
+            app:argType="string" />
+        <action
+            android:id="@+id/actionWriteReviewFragmentToPerformanceDetailFragment"
+            app:destination="@id/performanceDetailFragment"/>
     </fragment>
 
 
     <fragment
         android:id="@+id/calendarFragment"
-        android:name="com.example.interpark.fragments.CalendarFragment">
+        android:name="com.example.interpark.fragments.bookFlow.CalendarFragment">
         <action
             android:id="@+id/actionCalendarFragmentToTimeSelectionFragment"
             app:destination="@id/timeSelectionFragment" />
@@ -48,7 +75,7 @@
 
     <fragment
         android:id="@+id/timeSelectionFragment"
-        android:name="com.example.interpark.fragments.TimeSelectionFragment"
+        android:name="com.example.interpark.fragments.bookFlow.TimeSelectionFragment"
         android:label="Time Selection"
         tools:layout="@layout/fragment_time_selection">
         <argument
@@ -61,7 +88,7 @@
 
     <fragment
         android:id="@+id/seatSelectionFragment"
-        android:name="com.example.interpark.fragments.SeatSelectionFragment"
+        android:name="com.example.interpark.fragments.bookFlow.SeatSelectionFragment"
         android:label="Seat Selection"
         tools:layout="@layout/fragment_seat_selection">
         <argument

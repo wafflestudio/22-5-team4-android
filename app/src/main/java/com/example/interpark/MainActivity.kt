@@ -2,12 +2,15 @@ package com.example.interpark
 
 import android.os.Build
 import android.os.Bundle
-import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import androidx.viewpager2.widget.ViewPager2
 import android.widget.ImageButton
 import androidx.annotation.RequiresApi
-import com.example.interpark.adapters.ViewPagerAdapter
+import androidx.work.Configuration
+import androidx.work.WorkManager
+import com.example.interpark.adapters.ViewPagers.ViewPagerAdapter
+import com.example.interpark.auth.AuthManager
+import com.example.interpark.auth.scheduleTokenRefresh
 
 
 class MainActivity : AppCompatActivity() {
@@ -15,8 +18,9 @@ class MainActivity : AppCompatActivity() {
     @RequiresApi(Build.VERSION_CODES.O)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        AuthManager.initialize(applicationContext)
+        scheduleTokenRefresh(this)
         setContentView(R.layout.activity_main)
-
         val viewPager: ViewPager2 = findViewById(R.id.viewPager)
 
         // ViewPager2 어댑터 설정
