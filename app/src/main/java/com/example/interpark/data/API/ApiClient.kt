@@ -57,6 +57,11 @@ interface ApiClient {
         @Header("Authorization") token: String
     ): Unit
 
+    @POST("/api/v1/refresh_token")
+    suspend fun refresh_token(
+
+    ): Response<SignInResponse>
+
     @GET("/api/v1/users/me")
     suspend fun me(
         @Header("Authorization") token:String

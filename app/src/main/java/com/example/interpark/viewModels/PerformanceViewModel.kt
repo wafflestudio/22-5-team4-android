@@ -33,17 +33,6 @@ class PerformanceViewModel(private val repository: PerformanceRepository) : View
     }
 
 
-    fun fetchPerformanceListAnyMatch(category: String?, title: String?) {
-        viewModelScope.launch {
-            val performances = withContext(Dispatchers.IO) {
-                repository.fetchPerformances(category = null, title = null).filter { performance ->
-                    val titleMatches = title == null || performance.title.contains(title, ignoreCase = true)
-                    titleMatches // 하나라도 일치하면 true
-                }
-            }
-            _performanceList.postValue(performances)
-            Log.d("viewmodel", "Filtered performances (any match): $performances")
-        }
-    }
+
 }
 

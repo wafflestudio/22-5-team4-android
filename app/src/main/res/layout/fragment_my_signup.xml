@@ -38,6 +38,7 @@
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/et_username"
+                    android:hint="             6~20자 영문, 숫자"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:background="@drawable/rounded_edittext_no_border"
@@ -45,6 +46,16 @@
 
             </com.google.android.material.textfield.TextInputLayout>
 
+            <TextView
+                android:id="@+id/usernameLengthError"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="아이디의 길이가 너무 적당합니다"
+                android:textColor="@color/design_default_color_error"
+                android:layout_gravity="start"
+                android:layout_marginBottom="8dp"
+                android:layout_marginTop="-8dp"
+                android:visibility="gone"/>
 
 
             <!-- 비밀번호 입력 -->
@@ -58,11 +69,23 @@
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/et_password"
+                    android:hint="                8~12자 영문, 숫자, 특수문자"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:background="@drawable/rounded_edittext_no_border"
-                    android:inputType="text" />
+                    android:inputType="textPassword" />
             </com.google.android.material.textfield.TextInputLayout>
+
+            <TextView
+                android:id="@+id/passwordLengthError"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="비밀번호의 길이가 너무 적당합니다"
+                android:textColor="@color/design_default_color_error"
+                android:layout_gravity="start"
+                android:layout_marginBottom="8dp"
+                android:layout_marginTop="-8dp"
+                android:visibility="gone"/>
 
             <!-- 비밀번호 확인 -->
             <com.google.android.material.textfield.TextInputLayout
@@ -77,10 +100,21 @@
                     android:id="@+id/et_password_confirm"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:hint="                        8~12자 영문, 숫자, 특수문자"
                     android:background="@drawable/rounded_edittext_no_border"
-                    android:inputType="text" />
+                    android:inputType="textPassword" />
             </com.google.android.material.textfield.TextInputLayout>
 
+            <TextView
+                android:id="@+id/passwordSameError"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="비밀번호가 너무 잘 일치합니다"
+                android:textColor="@color/design_default_color_error"
+                android:layout_gravity="start"
+                android:layout_marginBottom="8dp"
+                android:layout_marginTop="-8dp"
+                android:visibility="gone"/>
             <!-- 이름 -->
             <com.google.android.material.textfield.TextInputLayout
                 android:layout_width="match_parent"
@@ -128,6 +162,7 @@
                     android:id="@+id/et_phone"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:hint="            010 1234 5678"
                     android:background="@drawable/rounded_edittext_no_border"
                     android:inputType="text" />
             </com.google.android.material.textfield.TextInputLayout>
@@ -167,6 +202,17 @@
                 android:backgroundTint="#007AFF"
                 android:padding="12dp"
                 android:layout_marginBottom="16dp" />
+
+            <TextView
+                android:id="@+id/signUpFailedText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="이미 있는 아이디입니다."
+                android:textColor="@color/design_default_color_error"
+                android:layout_gravity="start"
+                android:layout_marginBottom="8dp"
+                android:layout_marginTop="-8dp"
+                android:visibility="gone"/>
 
             <!-- 하단 링크 -->
             <LinearLayout

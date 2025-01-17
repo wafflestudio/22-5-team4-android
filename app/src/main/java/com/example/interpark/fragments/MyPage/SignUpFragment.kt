@@ -4,9 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
 import android.widget.EditText
-import android.widget.ImageView
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.findNavController
@@ -33,22 +31,82 @@ class SignUpFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val signUpButton = view.findViewById<Button>(R.id.btn_signup)
-        val usernameEditText: EditText = view.findViewById(R.id.et_username)
-        val passwordEditText: EditText = view.findViewById(R.id.et_password)
-        val passwordConfirmEditText: EditText = view.findViewById(R.id.et_password_confirm)
-        val nicknameEditText: EditText = view.findViewById(R.id.et_name)
-        val emailEditText: EditText = view.findViewById(R.id.et_email)
-        val phoneEditText: EditText = view.findViewById(R.id.et_phone)
-        signUpButton.setOnClickListener{
-            myPageViewModel.signup(usernameEditText.text.toString(), passwordEditText.text.toString(), nicknameEditText.text.toString(), emailEditText.text.toString(), phoneEditText.text.toString())
+        fun EditText.value() = this.text.toString()
+
+        binding.btnSignup.setOnClickListener{
+            myPageViewModel.signup(
+                binding.etUsername.value(),
+                binding.etPassword.value(),
+                binding.etName.value(),
+                binding.etEmail.value(),
+                binding.etPhone.value()
+            )
         }
 
-        val logo = view.findViewById<ImageView>(R.id.logo_interpark)
-        logo.setOnClickListener {
+        binding.logoInterpark.setOnClickListener {
             val navController = requireActivity().findNavController(R.id.myNavHost)
             val action = SignUpFragmentDirections.actionSignUpFragmentToMyFragment()
             navController.navigate(action)
+        }
+
+        val editTexts = listOf(binding.etUsername, binding.etPassword, binding.etPasswordConfirm, binding.etName, binding.etEmail, binding.etPhone)
+
+        val focusChangeListener = View.OnFocusChangeListener { view, hasFocus ->
+            if (!hasFocus) {
+                val editText = view as EditText
+                val textValue = editText.text.toString()
+                when (view.id) {
+                    R.id.et_username -> myPageViewModel.usernameLengthCheck(textValue)
+                    R.id.et_password -> myPageViewModel.passwordLengthCheck(textValue)
+                    R.id.et_password_confirm -> myPageViewModel.passwordSameCheck(binding.etPassword.text.toString(), textValue)
+                }
+            }
+        }
+        editTexts.forEach { it.onFocusChangeListener = focusChangeListener }
+
+        myPageViewModel.usernameLength.observe(viewLifecycleOwner) { usernameLength ->
+            if(usernameLength){
+                binding.usernameLengthError.visibility = View.GONE
+            }
+            else{
+                binding.usernameLengthError.visibility = View.VISIBLE
+                binding.usernameLengthError.text = "아이디는 6~20자 영문, 숫자만 사용 가능합니다."
+            }
+        }
+
+        myPageViewModel.passwordLength.observe(viewLifecycleOwner) { passwordLength ->
+            if(passwordLength){
+                binding.passwordLengthError.visibility = View.GONE
+            }
+            else{
+                binding.passwordLengthError.visibility = View.VISIBLE
+                binding.passwordLengthError.text = "비밀번호는 8~12자 영문, 숫자, 특수문자만 사용 가능합니다."
+            }
+        }
+
+        myPageViewModel.passwordSame.observe(viewLifecycleOwner) { passwordSame ->
+            if(passwordSame){
+                binding.passwordSameError.visibility = View.GONE
+            }
+            else{
+                binding.passwordSameError.visibility = View.VISIBLE
+                binding.passwordSameError.text = "비밀번호가 일치하지 않습니다. 다시 입력해주세요."
+            }
+        }
+
+        myPageViewModel.signUpFailed.observe(viewLifecycleOwner) { signUpFailed ->
+            if(signUpFailed){
+                binding.signUpFailedText.visibility = View.VISIBLE
+                binding.signUpFailedText.text = "이미 있는 아이디입니다."
+            }
+        }
+
+        myPageViewModel.signUpSuccess.observe(viewLifecycleOwner) { signUpSuccess ->
+            if(signUpSuccess){
+                val navController = requireActivity().findNavController(R.id.myNavHost)
+                val action = SignUpFragmentDirections.actionSignUpFragmentToMyFragment()
+                navController.navigate(action)
+            }
         }
 
     }

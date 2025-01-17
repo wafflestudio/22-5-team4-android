@@ -12,6 +12,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.findNavController
 import com.example.interpark.R
+import com.example.interpark.databinding.FragmentMyLoginBinding
 import com.example.interpark.viewModels.MyPageViewModel
 import com.example.interpark.viewModels.MyPageViewModelFactory
 
@@ -19,45 +20,52 @@ import com.example.interpark.viewModels.MyPageViewModelFactory
 class LoginFragment : Fragment() {
 
     private val myPageViewModel: MyPageViewModel by viewModels { MyPageViewModelFactory(requireContext()) }
+    private var _binding: FragmentMyLoginBinding? = null
+    private val binding get() = _binding!!
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        return inflater.inflate(R.layout.fragment_my_login, container, false)
+        _binding = FragmentMyLoginBinding.inflate(inflater, container, false)
+        return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val usernameEditText: EditText = view.findViewById(R.id.et_username)
-        val passwordEditText: EditText = view.findViewById(R.id.et_password)
-        val loginButton: Button = view.findViewById(R.id.btn_login)
-
-        loginButton.setOnClickListener{
-            myPageViewModel.login(usernameEditText.text.toString(), passwordEditText.text.toString())
+        binding.btnLogin.setOnClickListener{
+            myPageViewModel.login(binding.etUsername.text.toString(), binding.etPassword.text.toString())
 
         }
 
-        val signUpTextView: TextView = view.findViewById(R.id.text_signup)
-
-        signUpTextView.setOnClickListener {
+        binding.textSignup.setOnClickListener {
             val navController = requireActivity().findNavController(R.id.myNavHost)
             val action = LoginFragmentDirections
                 .actionLoginFragmentToSignUpFragment()
             navController.navigate(action)
         }
 
-        val tempButton: ImageView = view.findViewById(R.id.logo_interpark)
-
-        tempButton.setOnClickListener {
-            myPageViewModel.me()
+        binding.logoInterpark.setOnClickListener {
             val navController = requireActivity().findNavController(R.id.myNavHost)
             val action = LoginFragmentDirections.actionLoginFragmentToMyFragment()
             navController.navigate(action)
         }
 
+        myPageViewModel.signInFailed.observe(viewLifecycleOwner){ signInFailed ->
+            binding.errorText.visibility = when(signInFailed){
+                true -> View.VISIBLE
+                false -> View.GONE
+            }
+        }
 
+        myPageViewModel.isLoggedIn.observe(viewLifecycleOwner){ isLoggedIn ->
+            if(isLoggedIn){
+                val navController = requireActivity().findNavController(R.id.myNavHost)
+                val action = LoginFragmentDirections.actionLoginFragmentToMyFragment()
+                navController.navigate(action)
+            }
+        }
 
     }
 }

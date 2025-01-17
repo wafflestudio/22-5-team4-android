@@ -53,6 +53,17 @@
                 android:layout_marginBottom="24dp"
                 android:inputType="textPassword" />
 
+            <TextView
+                android:id="@+id/errorText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="아이디 또는 비밀번호를 잘못 입력하셨습니다."
+                android:textColor="@color/design_default_color_error"
+                android:layout_marginBottom="8dp"
+                android:layout_marginTop="-12dp"
+                android:layout_gravity="start"
+                android:visibility="gone" />
+
             <!-- 로그인 상태 유지 및 혜택 알림 -->
             <LinearLayout
                 android:layout_width="match_parent"

@@ -79,7 +79,7 @@ dependencies {
     implementation(libs.okhttp)
     implementation(libs.okhttpLoggingInterceptor)
     implementation(libs.coil)
-
+    implementation("androidx.work:work-runtime-ktx:2.8.1")
     val fragment_version = "1.8.5"
     // Java language implementation
     implementation("androidx.fragment:fragment:$fragment_version")
