@@ -24,7 +24,7 @@ class PerformanceAdapter(
         fun bind(performance: Performance, onClick: (Performance) -> Unit) {
             title.text = performance.title
             location.text = performance.location
-            dateRange.text = "${performance.date.first()} - ${performance.date.last()}"
+            val dateRange = "${performance.performanceDates?.first} - ${performance.performanceDates?.second}"
             imageView.load(performance.posterUrl)
             itemView.setOnClickListener{
                 onClick(performance)

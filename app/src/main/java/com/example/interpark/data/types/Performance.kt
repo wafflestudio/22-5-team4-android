@@ -8,11 +8,19 @@ data class Performance(
     val title: String,
 //    val content: String,
     val detail: String?,
-    @Json(name = "performanceDates") val date: List<LocalDate>,
+//    @Json(name = "performanceDates") val date: List<LocalDate>,
+    @Json(name = "performanceDuration")
+    val performanceDates: Duration?,
+    @Json(name = "performanceDates")
+    val calendarDates: List<Duration>?,
     @Json(name = "posterUri") val posterUrl: String?,
     @Json(name = "backdropImageUri") val backdropUrl: String?,
 
-    val category: String,
+    val category: String?,
     @Json(name = "hallName") val location: String,
 )
 
+data class Duration(
+    val first: String,
+    val second: String
+)

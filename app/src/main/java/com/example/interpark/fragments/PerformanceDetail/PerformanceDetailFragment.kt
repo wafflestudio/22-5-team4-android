@@ -59,7 +59,7 @@ class PerformanceDetailFragment : Fragment() {
                     titleTextView.text = it.title
 //                    contentTextView.text = it.content
 //                    detailTextView.text = it.detail
-                    dateTextView.text = it.date.joinToString { date -> date.toString() }
+                dateTextView.text = "${it.performanceDates?.first ?: "N/A"} - ${it.performanceDates?.second ?: "N/A"}"
                     categoryTextView.text = it.category
                     locationTextView.text = it.location
                     posterImageView.load(it.posterUrl)
