@@ -2,6 +2,7 @@ package com.example.interpark.fragments
 
 import android.app.AlertDialog
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -42,6 +43,15 @@ class SeatSelectionFragment : Fragment(R.layout.fragment_seat_selection) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        binding.backButton.setOnClickListener {
+            Log.d("seat", "herehere")
+            findNavController().navigateUp()
+        }
+
+        binding.titleText.setOnClickListener {
+            Log.d("title", "herehere")
+            findNavController().navigateUp()
+        }
         // 좌석 초기화
         initializeSeats()
 
