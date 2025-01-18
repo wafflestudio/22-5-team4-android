@@ -83,6 +83,9 @@
         <argument
             android:name="selectedDate"
             app:argType="string" />
+        <argument
+            android:name="title"
+            app:argType="string" />
         <action
             android:id="@+id/action_timeSelection_to_seatSelectionFragment"
             app:destination="@id/seatSelectionFragment" />
@@ -97,7 +100,7 @@
             android:name="selectedDate"
             app:argType="string" />
         <argument
-            android:name="selectedTime"
+            android:name="title"
             app:argType="string" />
     </fragment>
 

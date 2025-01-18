@@ -102,7 +102,7 @@ class CalendarFragment : Fragment() {
         binding.confirmDateButton.setOnClickListener {
             selectedDate?.let { date ->
                 val action = CalendarFragmentDirections
-                    .actionCalendarFragmentToTimeSelectionFragment(date)
+                    .actionCalendarFragmentToTimeSelectionFragment(date, args.movieid)
                 findNavController().navigate(action)
             }
         }

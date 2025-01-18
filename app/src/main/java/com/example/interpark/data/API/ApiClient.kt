@@ -1,5 +1,8 @@
 package com.example.interpark.data.API
 
+import com.example.interpark.data.CancelRequest
+import com.example.interpark.data.SeatRequest
+import com.example.interpark.data.SeatResponse
 import com.example.interpark.data.types.Performance
 import com.example.interpark.data.types.SignInRequest
 import com.example.interpark.data.types.SignInResponse
@@ -78,4 +81,12 @@ interface ApiClient {
         @Path("performanceId") performanceId: String
     ): Response<Performance>
 
+    @GET("api/v1/seat/{performanceEventId}/available")
+    suspend fun getAvailableSeats(@Query("eventId") eventId: String): SeatResponse
+
+    @POST("/api/v1/reservation/reserve")
+    suspend fun reserveSeat(@Body seatRequest: SeatRequest): SeatResponse
+
+    @POST("/api/v1/reservation/cancel")
+    suspend fun cancelReservation(@Body cancelRequest: CancelRequest): SeatResponse
 }
