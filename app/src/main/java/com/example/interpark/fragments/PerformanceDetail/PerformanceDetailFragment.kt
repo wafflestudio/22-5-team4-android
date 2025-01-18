@@ -126,7 +126,7 @@ class PerformanceDetailFragment : Fragment() {
         val bookButton = view.findViewById<Button>(R.id.bookButton)
         bookButton.setOnClickListener {
             val action = PerformanceDetailFragmentDirections
-                .actionPerformanceDetailFragmentToCalendarFragment()
+                .actionPerformanceDetailFragmentToCalendarFragment(args.title)
             findNavController().navigate(action)
         }
 

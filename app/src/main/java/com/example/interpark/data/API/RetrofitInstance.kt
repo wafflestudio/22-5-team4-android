@@ -24,7 +24,7 @@ val moshi: Moshi = Moshi.Builder()
 @RequiresApi(Build.VERSION_CODES.O)
 object RetrofitInstance {
 
-    private const val BASE_URL_DEV = "http://192.168.219.104:3000/"
+    private const val BASE_URL_DEV = "http://192.168.1.31:3000/"
     private val clientDev = OkHttpClient.Builder()
         .addInterceptor { chain ->
             val request = chain.request().newBuilder()

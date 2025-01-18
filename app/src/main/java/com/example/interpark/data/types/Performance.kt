@@ -12,7 +12,7 @@ data class Performance(
     @Json(name = "performanceDuration")
     val performanceDates: Duration?,
     @Json(name = "performanceDates")
-    val calendarDates: List<Duration>?,
+    val calendarDates: List<String>?,
     @Json(name = "posterUri") val posterUrl: String?,
     @Json(name = "backdropImageUri") val backdropUrl: String?,
 

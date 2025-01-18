@@ -75,9 +75,13 @@
     <fragment
         android:id="@+id/calendarFragment"
         android:name="com.example.interpark.fragments.bookFlow.CalendarFragment">
+        <argument
+            android:name="movieid"
+            app:argType="string"/>
         <action
             android:id="@+id/actionCalendarFragmentToTimeSelectionFragment"
             app:destination="@id/timeSelectionFragment" />
+
     </fragment>
 
     <fragment
