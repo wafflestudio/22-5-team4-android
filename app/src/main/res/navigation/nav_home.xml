@@ -111,6 +111,27 @@
         <argument
             android:name="title"
             app:argType="string" />
+
+        <!-- 결제 페이지로 이동하는 액션 -->
+        <action
+            android:id="@+id/action_seatSelectionFragment_to_paymentFragment"
+            app:destination="@id/paymentFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/paymentFragment"
+        android:name="com.example.interpark.fragments.bookFlow.PaymentFragment"
+        android:label="Payment"
+        tools:layout="@layout/fragment_payment" >
+
+        <!-- PaymentFragment에서 사용할 argument 정의 -->
+        <argument
+            android:name="selectedSeats"
+            app:argType="string[]" />
+
+        <argument
+            android:name="title"
+            app:argType="string" />
     </fragment>
 
 

@@ -53,6 +53,24 @@ class SeatSelectionFragment : Fragment(R.layout.fragment_seat_selection) {
             Log.d("title", "herehere")
             findNavController().navigateUp()
         }
+        binding.proceedToPaymentButton.setOnClickListener {
+            val selectedSeats = seatList
+                .filter { it.isSelected }
+                .map { "Row: ${it.row}, Column: ${it.number}" }
+
+            if (selectedSeats.isEmpty()) {
+//                Toast.makeText(requireContext(), "좌석을 선택해주세요.", Toast.LENGTH_SHORT).show()
+                val action = SeatSelectionFragmentDirections
+                    .actionSeatSelectionFragmentToPaymentFragment(selectedSeats.toTypedArray(), args.title)
+                findNavController().navigate(action)
+            } else {
+                val action = SeatSelectionFragmentDirections
+                    .actionSeatSelectionFragmentToPaymentFragment(selectedSeats.toTypedArray(), args.title)
+                findNavController().navigate(action)
+            }
+        }
+
+
         // 좌석 초기화
         initializeSeats()
 
