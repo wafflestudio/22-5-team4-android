@@ -21,6 +21,6 @@ data class Performance(
 )
 
 data class Duration(
-    val first: String,
-    val second: String
+    val first: String? = null, // 기본값 설정
+    val second: String? = null // 추가 필드도 동일하게 처리
 )
