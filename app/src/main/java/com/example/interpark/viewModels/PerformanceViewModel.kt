@@ -21,6 +21,9 @@ class PerformanceViewModel(private val repository: PerformanceRepository) : View
     private val _performanceList = MutableLiveData<List<Performance>>(listOf())
     val performanceList: LiveData<List<Performance>> get() = _performanceList
 
+    private val _posterUris = MutableLiveData<List<String>>()
+    val posterUris: LiveData<List<String>> get() = _posterUris
+
     fun fetchPerformanceList(category: String?, title: String?) {
         viewModelScope.launch {
             val performances = withContext(Dispatchers.IO) {
@@ -46,6 +49,13 @@ class PerformanceViewModel(private val repository: PerformanceRepository) : View
             _performanceEvent.postValue(result)
         }
     }
+    fun loadPosterUris(category: String?, title: String?) {
+        viewModelScope.launch {
+            val uris = repository.getPosterUris(category, title)
+            _posterUris.postValue(uris ?: listOf())
+        }
+    }
+
 
 }
 

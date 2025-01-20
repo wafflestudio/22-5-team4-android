@@ -7,6 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -20,23 +21,21 @@ import com.example.interpark.data.types.Category
 import com.example.interpark.data.types.CategoryItem
 import com.example.interpark.data.types.list_categories
 import com.example.interpark.databinding.FragmentHomeBinding
+import com.example.interpark.viewModels.PerformanceDetailViewModel
+import com.example.interpark.viewModels.PerformanceDetailViewModelFactory
+import com.example.interpark.viewModels.PerformanceViewModel
+import com.example.interpark.viewModels.PerformanceViewModelFactory
 import com.google.android.material.tabs.TabLayoutMediator
 
 class HomeFragment : Fragment() {
     private var _binding: FragmentHomeBinding? = null
     private val binding get() = _binding!!
+    private val performanceViewModel: PerformanceViewModel by viewModels { PerformanceViewModelFactory(requireContext()) }
 
     private lateinit var homeCategoryAdapter: HomeCategoryAdapter
     private lateinit var categoryRankCategoryListAdapter: HomeCategoryRankCategoryListAdapter
     private val handler = Handler(Looper.getMainLooper())
     private var currentPage = 0
-
-    private val posters = listOf(
-        R.drawable.performance1,
-        R.drawable.performance2,
-        R.drawable.performance3,
-        R.drawable.performance4
-    )
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -49,13 +48,23 @@ class HomeFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        setupPosterSlider()
+        // ViewModel에서 포스터 URI 로드
+        performanceViewModel.loadPosterUris(category = null, title = null)
+
+        // ViewModel 관찰 설정
+        setupObservers()
+
         setupCategoryRecyclerView()
         setupCategoryRankRecyclerView()
     }
 
-    private fun setupPosterSlider() {
-        // ViewPager2 초기화
+    private fun setupObservers() {
+        performanceViewModel.posterUris.observe(viewLifecycleOwner) { posterUris ->
+            setupPosterSlider(posterUris) // ViewPager2를 서버에서 받아온 포스터 URI로 설정
+        }
+    }
+
+    private fun setupPosterSlider(posters: List<String>) {
         val posterAdapter = PosterAdapter(posters)
         binding.viewPager.adapter = posterAdapter
 
@@ -63,13 +72,13 @@ class HomeFragment : Fragment() {
         TabLayoutMediator(binding.tabIndicator, binding.viewPager) { _, _ -> }.attach()
 
         // 자동 슬라이드 시작
-        startAutoSlide()
+        startAutoSlide(posters.size)
     }
 
-    private fun startAutoSlide() {
+    private fun startAutoSlide(totalPages: Int) {
         val runnable = object : Runnable {
             override fun run() {
-                if (currentPage == posters.size) currentPage = 0
+                if (currentPage == totalPages) currentPage = 0
                 binding.viewPager.setCurrentItem(currentPage++, true)
                 handler.postDelayed(this, 3000) // 3초마다 슬라이드
             }
@@ -126,7 +135,6 @@ class HomeFragment : Fragment() {
 
     private fun categoryRankCategoryListClicked(category: Category) {
         // TODO: 랭킹 카테고리 클릭 이벤트 처리
-//        Toast.makeText(context, "Clicked: ${category.name}", Toast.LENGTH_SHORT).show()
     }
 
     override fun onDestroyView() {

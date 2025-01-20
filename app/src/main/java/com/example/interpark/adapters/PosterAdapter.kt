@@ -5,22 +5,13 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 import com.example.interpark.R
 
-class PosterAdapter(private val posters: List<Int>) :
-    RecyclerView.Adapter<PosterAdapter.PosterViewHolder>() {
-
-    inner class PosterViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        private val imageView: ImageView = itemView.findViewById(R.id.posterImageView)
-
-        fun bind(imageRes: Int) {
-            imageView.setImageResource(imageRes)
-        }
-    }
+class PosterAdapter(private val posters: List<String>) : RecyclerView.Adapter<PosterAdapter.PosterViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PosterViewHolder {
-        val view = LayoutInflater.from(parent.context)
-            .inflate(R.layout.item_poster, parent, false)
+        val view = LayoutInflater.from(parent.context).inflate(R.layout.item_poster, parent, false)
         return PosterViewHolder(view)
     }
 
@@ -29,4 +20,13 @@ class PosterAdapter(private val posters: List<Int>) :
     }
 
     override fun getItemCount(): Int = posters.size
+
+    class PosterViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+        fun bind(posterUri: String) {
+            val imageView = itemView.findViewById<ImageView>(R.id.posterImageView)
+            Glide.with(imageView.context) // Glide를 사용하여 URI 기반 이미지 로드
+                .load(posterUri)
+                .into(imageView)
+        }
+    }
 }

@@ -108,4 +108,10 @@ class PerformanceRepository(private val ApiClientDev: ApiClientDev, private val 
             null
         }
     }
+    suspend fun getPosterUris(category: String?, title: String?): List<String>? {
+        val performances = getPerformances(category, title) // 기존 getPerformances 호출
+        return performances?.mapNotNull { it.posterUrl } // posterUri만 추출
+    }
+
+
 }
