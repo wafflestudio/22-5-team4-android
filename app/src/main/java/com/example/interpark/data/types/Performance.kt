@@ -24,3 +24,11 @@ data class Duration(
     val first: String? = null, // 기본값 설정
     val second: String? = null // 추가 필드도 동일하게 처리
 )
+
+data class PerformanceEvent(
+    val id: String,
+    val performanceId: String,
+    val performanceHallId: String,
+    val startAt: String,
+    val endAt: String
+)

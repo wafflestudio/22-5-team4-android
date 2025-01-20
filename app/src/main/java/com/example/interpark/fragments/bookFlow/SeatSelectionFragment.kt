@@ -14,6 +14,7 @@ import com.example.interpark.R
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import com.example.interpark.adapters.SeatAdapter
+import com.example.interpark.auth.AuthManager
 import com.example.interpark.data.Seat
 
 import com.example.interpark.data.SeatRequest
@@ -44,6 +45,8 @@ class SeatSelectionFragment : Fragment(R.layout.fragment_seat_selection) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        AuthManager.initialize(requireContext())
+
         binding.backButton.setOnClickListener {
             Log.d("seat", "herehere")
             findNavController().navigateUp()
@@ -58,7 +61,10 @@ class SeatSelectionFragment : Fragment(R.layout.fragment_seat_selection) {
                 .filter { it.isSelected }
                 .map { "Row: ${it.row}, Column: ${it.number}" }
 
-            if (selectedSeats.isEmpty()) {
+            if (!AuthManager.isLoggedIn()){
+                Toast.makeText(requireContext(), "로그인을 먼저 해주세요.", Toast.LENGTH_SHORT).show()
+            }
+            else if (selectedSeats.isEmpty()) {
 //                Toast.makeText(requireContext(), "좌석을 선택해주세요.", Toast.LENGTH_SHORT).show()
                 val action = SeatSelectionFragmentDirections
                     .actionSeatSelectionFragmentToPaymentFragment(selectedSeats.toTypedArray(), args.title)
@@ -80,7 +86,7 @@ class SeatSelectionFragment : Fragment(R.layout.fragment_seat_selection) {
                 seat.isSelected = !seat.isSelected
                 seatAdapter.notifyDataSetChanged() // UI 갱신
                 val seatRequest = SeatRequest(seat.row, seat.number)
-                viewModel.reserveSeat(seatRequest)
+//                viewModel.reserveSeat(seatRequest)
             } else {
                 Toast.makeText(requireContext(), "해당 좌석은 예약할 수 없습니다.", Toast.LENGTH_SHORT).show()
             }

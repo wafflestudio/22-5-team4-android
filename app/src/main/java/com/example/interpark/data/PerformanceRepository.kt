@@ -8,6 +8,7 @@ import com.example.interpark.auth.AuthManager
 import com.example.interpark.data.API.ApiClient
 import com.example.interpark.data.API.ApiClientDev
 import com.example.interpark.data.types.Performance
+import com.example.interpark.data.types.PerformanceEvent
 import com.example.interpark.data.types.Review
 import com.example.interpark.data.types.SignInRequest
 import com.example.interpark.data.types.SignInResponse
@@ -89,4 +90,22 @@ class PerformanceRepository(private val ApiClientDev: ApiClientDev, private val 
         return result
     }
 
+    suspend fun getPerformanceEvent(
+        token: String?,
+        performanceId: String,
+        performanceDate: String,
+        user: User
+    ): PerformanceEvent? {
+        return try {
+            val response = ApiClient.getPerformanceEvent("Bearer $token",performanceId, performanceDate, user)
+            if (response.isSuccessful) {
+                response.body()
+            } else {
+                null
+            }
+        } catch (e: Exception) {
+            e.printStackTrace()
+            null
+        }
+    }
 }

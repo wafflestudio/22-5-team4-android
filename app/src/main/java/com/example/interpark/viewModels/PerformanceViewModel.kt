@@ -5,8 +5,11 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.interpark.auth.AuthManager
 import com.example.interpark.data.types.Performance
 import com.example.interpark.data.PerformanceRepository
+import com.example.interpark.data.types.PerformanceEvent
+import com.example.interpark.data.types.User
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
@@ -32,7 +35,17 @@ class PerformanceViewModel(private val repository: PerformanceRepository) : View
         }
     }
 
+    private val _performanceEvent = MutableLiveData<PerformanceEvent?>()
+    val performanceEvent: LiveData<PerformanceEvent?> get() = _performanceEvent
 
+    fun fetchPerformanceEvent(performanceId: String, performanceDate: String, user: User) {
+        val token = AuthManager.getAuthToken()
+
+        viewModelScope.launch {
+            val result = repository.getPerformanceEvent(token, performanceId, performanceDate, user)
+            _performanceEvent.postValue(result)
+        }
+    }
 
 }
 

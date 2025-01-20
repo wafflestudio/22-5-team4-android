@@ -13,6 +13,8 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import androidx.navigation.fragment.navArgs
+import com.example.interpark.data.ReservationRequest
+import com.example.interpark.data.ReservationResponse
 
 
 class SeatSelectionViewModel(private val repository: SeatRepository) : ViewModel() {
@@ -23,6 +25,11 @@ class SeatSelectionViewModel(private val repository: SeatRepository) : ViewModel
     private val _reservationResult = MutableLiveData<SeatResponse>()
     val reservationResult: LiveData<SeatResponse> get() = _reservationResult
 
+    private val _reservationSuccess = MutableLiveData<Boolean>()
+    val reservationSuccess: LiveData<Boolean> get() = _reservationSuccess
+
+    private val _reservationFailed = MutableLiveData<Boolean>()
+    val reservationFailed: LiveData<Boolean> get() = _reservationFailed
 
     fun fetchAvailableSeats(eventId: String) {
         viewModelScope.launch {
@@ -45,18 +52,24 @@ class SeatSelectionViewModel(private val repository: SeatRepository) : ViewModel
             _seats.postValue(seats)
         }
     }
-    fun reserveSeat(seatRequest: SeatRequest) {
+    fun reserveSeat(reservationRequest: ReservationRequest) {
         viewModelScope.launch {
-            try {
-                val response = withContext(Dispatchers.IO) {
-                    repository.reserveSeat(seatRequest)
+            val result: ReservationResponse? = withContext(Dispatchers.IO) {
+                try {
+                    repository.reserveSeat(reservationRequest)
+                } catch (e: Exception) {
+                    Log.e("SeatReservationViewModel", "Error reserving seat", e)
+                    null
                 }
-                _reservationResult.postValue(response) // 예약 결과를 LiveData로 전달
-            } catch (e: Exception) {
-                Log.e("SeatSelectionViewModel", "Error reserving seat", e)
+            }
+            if (result == null) {
+                _reservationFailed.value = true
+            } else {
+                _reservationSuccess.value = true
             }
         }
     }
+
 
     fun cancelReservation(cancelRequest: CancelRequest) {
         viewModelScope.launch {
