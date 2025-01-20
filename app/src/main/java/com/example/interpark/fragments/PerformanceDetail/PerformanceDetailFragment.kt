@@ -52,6 +52,7 @@ class PerformanceDetailFragment : Fragment() {
         val categoryTextView = view.findViewById<TextView>(R.id.categoryTextView)
         val locationTextView = view.findViewById<TextView>(R.id.locationTextView)
         val title = view.findViewById<TextView>(R.id.title)
+        val detailImageView = view.findViewById<ImageView>(R.id.detailImageView)
         // LiveData 관찰하여 UI 업데이트
         val posterImageView = view.findViewById<ImageView>(R.id.posterImageView)
         performanceDetailViewModel.performanceDetail.observe(viewLifecycleOwner) { performance ->
@@ -59,12 +60,13 @@ class PerformanceDetailFragment : Fragment() {
                     titleTextView.text = it.title
 //                    contentTextView.text = it.content
 //                    detailTextView.text = it.detail
-                    dateTextView.text = it.date.joinToString { date -> date.toString() }
+                    dateTextView.text = "${it.performanceDates?.first ?: "N/A"} - ${it.performanceDates?.second ?: "N/A"}"
                     categoryTextView.text = it.category
                     locationTextView.text = it.location
                     posterImageView.load(it.posterUrl)
+
 //                    backdropImageView.load(it.backdropUrl)
-//                    detailImageView.load(it.detail)
+                    detailImageView.load(it.detail)
 
                     title.text = it.title
                     title.isSelected = true
@@ -126,7 +128,7 @@ class PerformanceDetailFragment : Fragment() {
         val bookButton = view.findViewById<Button>(R.id.bookButton)
         bookButton.setOnClickListener {
             val action = PerformanceDetailFragmentDirections
-                .actionPerformanceDetailFragmentToCalendarFragment()
+                .actionPerformanceDetailFragmentToCalendarFragment(args.title)
             findNavController().navigate(action)
         }
 

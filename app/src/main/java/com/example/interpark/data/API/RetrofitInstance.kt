@@ -3,7 +3,7 @@ package com.example.interpark.data.API
 import android.os.Build
 import androidx.annotation.RequiresApi
 import com.example.interpark.data.MoshiDateDeserializer
-import com.example.interpark.data.SharedPreferences.SimpleCookieJar
+//import com.example.interpark.data.SharedPreferences.SimpleCookieJar
 import com.squareup.moshi.Moshi
 import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
 import okhttp3.CookieJar
@@ -24,7 +24,7 @@ val moshi: Moshi = Moshi.Builder()
 @RequiresApi(Build.VERSION_CODES.O)
 object RetrofitInstance {
 
-    private const val BASE_URL_DEV = "http://192.168.219.104:3000/"
+    private const val BASE_URL_DEV = "http://192.168.1.51:3000/"
     private val clientDev = OkHttpClient.Builder()
         .addInterceptor { chain ->
             val request = chain.request().newBuilder()
@@ -47,7 +47,7 @@ object RetrofitInstance {
     }
     // change
 
-    private const val BASE_URL_SERVER = "http://172.30.1.80:8080/"
+    private const val BASE_URL_SERVER = "http://192.168.219.109:80/"
     private val client = OkHttpClient.Builder()
         .addInterceptor { chain ->
             val request = chain.request().newBuilder()
@@ -58,7 +58,7 @@ object RetrofitInstance {
         .addInterceptor(HttpLoggingInterceptor().apply {
             level = HttpLoggingInterceptor.Level.BODY
         })
-        .cookieJar(SimpleCookieJar())
+        //.cookieJar(SimpleCookieJar())
         .build()
 
     val api1: ApiClient by lazy {

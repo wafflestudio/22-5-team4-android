@@ -12,6 +12,7 @@ object AuthManager {
     private var authToken: String? = null
     private var userId: String? = null
 
+
     fun initialize(context: Context) {
         val sharedPreferences = context.getSharedPreferences(PREF_NAME, Context.MODE_PRIVATE)
         userId = sharedPreferences.getString(KEY_USER_ID, null)

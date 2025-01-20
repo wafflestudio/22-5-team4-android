@@ -1,6 +1,12 @@
 package com.example.interpark.data.API
 
+import com.example.interpark.data.CancelRequest
+import com.example.interpark.data.ReservationRequest
+import com.example.interpark.data.ReservationResponse
+import com.example.interpark.data.SeatRequest
+import com.example.interpark.data.SeatResponse
 import com.example.interpark.data.types.Performance
+import com.example.interpark.data.types.PerformanceEvent
 import com.example.interpark.data.types.SignInRequest
 import com.example.interpark.data.types.SignInResponse
 import com.example.interpark.data.types.SignUpRequest
@@ -42,17 +48,17 @@ interface ApiClientDev {
 }
 
 interface ApiClient {
-    @POST("/api/v1/signup")
+    @POST("/api/v1/local/signup")
     suspend fun signup(
         @Body signUpRequest: SignUpRequest
     ): Response<SignUpResponse>
 
-    @POST("/api/v1/signin")
+    @POST("/api/v1/local/signin")
     suspend fun signin(
         @Body signInRequest: SignInRequest
     ): Response<SignInResponse>
 
-    @POST("/api/v1/signout")
+    @POST("/api/v1/auth/signout")
     suspend fun signout(
         @Header("Authorization") token: String
     ): Unit
@@ -77,5 +83,26 @@ interface ApiClient {
     suspend fun getPerformanceDetail(
         @Path("performanceId") performanceId: String
     ): Response<Performance>
+
+    @GET("api/v1/seat/{performanceEventId}/available")
+    suspend fun getAvailableSeats(@Query("eventId") eventId: String): SeatResponse
+
+    @POST("/api/v1/reservation/reserve")
+    suspend fun reserveSeat(
+        @Body reservationRequest: ReservationRequest
+    ): Response<ReservationResponse>
+
+    @POST("/api/v1/reservation/cancel")
+    suspend fun cancelReservation(
+        @Body cancelRequest: CancelRequest
+    ): Response<SeatResponse>
+
+    @GET("/api/v1/performance-event/{performanceId}/{performanceDate}")
+    suspend fun getPerformanceEvent(
+        @Header("Authorization") token:String,
+        @Path("performanceId") performanceId: String,
+        @Path("performanceDate") performanceDate: String,
+        @Query("user") user: User
+    ): Response<PerformanceEvent>
 
 }

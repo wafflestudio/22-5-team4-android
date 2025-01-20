@@ -5,8 +5,11 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.interpark.auth.AuthManager
 import com.example.interpark.data.types.Performance
 import com.example.interpark.data.PerformanceRepository
+import com.example.interpark.data.types.PerformanceEvent
+import com.example.interpark.data.types.User
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
@@ -17,6 +20,9 @@ class PerformanceViewModel(private val repository: PerformanceRepository) : View
 
     private val _performanceList = MutableLiveData<List<Performance>>(listOf())
     val performanceList: LiveData<List<Performance>> get() = _performanceList
+
+    private val _posterUris = MutableLiveData<List<String>>()
+    val posterUris: LiveData<List<String>> get() = _posterUris
 
     fun fetchPerformanceList(category: String?, title: String?) {
         viewModelScope.launch {
@@ -32,6 +38,23 @@ class PerformanceViewModel(private val repository: PerformanceRepository) : View
         }
     }
 
+    private val _performanceEvent = MutableLiveData<PerformanceEvent?>()
+    val performanceEvent: LiveData<PerformanceEvent?> get() = _performanceEvent
+
+    fun fetchPerformanceEvent(performanceId: String, performanceDate: String, user: User) {
+        val token = AuthManager.getAuthToken()
+
+        viewModelScope.launch {
+            val result = repository.getPerformanceEvent(token, performanceId, performanceDate, user)
+            _performanceEvent.postValue(result)
+        }
+    }
+    fun loadPosterUris(category: String?, title: String?) {
+        viewModelScope.launch {
+            val uris = repository.getPosterUris(category, title)
+            _posterUris.postValue(uris ?: listOf())
+        }
+    }
 
 
 }

@@ -67,6 +67,9 @@
     <fragment
         android:id="@+id/calendarFragment"
         android:name="com.example.interpark.fragments.bookFlow.CalendarFragment">
+        <argument
+            android:name="movieid"
+            app:argType="string"/>
         <action
             android:id="@+id/actionCalendarFragmentToTimeSelectionFragment"
             app:destination="@id/timeSelectionFragment" />
@@ -79,6 +82,9 @@
         tools:layout="@layout/fragment_time_selection">
         <argument
             android:name="selectedDate"
+            app:argType="string" />
+        <argument
+            android:name="title"
             app:argType="string" />
         <action
             android:id="@+id/action_timeSelection_to_seatSelectionFragment"
@@ -94,9 +100,31 @@
             android:name="selectedDate"
             app:argType="string" />
         <argument
-            android:name="selectedTime"
+            android:name="title"
+            app:argType="string" />
+
+        <!-- 결제 페이지로 이동하는 액션 -->
+        <action
+            android:id="@+id/action_seatSelectionFragment_to_paymentFragment"
+            app:destination="@id/paymentFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/paymentFragment"
+        android:name="com.example.interpark.fragments.bookFlow.PaymentFragment"
+        android:label="Payment"
+        tools:layout="@layout/fragment_payment" >
+
+        <!-- PaymentFragment에서 사용할 argument 정의 -->
+        <argument
+            android:name="selectedSeats"
+            app:argType="string[]" />
+
+        <argument
+            android:name="title"
             app:argType="string" />
     </fragment>
+
 
 
 </navigation>

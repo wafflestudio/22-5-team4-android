@@ -173,7 +173,19 @@
             <androidx.viewpager2.widget.ViewPager2
                 android:id="@+id/viewPager"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent" />
+                android:layout_height="wrap_content" />
+
+            <!-- 상세 이미지 -->
+            <ImageView
+                android:id="@+id/detailImageView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:adjustViewBounds="true"
+                android:scaleType="fitCenter"
+                android:contentDescription="공연 상세 이미지"
+                app:srcCompat="@drawable/performance1" />
+
         </LinearLayout>
     </androidx.core.widget.NestedScrollView>
     <Button

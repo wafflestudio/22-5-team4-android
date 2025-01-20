@@ -8,6 +8,7 @@ import com.example.interpark.auth.AuthManager
 import com.example.interpark.data.API.ApiClient
 import com.example.interpark.data.API.ApiClientDev
 import com.example.interpark.data.types.Performance
+import com.example.interpark.data.types.PerformanceEvent
 import com.example.interpark.data.types.Review
 import com.example.interpark.data.types.SignInRequest
 import com.example.interpark.data.types.SignInResponse
@@ -88,5 +89,29 @@ class PerformanceRepository(private val ApiClientDev: ApiClientDev, private val 
             Review("1234", "qdrptd", "perf_id", 4.5f, "title_string", "content_string", LocalDateTime.now(), LocalDateTime.now()))
         return result
     }
+
+    suspend fun getPerformanceEvent(
+        token: String?,
+        performanceId: String,
+        performanceDate: String,
+        user: User
+    ): PerformanceEvent? {
+        return try {
+            val response = ApiClient.getPerformanceEvent("Bearer $token",performanceId, performanceDate, user)
+            if (response.isSuccessful) {
+                response.body()
+            } else {
+                null
+            }
+        } catch (e: Exception) {
+            e.printStackTrace()
+            null
+        }
+    }
+    suspend fun getPosterUris(category: String?, title: String?): List<String>? {
+        val performances = getPerformances(category, title) // 기존 getPerformances 호출
+        return performances?.mapNotNull { it.posterUrl } // posterUri만 추출
+    }
+
 
 }
