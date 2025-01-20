@@ -30,23 +30,6 @@ data class IdResponseWrapper<T>(
     val result: T
 )
 
-interface ApiClientDev {
-    @GET("/performances")
-    suspend fun getAllPerformances(
-    ): ResponseWrapper<Performance>
-
-    @GET("/performances/filter")
-    suspend fun getPerformances(
-        @Query("category") category: String?,
-        @Query("title") title: String?
-    ): ResponseWrapper<Performance>
-
-    @GET("/performances/id")
-    suspend fun getPerformanceById(
-        @Query("id") id: String?
-    ): IdResponseWrapper<Performance>
-}
-
 interface ApiClient {
     @POST("/api/v1/local/signup")
     suspend fun signup(
@@ -60,8 +43,7 @@ interface ApiClient {
 
     @POST("/api/v1/auth/signout")
     suspend fun signout(
-        @Header("Authorization") token: String
-    ): Unit
+    ): Response<Unit>
 
     @POST("/api/v1/refresh_token")
     suspend fun refresh_token(

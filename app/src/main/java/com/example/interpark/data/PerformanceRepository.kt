@@ -6,7 +6,6 @@ import android.util.Log
 import androidx.annotation.RequiresApi
 import com.example.interpark.auth.AuthManager
 import com.example.interpark.data.API.ApiClient
-import com.example.interpark.data.API.ApiClientDev
 import com.example.interpark.data.types.Performance
 import com.example.interpark.data.types.PerformanceEvent
 import com.example.interpark.data.types.Review
@@ -17,7 +16,7 @@ import com.example.interpark.data.types.SignUpResponse
 import com.example.interpark.data.types.User
 import java.time.LocalDateTime
 
-class PerformanceRepository(private val ApiClientDev: ApiClientDev, private val ApiClient: ApiClient) {
+class PerformanceRepository(private val ApiClient: ApiClient) {
 
     suspend fun fetchPerformanceById(id: String): Performance? {
         val result = ApiClient.getPerformanceDetail(id) // 서버 API 호출
@@ -60,9 +59,11 @@ class PerformanceRepository(private val ApiClientDev: ApiClientDev, private val 
     suspend fun signOut( context: Context){
 
 //        TODO(API 수정된 후 작업 필요)
-//        ApiClient.signout()
+        val result = ApiClient.signout()
+        if(result.code().toString() == "204"){
+            AuthManager.logout(context)
+        }
 //        if(API 요청이 성공적)
-        AuthManager.logout(context)
 
     }
 
