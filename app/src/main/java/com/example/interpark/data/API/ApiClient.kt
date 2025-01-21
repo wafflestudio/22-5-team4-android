@@ -47,7 +47,7 @@ interface ApiClient {
     ): Response<Unit>
 
     @POST("/api/v1/auth/refresh_token")
-    suspend fun refresh_token(
+    suspend fun refreshToken(
 
     ): Response<SignInResponse>
 

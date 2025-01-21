@@ -20,17 +20,17 @@ object AuthManager {
     private var user: User? = null
 
     fun initialize(context: Context) {
-        val sharedPreferences = context.getSharedPreferences(PREF_NAME, Context.MODE_PRIVATE)
-        nickName = sharedPreferences.getString(KEY_USER_NICKNAME, null)
-        val phone = sharedPreferences.getString(KEY_USER_PHONE, null)
-        val id = sharedPreferences.getString(KEY_USER_ID, null)
-        val username = sharedPreferences.getString(KEY_USER_USERNAME, null)
-        val email = sharedPreferences.getString(KEY_USER_EMAIL, null)
-        if(id != null && username != null && nickName != null && phone != null && email != null) {
-            user = User(id, username, nickName!!, phone, email)
-        }
-        authToken = sharedPreferences.getString(KEY_AUTH_TOKEN, null)
-        isLoggedIn = !nickName.isNullOrEmpty() && !authToken.isNullOrEmpty()
+//        val sharedPreferences = context.getSharedPreferences(PREF_NAME, Context.MODE_PRIVATE)
+//        nickName = sharedPreferences.getString(KEY_USER_NICKNAME, null)
+//        val phone = sharedPreferences.getString(KEY_USER_PHONE, null)
+//        val id = sharedPreferences.getString(KEY_USER_ID, null)
+//        val username = sharedPreferences.getString(KEY_USER_USERNAME, null)
+//        val email = sharedPreferences.getString(KEY_USER_EMAIL, null)
+//        if(id != null && username != null && nickName != null && phone != null && email != null) {
+//            user = User(id, username, nickName!!, phone, email)
+//        }
+//        authToken = sharedPreferences.getString(KEY_AUTH_TOKEN, null)
+//        isLoggedIn = !nickName.isNullOrEmpty() && !authToken.isNullOrEmpty()
     }
 
     fun login(context: Context, userId: String, authToken: String, user: User) {
