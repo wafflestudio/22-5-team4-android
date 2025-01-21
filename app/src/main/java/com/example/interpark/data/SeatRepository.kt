@@ -6,10 +6,10 @@ import com.google.android.gms.common.api.Response
 
 class SeatRepository(private val seatApiService: ApiClient) {
 
-    suspend fun fetchAvailableSeats(eventId: String): SeatResponse {
-        return seatApiService.getAvailableSeats(eventId)
+    suspend fun fetchAvailableSeats(performanceEventId: String): SeatResponse {
+        // API 호출
+        return seatApiService.getAvailableSeats(performanceEventId)
     }
-
 
 //    suspend fun reserveSeat(reservationRequest: ReservationRequest): retrofit2.Response<ReservationResponse> {
 //        return seatApiService.reserveSeat(reservationRequest)

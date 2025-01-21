@@ -26,7 +26,7 @@ class TimeSelectionFragment : Fragment() {
         PerformanceViewModelFactory(requireContext())
     }
     private val args: TimeSelectionFragmentArgs by navArgs()
-
+    private var firstEventId: String = "" // 기본값 설정
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -45,10 +45,13 @@ class TimeSelectionFragment : Fragment() {
         // 응답 결과 처리
         viewModel.performanceEvents.observe(viewLifecycleOwner) { performanceEvents: List<PerformanceEvent>? ->
             performanceEvents?.let {
-                it.forEach { event ->
-                    Log.d("PerformanceEvent", "ID: ${event.id}")
+                if (it.isNotEmpty()) {
+                    firstEventId = it[0].id // 0번째 event.id를 변수에 저장
+                    Log.d("PerformanceEvent", "First Event ID: $firstEventId")
+                } else {
+                    Log.e("PerformanceEvent", "No events found")
                 }
-            } ?: Log.e("PerformanceEvent", "No events found")
+            } ?: Log.e("PerformanceEvent", "PerformanceEvents is null")
         }
         return binding.root
     }
@@ -66,7 +69,7 @@ class TimeSelectionFragment : Fragment() {
             // 선택된 시간 전달 (예: "18:00")
             val action = TimeSelectionFragmentDirections.actionTimeSelectionToSeatSelectionFragment(
                 selectedDate = args.selectedDate,
-                args.title
+                firstEventId
             )
             it.findNavController().navigate(action)
         }

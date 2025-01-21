@@ -68,7 +68,10 @@ interface ApiClient {
     ): Response<Performance>
 
     @GET("api/v1/seat/{performanceEventId}/available")
-    suspend fun getAvailableSeats(@Query("eventId") eventId: String): SeatResponse
+    suspend fun getAvailableSeats(
+        @Path("performanceEventId") eventId:String
+//        @Query("eventId") eventId: String
+    ): SeatResponse
 
     @POST("/api/v1/reservation/reserve")
     suspend fun reserveSeat(
