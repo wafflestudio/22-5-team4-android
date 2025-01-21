@@ -3,7 +3,6 @@ package com.example.interpark.data.API
 import android.os.Build
 import androidx.annotation.RequiresApi
 import com.example.interpark.data.MoshiDateDeserializer
-import com.example.interpark.data.SharedPreferences.SimpleCookieJar
 import com.squareup.moshi.Moshi
 import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
 import okhttp3.CookieJar
@@ -58,7 +57,6 @@ object RetrofitInstance {
         .addInterceptor(HttpLoggingInterceptor().apply {
             level = HttpLoggingInterceptor.Level.BODY
         })
-        .cookieJar(SimpleCookieJar())
         .build()
 
     val api1: ApiClient by lazy {
