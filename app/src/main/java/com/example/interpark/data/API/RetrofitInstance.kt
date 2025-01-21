@@ -2,7 +2,10 @@ package com.example.interpark.data.API
 
 import android.os.Build
 import androidx.annotation.RequiresApi
+import com.example.interpark.auth.AuthInterceptor
+import com.example.interpark.auth.tokenProvider
 import com.example.interpark.data.MoshiDateDeserializer
+import com.example.interpark.data.MoshiDateTimeDeserializer
 //import com.example.interpark.data.SharedPreferences.SimpleCookieJar
 import com.squareup.moshi.Moshi
 import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
@@ -18,6 +21,7 @@ import java.net.CookieManager
 val moshi: Moshi = Moshi.Builder()
     .add(KotlinJsonAdapterFactory())
     .add(MoshiDateDeserializer())
+    .add(MoshiDateTimeDeserializer())
     .build()
 
 
@@ -37,17 +41,11 @@ object RetrofitInstance {
         })
         .build()
 
-    val api: ApiClientDev by lazy {
-        Retrofit.Builder()
-            .baseUrl(BASE_URL_DEV)
-            .client(clientDev)
-            .addConverterFactory(MoshiConverterFactory.create(moshi))
-            .build()
-            .create(ApiClientDev::class.java)
-    }
     // change
 
-    private const val BASE_URL_SERVER = "http://192.168.1.162:80/"
+
+    private const val BASE_URL_SERVER = "http://192.168.1.95:80/"
+
     private val client = OkHttpClient.Builder()
         .addInterceptor { chain ->
             val request = chain.request().newBuilder()
@@ -58,6 +56,7 @@ object RetrofitInstance {
         .addInterceptor(HttpLoggingInterceptor().apply {
             level = HttpLoggingInterceptor.Level.BODY
         })
+        .addInterceptor(AuthInterceptor(tokenProvider))
         //.cookieJar(SimpleCookieJar())
         .build()
 

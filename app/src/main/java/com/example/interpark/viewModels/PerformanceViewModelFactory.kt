@@ -12,9 +12,8 @@ class PerformanceViewModelFactory(private val context: Context):ViewModelProvide
     @RequiresApi(Build.VERSION_CODES.O)
     override fun <T : ViewModel> create(modelClass: Class<T>): T {
         if (modelClass.isAssignableFrom(PerformanceViewModel::class.java)) {
-            val apiServiceDev = RetrofitInstance.api
             val apiServiceServer = RetrofitInstance.api1
-            val repository = PerformanceRepository(apiServiceDev, apiServiceServer)
+            val repository = PerformanceRepository(apiServiceServer)
             return PerformanceViewModel(repository) as T
         }
         throw IllegalArgumentException("Unknown ViewModel class")

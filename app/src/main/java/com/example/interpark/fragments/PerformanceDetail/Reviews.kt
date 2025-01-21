@@ -50,9 +50,11 @@ class Reviews : Fragment() {
         performanceDetailViewModel.fetchPerformanceReviews("")
 
         binding.NavWriteReviewButton.setOnClickListener {
-            val action = PerformanceDetailFragmentDirections.actionPerformanceDetailFragmentToWriteReviewFragment("")
+            val performanceId = requireArguments().getString("key")
+            val action = PerformanceDetailFragmentDirections.actionPerformanceDetailFragmentToWriteReviewFragment(performanceId!!)
             findNavController().navigate(action)
         }
+        Log.d("performance:", performanceDetailViewModel.performanceDetail.value.toString())
     }
 
     private fun setRecyclerView(data: List<Review>?){

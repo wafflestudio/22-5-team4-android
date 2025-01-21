@@ -3,10 +3,11 @@ package com.example.interpark.data.API
 import com.example.interpark.data.CancelRequest
 import com.example.interpark.data.ReservationRequest
 import com.example.interpark.data.ReservationResponse
-import com.example.interpark.data.SeatRequest
 import com.example.interpark.data.SeatResponse
 import com.example.interpark.data.types.Performance
 import com.example.interpark.data.types.PerformanceEvent
+import com.example.interpark.data.types.Review
+import com.example.interpark.data.types.ReviewRequestBody
 import com.example.interpark.data.types.SignInRequest
 import com.example.interpark.data.types.SignInResponse
 import com.example.interpark.data.types.SignUpRequest
@@ -30,23 +31,6 @@ data class IdResponseWrapper<T>(
     val result: T
 )
 
-interface ApiClientDev {
-    @GET("/performances")
-    suspend fun getAllPerformances(
-    ): ResponseWrapper<Performance>
-
-    @GET("/performances/filter")
-    suspend fun getPerformances(
-        @Query("category") category: String?,
-        @Query("title") title: String?
-    ): ResponseWrapper<Performance>
-
-    @GET("/performances/id")
-    suspend fun getPerformanceById(
-        @Query("id") id: String?
-    ): IdResponseWrapper<Performance>
-}
-
 interface ApiClient {
     @POST("/api/v1/local/signup")
     suspend fun signup(
@@ -60,8 +44,7 @@ interface ApiClient {
 
     @POST("/api/v1/auth/signout")
     suspend fun signout(
-        @Header("Authorization") token: String
-    ): Unit
+    ): Response<Unit>
 
     @POST("/api/v1/refresh_token")
     suspend fun refresh_token(
@@ -104,5 +87,17 @@ interface ApiClient {
         @Path("performanceDate") performanceDate: String,
         @Query("user") user: User
     ): Response<PerformanceEvent>
+
+    @POST("/api/v1/performance/{performanceId}/review")
+    suspend fun writeReview(
+        @Path("performanceId") performanceId: String,
+        @Body request: ReviewRequestBody
+    ): Response<Review>
+
+    @GET("/api/v1/performance/{performanceId}/review")
+    suspend fun readReview(
+        @Path("performanceId") performanceId: String,
+        @Query("user") user: User
+    ): Response<List<Review>>
 
 }

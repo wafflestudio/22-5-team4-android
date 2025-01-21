@@ -10,7 +10,17 @@ data class Review(
     val rating: Float,
     val title: String,
     val content: String,
-    val createdAt: LocalDateTime,
-    val updatedAt: LocalDateTime
+    val createdAt: String,
+    val updatedAt: String
 )
 
+data class ReviewRequestBody(
+    val rating: Int,
+    val title: String,
+    val content: String
+)
+
+data class ReviewRequest(
+    val request: ReviewRequestBody,
+    val user: User
+)

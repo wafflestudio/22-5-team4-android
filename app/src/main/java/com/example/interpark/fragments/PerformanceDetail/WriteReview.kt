@@ -11,15 +11,10 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
-import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.example.interpark.R
-import com.example.interpark.adapters.ReviewAdapter
-import com.example.interpark.data.types.Review
-import com.example.interpark.databinding.FragmentPerformanceDetailReviewsBinding
 import com.example.interpark.databinding.FragmentPerformanceDetailWriteReviewBinding
-import com.example.interpark.viewModels.PerformanceDetailViewModel
-import com.example.interpark.viewModels.PerformanceDetailViewModelFactory
+import com.example.interpark.viewModels.ReviewViewModel
+import com.example.interpark.viewModels.ReviewViewModelFactory
 
 
 class WriteReview : Fragment() {
@@ -27,8 +22,8 @@ class WriteReview : Fragment() {
     private val binding get() = _binding!!
     private val args: PerformanceDetailFragmentArgs by navArgs()
     private lateinit var reviewRecyclerView: RecyclerView
-    private val performanceDetailViewModel: PerformanceDetailViewModel by viewModels {
-        PerformanceDetailViewModelFactory(requireContext())
+    private val ReviewViewModel: ReviewViewModel by viewModels {
+        ReviewViewModelFactory(requireContext())
     }
 
     override fun onCreateView(
@@ -47,6 +42,13 @@ class WriteReview : Fragment() {
             findNavController().navigateUp()
         }
 
+        binding.writeReviewButton.setOnClickListener {
+            Log.d("body title:", args.title)
+            Log.d("rating: ", binding.ratingBar.rating.toString())
+//            Log.d("title: ", binding.etTitle.text)
+            ReviewViewModel.writeReview(args.title,
+                binding.ratingBar.rating.toInt(), binding.etTitle.text.toString(), binding.etContent.text.toString())
+        }
     }
 
     override fun onDestroyView() {
