@@ -27,6 +27,7 @@ data class SignInRequest(
 )
 
 data class SignInResponse(
+    val user: User,
     val accessToken: String
 )
 
