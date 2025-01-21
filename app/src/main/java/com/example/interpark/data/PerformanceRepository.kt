@@ -92,14 +92,17 @@ class PerformanceRepository(private val ApiClient: ApiClient) {
     suspend fun getPerformanceEvent(
         token: String?,
         performanceId: String,
-        performanceDate: String,
-        user: User
-    ): PerformanceEvent? {
+        performanceDate: String
+    ): List<PerformanceEvent>? {
         return try {
-            val response = ApiClient.getPerformanceEvent("Bearer $token",performanceId, performanceDate, user)
+            // API 호출
+            val response = ApiClient.getPerformanceEvent("Bearer $token", performanceId, performanceDate)
+
             if (response.isSuccessful) {
+                // 응답 본문을 리스트로 파싱
                 response.body()
             } else {
+                Log.e("API Error", "Response failed with code: ${response.code()}")
                 null
             }
         } catch (e: Exception) {
@@ -107,6 +110,7 @@ class PerformanceRepository(private val ApiClient: ApiClient) {
             null
         }
     }
+
     suspend fun getPosterUris(category: String?, title: String?): List<String>? {
         val performances = getPerformances(category, title) // 기존 getPerformances 호출
         return performances?.mapNotNull { it.posterUrl } // posterUri만 추출

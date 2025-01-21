@@ -85,8 +85,7 @@ interface ApiClient {
         @Header("Authorization") token:String,
         @Path("performanceId") performanceId: String,
         @Path("performanceDate") performanceDate: String,
-        @Query("user") user: User
-    ): Response<PerformanceEvent>
+    ): Response<List<PerformanceEvent>>
 
     @POST("/api/v1/performance/{performanceId}/review")
     suspend fun writeReview(

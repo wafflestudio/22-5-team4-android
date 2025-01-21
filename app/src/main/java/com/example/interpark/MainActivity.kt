@@ -13,7 +13,6 @@ import androidx.work.WorkManager
 import com.example.interpark.adapters.ViewPagers.ViewPagerAdapter
 import com.example.interpark.auth.AuthManager
 import com.example.interpark.auth.scheduleTokenRefresh
-import com.kakao.sdk.common.KakaoSdk
 
 class MainActivity : AppCompatActivity() {
 
