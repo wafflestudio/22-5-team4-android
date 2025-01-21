@@ -23,8 +23,7 @@ android {
         targetSdk = 35
         versionCode = 1
         versionName = "1.0"
-        manifestPlaceholders["NATIVE_APP_KEY"] = "803ac481e1a9eeffc32e36f6a91e03e0" // 실제 앱 키 입력
-        buildConfigField("String", "KAKAO_NATIVE_KEY", "\"803ac481e1a9eeffc32e36f6a91e03e0\"") // 실제 키 입력
+// 실제 키 입력
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
 
