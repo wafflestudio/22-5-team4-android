@@ -46,7 +46,7 @@ interface ApiClient {
     suspend fun signout(
     ): Response<Unit>
 
-    @POST("/api/v1/refresh_token")
+    @POST("/api/v1/auth/refresh_token")
     suspend fun refresh_token(
 
     ): Response<SignInResponse>
@@ -96,8 +96,7 @@ interface ApiClient {
 
     @GET("/api/v1/performance/{performanceId}/review")
     suspend fun readReview(
-        @Path("performanceId") performanceId: String,
-        @Query("user") user: User
+        @Path("performanceId") performanceId: String
     ): Response<List<Review>>
 
 }

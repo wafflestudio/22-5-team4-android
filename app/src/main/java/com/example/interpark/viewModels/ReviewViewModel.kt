@@ -22,11 +22,35 @@ class ReviewViewModel(private val repository: ReviewRepository) : ViewModel() {
     private val _reviewWriteError = MutableStateFlow<ReviewError?>(null)
     val reviewWriteError: StateFlow<ReviewError?> = _reviewWriteError
 
+    private val _reviewList = MutableLiveData<List<Review>?>()
+    val reviewList: LiveData<List<Review>?> = _reviewList
+
+    private val _reviewReadError = MutableStateFlow<ReviewError?>(null)
+    val reviewReadError: StateFlow<ReviewError?> = _reviewReadError
+
+    fun readReview(performanceId: String?){
+        if(performanceId == null) return
+        viewModelScope.launch {
+            try {
+                val response = repository.readReview(performanceId)
+                if(response.isSuccessful){
+                    _reviewList.value = response.body()
+                }
+            }
+            catch (e: IOException) {
+                _reviewReadError.value = ReviewError.NetworkError
+            } catch (e: Exception) {
+                _reviewReadError.value = ReviewError.Unknown(e.message)
+            }
+        }
+    }
+
     fun writeReview(performanceId: String, rating: Int, title: String, content: String){
         if(ratingError.value == true || titleError.value == true || contentError.value == true){
             if(rating == 0) _ratingError.value = true
             return
         }
+
         viewModelScope.launch{
             try{
                 if(AuthManager.getUser() != null){

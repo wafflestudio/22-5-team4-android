@@ -13,4 +13,8 @@ class ReviewRepository(private val reviewApiService: ApiClient) {
         return reviewApiService.writeReview(performanceId, reviewRequest)
     }
 
+    suspend fun readReview(performanceId: String): Response<List<Review>>{
+        return reviewApiService.readReview(performanceId)
+    }
+
 }
