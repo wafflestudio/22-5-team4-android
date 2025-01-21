@@ -24,3 +24,10 @@ data class ReviewRequest(
     val request: ReviewRequestBody,
     val user: User
 )
+
+sealed class ReviewError {
+    object Unauthorized : ReviewError() // 로그인이 안 되어 있는 경우
+    object ServerError : ReviewError() // 서버 문제
+    object NetworkError : ReviewError() // 네트워크 문제
+    data class Unknown(val message: String?) : ReviewError() // 기타 원인
+}

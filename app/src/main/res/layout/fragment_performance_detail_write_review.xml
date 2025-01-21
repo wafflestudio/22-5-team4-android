@@ -81,9 +81,21 @@
                     android:id="@+id/ratingBar"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:stepSize="1"
                     android:scaleX="0.8"
                     android:scaleY="0.8"/>
             </LinearLayout>
+
+            <TextView
+                android:id="@+id/ratingBarError"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="평점을 선택해주세요."
+                android:textColor="@color/design_default_color_error"
+                android:layout_gravity="start"
+                android:layout_marginBottom="8dp"
+                android:layout_marginTop="-8dp"
+                android:visibility="gone"/>
 
             <EditText
                 android:id="@+id/et_title"
@@ -94,6 +106,17 @@
                 android:paddingHorizontal="12dp"
                 android:hint="제목을 입력해 주세요."
                 android:layout_marginBottom="8dp"/>
+
+            <TextView
+                android:id="@+id/titleEditTextError"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="제목을 입력해 주세요"
+                android:textColor="@color/design_default_color_error"
+                android:layout_gravity="start"
+                android:layout_marginBottom="8dp"
+                android:layout_marginTop="-8dp"
+                android:visibility="gone"/>
 
             <EditText
                 android:id="@+id/et_content"
@@ -106,9 +129,20 @@
                 android:layout_marginBottom="16dp"/>
 
             <TextView
+                android:id="@+id/contentEditTextError"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="내용을 입력해 주세요."
+                android:textColor="@color/design_default_color_error"
+                android:layout_gravity="start"
+                android:layout_marginBottom="8dp"
+                android:layout_marginTop="-8dp"
+                android:visibility="gone"/>
+
+            <TextView
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:text="꼭 읽어주세요."
+                android:text="꼭 읽어 주세요."
                 android:textSize="15sp"
                 android:textStyle="bold"
                 android:layout_marginBottom="12dp"/>
