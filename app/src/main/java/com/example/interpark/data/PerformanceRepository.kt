@@ -51,20 +51,17 @@ class PerformanceRepository(private val ApiClient: ApiClient) {
     suspend fun signIn(username: String, password: String, context: Context): SignInResponse?{
         val result = ApiClient.signin(SignInRequest(username, password))
         if(result.code().toString().first() == '2'){
-            AuthManager.login(context, username, password)
+            AuthManager.login(context, result.body()!!.user.nickname, result.body()!!.accessToken, result.body()!!.user)
         }
         return result.body()
     }
 
     suspend fun signOut( context: Context){
-
-//        TODO(API 수정된 후 작업 필요)
         val result = ApiClient.signout()
         if(result.code().toString() == "204"){
             AuthManager.logout(context)
         }
-//        if(API 요청이 성공적)
-
+        AuthManager.logout(context)
     }
 
     suspend fun me(token: String?): User?{
@@ -80,14 +77,15 @@ class PerformanceRepository(private val ApiClient: ApiClient) {
     @RequiresApi(Build.VERSION_CODES.O)
     suspend fun fetchPerformanceReview(perfId: String?): List<Review>{
 
-        val result = listOf(Review("1234", "qdrptd", "perf_id", 4.5f, "title_string", "content_string", LocalDateTime.now(), LocalDateTime.now()),
-            Review("1234", "qdrptd", "perf_id", 4.5f, "title_string", "content_string", LocalDateTime.now(), LocalDateTime.now()),
-            Review("1234", "qdrptd", "perf_id", 4.5f, "title_string", "content_string", LocalDateTime.now(), LocalDateTime.now()),
-            Review("1234", "qdrptd", "perf_id", 4.5f, "title_string", "content_string", LocalDateTime.now(), LocalDateTime.now()),
-            Review("1234", "qdrptd", "perf_id", 4.5f, "title_string", "content_string", LocalDateTime.now(), LocalDateTime.now()),
-            Review("1234", "qdrptd", "perf_id", 4.5f, "title_string", "content_string", LocalDateTime.now(), LocalDateTime.now()),
-            Review("1234", "qdrptd", "perf_id", 4.5f, "title_string", "content_string", LocalDateTime.now(), LocalDateTime.now()),
-            Review("1234", "qdrptd", "perf_id", 4.5f, "title_string", "content_string", LocalDateTime.now(), LocalDateTime.now()))
+        val result = listOf(Review("1234", "qdrptd", "perf_id", 4.5f, "title_string", "content_string", "2025-01-21T09:44:17.456Z", "2025-01-21T09:44:17.456Z"),
+            Review("1234", "qdrptd", "perf_id", 4.5f, "title_string", "content_string", "2025-01-21T09:44:17.456Z", "2025-01-21T09:44:17.456Z"),
+            Review("1234", "qdrptd", "perf_id", 4.5f, "title_string", "content_string", "2025-01-21T09:44:17.456Z", "2025-01-21T09:44:17.456Z"),
+            Review("1234", "qdrptd", "perf_id", 4.5f, "title_string", "content_string", "2025-01-21T09:44:17.456Z", "2025-01-21T09:44:17.456Z"),
+            Review("1234", "qdrptd", "perf_id", 4.5f, "title_string", "content_string", "2025-01-21T09:44:17.456Z", "2025-01-21T09:44:17.456Z"),
+            Review("1234", "qdrptd", "perf_id", 4.5f, "title_string", "content_string", "2025-01-21T09:44:17.456Z", "2025-01-21T09:44:17.456Z"),
+            Review("1234", "qdrptd", "perf_id", 4.5f, "title_string", "content_string", "2025-01-21T09:44:17.456Z", "2025-01-21T09:44:17.456Z"),
+            Review("1234", "qdrptd", "perf_id", 4.5f, "title_string", "content_string", "2025-01-21T09:44:17.456Z", "2025-01-21T09:44:17.456Z"))
+
         return result
     }
 

@@ -1,18 +1,22 @@
 package com.example.interpark.viewModels
 
-import android.util.Log
 import androidx.lifecycle.*
-import com.example.interpark.data.CancelRequest
-import com.example.interpark.data.Seat
-import com.example.interpark.data.SeatResponse
-import kotlinx.coroutines.Dispatchers
+import com.example.interpark.auth.AuthManager
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
-import com.example.interpark.data.PerformanceRepository
-import com.example.interpark.data.ReservationRequest
-import com.example.interpark.data.ReservationResponse
+import com.example.interpark.data.ReviewRepository
+import com.example.interpark.data.types.Review
+import com.example.interpark.data.types.ReviewRequestBody
 
 
-class ReviewViewModel(private val repository: PerformanceRepository) : ViewModel() {
+class ReviewViewModel(private val repository: ReviewRepository) : ViewModel() {
+    private val _review = MutableLiveData<Review>()
+    val review: LiveData<Review> get() = _review
 
+    fun writeReview(performanceId: String, rating: Int, title: String, content: String){
+        viewModelScope.launch{
+            if(AuthManager.getUser() != null){
+                repository.writeReview(performanceId, ReviewRequestBody(rating, title, content), AuthManager.getUser()!!)
+            }
+        }
+    }
 }

@@ -16,8 +16,8 @@ import kotlinx.coroutines.withContext
 
 class PerformanceDetailViewModel(private val repository: PerformanceRepository) : ViewModel() {
 
-    private val _performanceDetail = MutableLiveData<Performance>()
-    val performanceDetail: LiveData<Performance> get() = _performanceDetail
+    private val _performanceDetail = MutableLiveData<Performance?>()
+    val performanceDetail: LiveData<Performance?> get() = _performanceDetail
 
     private val _performanceReviews = MutableLiveData<List<Review>>()
     val performanceReviews: LiveData<List<Review>> get() = _performanceReviews

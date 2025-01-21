@@ -3,10 +3,11 @@ package com.example.interpark.data.API
 import com.example.interpark.data.CancelRequest
 import com.example.interpark.data.ReservationRequest
 import com.example.interpark.data.ReservationResponse
-import com.example.interpark.data.SeatRequest
 import com.example.interpark.data.SeatResponse
 import com.example.interpark.data.types.Performance
 import com.example.interpark.data.types.PerformanceEvent
+import com.example.interpark.data.types.Review
+import com.example.interpark.data.types.ReviewRequestBody
 import com.example.interpark.data.types.SignInRequest
 import com.example.interpark.data.types.SignInResponse
 import com.example.interpark.data.types.SignUpRequest
@@ -86,5 +87,17 @@ interface ApiClient {
         @Path("performanceDate") performanceDate: String,
         @Query("user") user: User
     ): Response<PerformanceEvent>
+
+    @POST("/api/v1/performance/{performanceId}/review")
+    suspend fun writeReview(
+        @Path("performanceId") performanceId: String,
+        @Body request: ReviewRequestBody
+    ): Response<Review>
+
+    @GET("/api/v1/performance/{performanceId}/review")
+    suspend fun readReview(
+        @Path("performanceId") performanceId: String,
+        @Query("user") user: User
+    ): Response<List<Review>>
 
 }

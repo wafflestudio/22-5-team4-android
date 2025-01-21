@@ -7,6 +7,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.example.interpark.data.API.RetrofitInstance
 import com.example.interpark.data.PerformanceRepository
+import com.example.interpark.data.ReviewRepository
 
 class ReviewViewModelFactory(private val context: Context) : ViewModelProvider.Factory {
 
@@ -14,7 +15,7 @@ class ReviewViewModelFactory(private val context: Context) : ViewModelProvider.F
     override fun <T : ViewModel> create(modelClass: Class<T>): T {
         if (modelClass.isAssignableFrom(ReviewViewModel::class.java)) {
             val apiService = RetrofitInstance.api1
-            val repository = PerformanceRepository(apiService)
+            val repository = ReviewRepository(apiService)
             return ReviewViewModel(repository) as T
         }
         throw IllegalArgumentException("Unknown ViewModel class")
