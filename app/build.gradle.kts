@@ -1,3 +1,6 @@
+import java.util.Properties
+import java.io.FileInputStream
+
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
@@ -5,6 +8,11 @@ plugins {
     alias(libs.plugins.androidx.navigation.safe.args)
 
 }
+
+val localProperties = Properties()
+localProperties.load(FileInputStream(rootProject.file("local.properties")))
+
+val kakaoNativeKey = localProperties["KAKAO_NATIVE_KEY"] as String
 
 android {
 
@@ -23,7 +31,8 @@ android {
         targetSdk = 35
         versionCode = 1
         versionName = "1.0"
-// 실제 키 입력
+        manifestPlaceholders["NATIVE_APP_KEY"] = kakaoNativeKey
+        buildConfigField("String", "KAKAO_NATIVE_KEY", "\"$kakaoNativeKey\"")
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
 
