@@ -1,6 +1,7 @@
 package com.example.interpark.auth
 
 import android.content.Context
+import com.example.interpark.data.types.User
 
 object AuthManager {
 
@@ -11,6 +12,7 @@ object AuthManager {
     private var isLoggedIn: Boolean = false
     private var authToken: String? = null
     private var userId: String? = null
+    private var user: User? = null
 
     fun initialize(context: Context) {
         val sharedPreferences = context.getSharedPreferences(PREF_NAME, Context.MODE_PRIVATE)
@@ -19,10 +21,11 @@ object AuthManager {
         isLoggedIn = !userId.isNullOrEmpty() && !authToken.isNullOrEmpty()
     }
 
-    fun login(context: Context, userId: String, authToken: String) {
+    fun login(context: Context, userId: String, authToken: String, user: User) {
         this.userId = userId
         this.authToken = authToken
         this.isLoggedIn = true
+        this.user = user
         saveSession(context, userId, authToken)
     }
 
@@ -42,6 +45,8 @@ object AuthManager {
     fun getUserId(): String? = userId
 
     fun getAuthToken(): String? = authToken
+
+    fun getUser(): User? = user
 
     private fun saveSession(context: Context, userId: String, authToken: String) {
         val sharedPreferences = context.getSharedPreferences(PREF_NAME, Context.MODE_PRIVATE)

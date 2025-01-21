@@ -34,7 +34,7 @@ class PerformanceInformation : Fragment() {
         performanceDetailViewModel.fetchPerformanceDetail(perfId)
         performanceDetailViewModel.performanceDetail.observe(viewLifecycleOwner) { performance ->
             binding.apply{
-                detailImageView.load(performance.detail)
+                detailImageView.load(performance!!.detail)
             }
         }
 

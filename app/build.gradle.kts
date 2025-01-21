@@ -1,15 +1,25 @@
+import java.util.Properties
+import java.io.FileInputStream
+
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
     alias(libs.plugins.kotlin.compose)
     alias(libs.plugins.androidx.navigation.safe.args)
+
 }
+
+val localProperties = Properties()
+localProperties.load(FileInputStream(rootProject.file("local.properties")))
+
+val kakaoNativeKey = localProperties["KAKAO_NATIVE_KEY"] as String
 
 android {
 
     android {
         buildFeatures {
             viewBinding = true
+            buildConfig = true
         }
     }
     namespace = "com.example.interpark"
@@ -21,7 +31,8 @@ android {
         targetSdk = 35
         versionCode = 1
         versionName = "1.0"
-
+        manifestPlaceholders["NATIVE_APP_KEY"] = kakaoNativeKey
+        buildConfigField("String", "KAKAO_NATIVE_KEY", "\"$kakaoNativeKey\"")
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
 
@@ -97,5 +108,6 @@ dependencies {
 //    implementation (libs.okhttp.logging)
     implementation(libs.glide)
     annotationProcessor(libs.glide.compiler)
+    implementation("com.kakao.sdk:v2-user:2.20.0") // 카카오 로그인 모듈
 
 }

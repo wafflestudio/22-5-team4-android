@@ -13,9 +13,8 @@ class MyPageViewModelFactory(private val context: Context):ViewModelProvider.Fac
     @RequiresApi(Build.VERSION_CODES.O)
     override fun <T : ViewModel> create(modelClass: Class<T>): T {
         if (modelClass.isAssignableFrom(MyPageViewModel::class.java)) {
-            val apiServiceDev = RetrofitInstance.api
             val apiServiceServer = RetrofitInstance.api1
-            val repository = PerformanceRepository(apiServiceDev, apiServiceServer)
+            val repository = PerformanceRepository(apiServiceServer)
             return MyPageViewModel(repository, context) as T
         }
         throw IllegalArgumentException("Unknown ViewModel class")

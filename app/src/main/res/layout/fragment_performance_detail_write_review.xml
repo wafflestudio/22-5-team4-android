@@ -78,6 +78,7 @@
                     android:textSize="16sp"
                     android:layout_gravity="center_vertical"/>
                 <RatingBar
+                    android:id="@+id/ratingBar"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:scaleX="0.8"
@@ -85,6 +86,7 @@
             </LinearLayout>
 
             <EditText
+                android:id="@+id/et_title"
                 android:background="@drawable/rounded_edittext"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -94,6 +96,7 @@
                 android:layout_marginBottom="8dp"/>
 
             <EditText
+                android:id="@+id/et_content"
                 android:background="@drawable/rounded_edittext"
                 android:layout_width="match_parent"
                 android:layout_height="180dp"

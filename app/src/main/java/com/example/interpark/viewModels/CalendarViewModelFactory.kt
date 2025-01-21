@@ -8,13 +8,13 @@ import androidx.lifecycle.ViewModelProvider
 import com.example.interpark.data.API.RetrofitInstance
 import com.example.interpark.data.PerformanceRepository
 
-class PerformanceViewModelFactory(private val context: Context):ViewModelProvider.Factory {
+class CalendarViewModelFactory(private val context: Context) : ViewModelProvider.Factory {
     @RequiresApi(Build.VERSION_CODES.O)
     override fun <T : ViewModel> create(modelClass: Class<T>): T {
-        if (modelClass.isAssignableFrom(PerformanceViewModel::class.java)) {
+        if (modelClass.isAssignableFrom(CalendarViewModel::class.java)) {
             val apiServiceServer = RetrofitInstance.api1
             val repository = PerformanceRepository(apiServiceServer)
-            return PerformanceViewModel(repository) as T
+            return CalendarViewModel(repository) as T
         }
         throw IllegalArgumentException("Unknown ViewModel class")
     }

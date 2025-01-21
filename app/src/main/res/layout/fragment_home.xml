@@ -1,11 +1,10 @@
-<?xml version="1.0" encoding="utf-8"?>
 <androidx.coordinatorlayout.widget.CoordinatorLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainActivity">
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context=".fragments.HomeFragment">
 
     <!-- AppBarLayout 고정된 상단 바 -->
     <com.google.android.material.appbar.AppBarLayout
@@ -41,65 +40,77 @@
         </androidx.appcompat.widget.Toolbar>
     </com.google.android.material.appbar.AppBarLayout>
 
+
+    <!-- 스크롤 가능한 콘텐츠 -->
     <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
-        <!-- 스크롤 가능한 콘텐츠 -->
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:padding="16dp">
 
+            <!-- 회색 배경을 위한 FrameLayout -->
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="300dp"
+                android:background="#F0F0F0">
+
+            <!-- ViewPager2 -->
+            <androidx.viewpager2.widget.ViewPager2
+                android:id="@+id/viewPager"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:clipToPadding="false"
+                android:paddingStart="0dp"
+                android:paddingEnd="0dp" />
+        </FrameLayout>
+
+            <!-- 포스터 인디케이터 -->
+            <com.google.android.material.tabs.TabLayout
+                android:id="@+id/tabIndicator"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="8dp"
+                app:tabIndicatorColor="@color/black"
+                app:tabSelectedTextColor="@color/black"
+                app:tabTextColor="@android:color/darker_gray" />
+
+            <!-- 카테고리 RecyclerView -->
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/homeCategoryRecyclerView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
+                android:paddingStart="16dp"
+                android:paddingEnd="16dp"
+                android:clipToPadding="false"
                 android:scrollbars="vertical" />
 
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="5dp"
-                android:background="#E0E0E0" />
-            <!-- 더 많은 콘텐츠 추가 -->
-            <!-- 예시로 TextView 여러 개 추가 -->
+            <!-- "장르별 랭킹" 제목 -->
             <TextView
+                android:id="@+id/categoryRankingTitle"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:padding="20dp"
-                android:gravity="center"
-                android:textStyle="bold"
+                android:layout_marginTop="24dp"
+                android:padding="8dp"
                 android:text="장르별 랭킹"
                 android:textColor="@color/black"
-                android:textSize="24sp" />
+                android:textSize="18sp"
+                android:textStyle="bold" />
 
+            <!-- 장르별 랭킹 RecyclerView -->
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/homeCategoryRank_CategoryList"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
+                android:layout_marginTop="8dp"
+                android:clipToPadding="false"
                 android:scrollbars="horizontal" />
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:padding="160dp"
-                android:text="More content..."
-                android:textSize="18sp" />
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:padding="160dp"
-                android:text="More content..."
-                android:textSize="18sp" />
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:padding="160dp"
-                android:text="More content..."
-                android:textSize="18sp" />
         </LinearLayout>
     </androidx.core.widget.NestedScrollView>
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

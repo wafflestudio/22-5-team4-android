@@ -15,7 +15,7 @@ class TokenRefresher(
 ) : CoroutineWorker(appContext, workerParams) {
     @RequiresApi(Build.VERSION_CODES.O)
     override suspend fun doWork(): Result {
-        val repository = PerformanceRepository(RetrofitInstance.api, RetrofitInstance.api1)
+        val repository = PerformanceRepository(RetrofitInstance.api1)
         val newAccessToken = repository.refresh_token()
         if (newAccessToken != null) {
             AuthManager.refreshToken(applicationContext, newAccessToken)
