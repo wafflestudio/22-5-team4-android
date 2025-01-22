@@ -36,6 +36,7 @@ class MyFragment : Fragment() {
         val nickNamePrompt = view.findViewById<TextView>(R.id.logged_in_prompt)
         val footerView = view.findViewById<LinearLayout>(R.id.footer)
         val logOutTextView = view.findViewById<TextView>(R.id.btn_logout)
+        val reserveHistory = view.findViewById<TextView>(R.id.reserve_history)
         // "로그인 해주세요" 전체 클릭 이벤트 설정
         loginPromptLayout.setOnClickListener {
             val navController = requireActivity().findNavController(R.id.myNavHost)
@@ -46,6 +47,10 @@ class MyFragment : Fragment() {
 
         logOutTextView.setOnClickListener {
             myPageViewModel.logout()
+        }
+
+        reserveHistory.setOnClickListener{
+
         }
 
         myPageViewModel.userName.observe(viewLifecycleOwner){ user ->
@@ -67,6 +72,7 @@ class MyFragment : Fragment() {
                 footerView.visibility = View.GONE
             }
         }
+
 
 //        view.findViewById<TextView>(R.id.account).setOnClickListener {
 //

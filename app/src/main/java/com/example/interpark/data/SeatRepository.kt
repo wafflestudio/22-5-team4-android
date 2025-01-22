@@ -8,6 +8,7 @@ class SeatRepository(private val seatApiService: ApiClient) {
 
     suspend fun fetchAvailableSeats(performanceEventId: String): SeatResponse {
         // API 호출
+        Log.d("SeatRepository", "Performance Event ID: $performanceEventId")
         return seatApiService.getAvailableSeats(performanceEventId)
     }
 
@@ -17,6 +18,7 @@ class SeatRepository(private val seatApiService: ApiClient) {
 
     suspend fun reserveSeat(reservationRequest: ReservationRequest): ReservationResponse? {
         val result = seatApiService.reserveSeat(reservationRequest)
+        Log.d("ReserveSeat", "Observed reservationId: $reservationRequest")
         Log.d("ReserveSeat", result.body().toString())
         return result.body()
     }

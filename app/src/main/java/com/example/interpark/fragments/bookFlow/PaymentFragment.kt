@@ -35,7 +35,12 @@ class PaymentFragment : Fragment(R.layout.fragment_payment) {
 
         // 결제 버튼 클릭 이벤트
         view.findViewById<View>(R.id.payButton).setOnClickListener {
-            reserveSeats()
+            val reservationRequest = ReservationRequest(
+                request = ReservationRequest.Request(reservationId = args.title),
+                user = null
+            )
+
+            paymentViewModel.reserveSeat(reservationRequest)
         }
 
         // 예약 성공/실패 처리
@@ -53,21 +58,6 @@ class PaymentFragment : Fragment(R.layout.fragment_payment) {
         }
     }
 
-    private fun reserveSeats() {
-        val reservationRequest = createReservationRequest()
-        paymentViewModel.reserveSeat(reservationRequest)
-    }
 
-    private fun createReservationRequest(): ReservationRequest {
-        return ReservationRequest(
-            request = ReservationRequest.Request(reservationId = "null"),
-            user = ReservationRequest.User(
-                id = "user123",
-                username = "JohnDoe",
-                nickname = "Johnny",
-                phoneNumber = "01012345678",
-                email = "john.doe@example.com"
-            )
-        )
-    }
+
 }

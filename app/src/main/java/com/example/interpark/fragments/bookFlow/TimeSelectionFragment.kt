@@ -16,8 +16,7 @@ import com.example.interpark.data.types.User
 import com.example.interpark.databinding.FragmentTimeSelectionBinding
 import com.example.interpark.viewModels.PerformanceViewModel
 import com.example.interpark.viewModels.PerformanceViewModelFactory
-import com.example.interpark.viewModels.SeatSelectionViewModel
-import com.example.interpark.viewModels.SeatSelectionViewModelFactory
+
 
 class TimeSelectionFragment : Fragment() {
     private var _binding: FragmentTimeSelectionBinding? = null
