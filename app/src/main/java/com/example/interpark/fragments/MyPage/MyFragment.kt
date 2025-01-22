@@ -50,7 +50,10 @@ class MyFragment : Fragment() {
         }
 
         reserveHistory.setOnClickListener{
-
+            val navController = requireActivity().findNavController(R.id.myNavHost)
+            val action = MyFragmentDirections
+                .actionMyFragmentToReservedSeatListFragment()
+            navController.navigate(action)
         }
 
         myPageViewModel.userName.observe(viewLifecycleOwner){ user ->

@@ -39,3 +39,14 @@ data class SeatNumber(
     val first: Int,
     val second: Int
 )
+
+data class ReservedSeat(
+    val id: String,
+    val performanceTitle: String,
+    val posterUri: String,
+    val performanceHallName: String,
+    val seat: SeatDetail,
+    val performanceStartAt: String,
+    val performanceEndAt: String,
+    val reservationDate: String
+)

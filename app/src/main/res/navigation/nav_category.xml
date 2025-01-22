@@ -125,6 +125,10 @@
             app:argType="string" />
     </fragment>
 
-
+    <fragment
+        android:id="@+id/ReservedSeatListFragment"
+        android:name="com.example.interpark.fragments.MyPage.ReservedSeatListFragment"
+        android:label="카테고리">
+    </fragment>
 
 </navigation>
