@@ -50,3 +50,15 @@ data class ReservedSeat(
     val performanceEndAt: String,
     val reservationDate: String
 )
+
+data class MyReservationResponse(
+    val myReservations: List<MyReservation>
+)
+
+data class MyReservation(
+    val id: String,
+    val performanceTitle: String,
+    val posterUri: String,
+    val performanceDate: String,
+    val reservationDate: String
+)

@@ -2,6 +2,7 @@ package com.example.interpark.data
 
 import android.util.Log
 import com.example.interpark.data.API.ApiClient
+import com.example.interpark.data.types.User
 import com.google.android.gms.common.api.Response
 
 class SeatRepository(private val seatApiService: ApiClient) {
@@ -26,5 +27,20 @@ class SeatRepository(private val seatApiService: ApiClient) {
 
     suspend fun cancelReservation(cancelRequest: CancelRequest) {
         seatApiService.cancelReservation(cancelRequest)
+    }
+
+    suspend fun fetchReservations(user: User?): List<MyReservation> {
+        return try {
+            val response = seatApiService.getReservations(user)
+            if (response.isSuccessful) {
+                response.body()?.myReservations ?: emptyList()
+            } else {
+                Log.e("ReservationRepository", "Error: ${response.code()} - ${response.message()}")
+                emptyList()
+            }
+        } catch (e: Exception) {
+            Log.e("ReservationRepository", "Exception occurred", e)
+            emptyList()
+        }
     }
 }

@@ -1,6 +1,7 @@
 package com.example.interpark.data.API
 
 import com.example.interpark.data.CancelRequest
+import com.example.interpark.data.MyReservationResponse
 import com.example.interpark.data.ReservationRequest
 import com.example.interpark.data.ReservationResponse
 import com.example.interpark.data.SeatResponse
@@ -77,6 +78,13 @@ interface ApiClient {
     suspend fun reserveSeat(
         @Body reservationRequest: ReservationRequest
     ): Response<ReservationResponse>
+
+    @GET("/api/v1/me/reservation")
+    suspend fun getReservations(
+        @Query("user") user: User?
+    ): Response<MyReservationResponse>
+
+
 
     @POST("/api/v1/reservation/cancel")
     suspend fun cancelReservation(

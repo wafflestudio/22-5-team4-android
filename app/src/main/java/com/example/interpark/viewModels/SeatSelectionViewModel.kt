@@ -13,8 +13,10 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import androidx.navigation.fragment.navArgs
+import com.example.interpark.data.MyReservation
 import com.example.interpark.data.ReservationRequest
 import com.example.interpark.data.ReservationResponse
+import com.example.interpark.data.types.User
 
 
 class SeatSelectionViewModel(private val repository: SeatRepository) : ViewModel() {
@@ -101,5 +103,14 @@ class SeatSelectionViewModel(private val repository: SeatRepository) : ViewModel
         }
     }
 
+    private val _reservations = MutableLiveData<List<MyReservation>>()
+    val reservations: LiveData<List<MyReservation>> get() = _reservations
+
+    fun fetchReservations() {
+        viewModelScope.launch {
+            val reservations = repository.fetchReservations(null)
+            _reservations.postValue(reservations)
+        }
+    }
 
 }

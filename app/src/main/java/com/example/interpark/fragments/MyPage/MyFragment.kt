@@ -13,6 +13,10 @@ import androidx.navigation.findNavController
 import com.example.interpark.R
 import com.example.interpark.viewModels.MyPageViewModel
 import com.example.interpark.viewModels.MyPageViewModelFactory
+import com.example.interpark.viewModels.PerformanceDetailViewModel
+import com.example.interpark.viewModels.PerformanceDetailViewModelFactory
+import com.example.interpark.viewModels.SeatSelectionViewModel
+import com.example.interpark.viewModels.SeatSelectionViewModelFactory
 
 
 class MyFragment : Fragment() {
