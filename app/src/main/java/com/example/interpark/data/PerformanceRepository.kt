@@ -73,21 +73,6 @@ class PerformanceRepository(private val ApiClient: ApiClient) {
         return result.body()?.accessToken
     }
 
-    @RequiresApi(Build.VERSION_CODES.O)
-    suspend fun fetchPerformanceReview(perfId: String?): List<Review>{
-
-        val result = listOf(Review("1234", "qdrptd", "perf_id", 4.5f, "title_string", "content_string", "2025-01-21T09:44:17.456Z", "2025-01-21T09:44:17.456Z"),
-            Review("1234", "qdrptd", "perf_id", 4.5f, "title_string", "content_string", "2025-01-21T09:44:17.456Z", "2025-01-21T09:44:17.456Z"),
-            Review("1234", "qdrptd", "perf_id", 4.5f, "title_string", "content_string", "2025-01-21T09:44:17.456Z", "2025-01-21T09:44:17.456Z"),
-            Review("1234", "qdrptd", "perf_id", 4.5f, "title_string", "content_string", "2025-01-21T09:44:17.456Z", "2025-01-21T09:44:17.456Z"),
-            Review("1234", "qdrptd", "perf_id", 4.5f, "title_string", "content_string", "2025-01-21T09:44:17.456Z", "2025-01-21T09:44:17.456Z"),
-            Review("1234", "qdrptd", "perf_id", 4.5f, "title_string", "content_string", "2025-01-21T09:44:17.456Z", "2025-01-21T09:44:17.456Z"),
-            Review("1234", "qdrptd", "perf_id", 4.5f, "title_string", "content_string", "2025-01-21T09:44:17.456Z", "2025-01-21T09:44:17.456Z"),
-            Review("1234", "qdrptd", "perf_id", 4.5f, "title_string", "content_string", "2025-01-21T09:44:17.456Z", "2025-01-21T09:44:17.456Z"))
-
-        return result
-    }
-
     suspend fun getPerformanceEvent(
         token: String?,
         performanceId: String,

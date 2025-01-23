@@ -117,46 +117,17 @@
                     android:textSize="12sp"
                     android:textColor="#D3D3D3"
                     android:background="@drawable/bg_comment_button"
-                    android:drawableEnd="@drawable/ic_down"
+                    android:drawableEnd="@drawable/ic_up"
                     android:paddingStart="12dp"
                     android:paddingEnd="12dp"/>
             </LinearLayout>
-            
+            <EditText
+                android:id="@+id/replyContent"
+                android:backgroundTint="@color/white"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"/>
         </LinearLayout>
-
-
     </FrameLayout>
 
-    <LinearLayout
-        android:id="@+id/CommentWriteLayout"
-        android:background="@drawable/bg_review_opened"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical"
-        android:visibility="gone">
-
-        <EditText
-            android:id="@+id/commentWriteEditText"
-            android:layout_margin="32dp"
-            android:layout_width="match_parent"
-            android:layout_height="120dp"
-            android:inputType="textMultiLine"
-            android:background="@color/white"
-            android:backgroundTint="@color/white"/>
-
-        <Button
-            android:id="@+id/commentWriteButton"
-            android:layout_marginEnd="28dp"
-            android:layout_marginBottom="28dp"
-            android:layout_gravity="end"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:background="#111111"
-            android:paddingHorizontal="36dp"
-            android:paddingVertical="10dp"
-            android:text="등록"
-            android:textSize="24sp"
-            android:textColor="@color/white"/>
-    </LinearLayout>
 
 </LinearLayout>
