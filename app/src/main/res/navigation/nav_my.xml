@@ -14,7 +14,16 @@
         <action
         android:id="@+id/action_MyFragment_to_MyFragmentAccount"
         app:destination="@id/MyFragmentAccount" />
+        <action
+            android:id="@+id/action_MyFragment_to_ReservedSeatListFragment"
+            app:destination="@id/ReservedSeatListFragment"/>
 
+    </fragment>
+
+    <fragment
+        android:id="@+id/ReservedSeatListFragment"
+        android:name="com.example.interpark.fragments.MyPage.ReservedSeatListFragment"
+        android:label="카테고리">
     </fragment>
     <fragment
         android:id="@+id/MyFragmentAccount"

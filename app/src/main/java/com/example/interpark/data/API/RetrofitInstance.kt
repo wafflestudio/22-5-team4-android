@@ -43,8 +43,7 @@ object RetrofitInstance {
 
     // change
 
-
-    private const val BASE_URL_SERVER = "http://192.168.1.162:80/"
+    private const val BASE_URL_SERVER = "http://172.16.100.185:80/"
 
     private val client = OkHttpClient.Builder()
         .addInterceptor { chain ->
