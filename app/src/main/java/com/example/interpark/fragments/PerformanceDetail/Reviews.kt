@@ -49,7 +49,7 @@ class Reviews : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         reviewRecyclerView = view.findViewById(R.id.reviewRecyclerView)
-        reviewRecyclerView.layoutManager =LinearLayoutManager(context)
+        reviewRecyclerView.layoutManager = LinearLayoutManager(context)
 
         reviewViewModel.reviewList.observe(viewLifecycleOwner) {reviews ->
             setRecyclerView(reviews)
@@ -67,9 +67,13 @@ class Reviews : Fragment() {
 
     private fun setRecyclerView(data: List<Review>?){
         if(data == null) return
-        reviewRecyclerView.adapter = ReviewAdapter(data, {
-            Log.d("asdf", "asdf")
-        })
+        fun writeComment(reviewId: String, content: String) {
+            reviewViewModel.writeComment(reviewId, content)
+        }
+
+        reviewRecyclerView.adapter = ReviewAdapter(data) { reviewId, content ->
+            writeComment(reviewId, content)
+        }
     }
 
     override fun onDestroyView() {

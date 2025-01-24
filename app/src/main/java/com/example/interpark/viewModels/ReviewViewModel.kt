@@ -1,5 +1,6 @@
 package com.example.interpark.viewModels
 
+import android.widget.Toast
 import androidx.lifecycle.*
 import com.example.interpark.auth.AuthManager
 import kotlinx.coroutines.launch
@@ -7,9 +8,11 @@ import com.example.interpark.data.ReviewRepository
 import com.example.interpark.data.types.Review
 import com.example.interpark.data.types.ReviewError
 import com.example.interpark.data.types.ReviewRequestBody
+import com.google.rpc.context.AttributeContext.Auth
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import java.io.IOException
+import kotlin.coroutines.jvm.internal.CompletedContinuation.context
 
 
 class ReviewViewModel(private val repository: ReviewRepository) : ViewModel() {
@@ -74,6 +77,23 @@ class ReviewViewModel(private val repository: ReviewRepository) : ViewModel() {
              } catch (e: Exception) {
                 _reviewWriteError.value = ReviewError.Unknown(e.message)
              }
+        }
+    }
+
+    fun writeComment(reviewId: String, content: String){
+        if(content == ""){
+            return
+        }
+        viewModelScope.launch {
+            if(AuthManager.getUser() != null){
+                val response = repository.writeComment(reviewId, content)
+                if(response.isSuccessful){
+
+                }
+            }
+            else{
+
+            }
         }
     }
 

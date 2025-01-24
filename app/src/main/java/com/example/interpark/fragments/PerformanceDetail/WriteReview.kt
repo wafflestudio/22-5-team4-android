@@ -62,28 +62,28 @@ class WriteReview : Fragment() {
             }
         }
 
-        lifecycleScope.launchWhenStarted {
-            ReviewViewModel.reviewWriteError.collect { error ->
-                when (error) {
-                    is ReviewError.Unauthorized -> {
-                        Toast.makeText(context, "로그인이 필요합니다.", Toast.LENGTH_SHORT).show()
-                    }
-                    is ReviewError.ServerError -> {
-                        Toast.makeText(context, "서버에 문제가 발생했습니다. 잠시 후 다시 시도해주세요.", Toast.LENGTH_SHORT).show()
-                    }
-                    is ReviewError.NetworkError -> {
-                        Toast.makeText(context, "네트워크 연결을 확인해주세요.", Toast.LENGTH_SHORT).show()
-                    }
-                    is ReviewError.Unknown -> {
-                        Toast.makeText(context, "알 수 없는 문제가 발생했습니다: ${error.message}", Toast.LENGTH_SHORT).show()
-                    }
-                    null -> {
-                        // 초기 상태: 아무 작업도 하지 않음
-                    }
-                }
-                ReviewViewModel.resetStatus()
-            }
-        }
+//        lifecycleScope.launchWhenStarted {
+//            ReviewViewModel.reviewWriteError.collect { error ->
+//                when (error) {
+//                    is ReviewError.Unauthorized -> {
+//                        Toast.makeText(context, "로그인이 필요합니다.", Toast.LENGTH_SHORT).show()
+//                    }
+//                    is ReviewError.ServerError -> {
+//                        Toast.makeText(context, "서버에 문제가 발생했습니다. 잠시 후 다시 시도해주세요.", Toast.LENGTH_SHORT).show()
+//                    }
+//                    is ReviewError.NetworkError -> {
+//                        Toast.makeText(context, "네트워크 연결을 확인해주세요.", Toast.LENGTH_SHORT).show()
+//                    }
+//                    is ReviewError.Unknown -> {
+//                        Toast.makeText(context, "알 수 없는 문제가 발생했습니다: ${error.message}", Toast.LENGTH_SHORT).show()
+//                    }
+//                    null -> {
+//                        // 초기 상태: 아무 작업도 하지 않음
+//                    }
+//                }
+//                ReviewViewModel.resetStatus()
+//            }
+//        }
 
         binding.ratingBar.onFocusChangeListener = View.OnFocusChangeListener { _, hasFocus ->
             if (!hasFocus) { // 포커스를 잃었을 때만 호출

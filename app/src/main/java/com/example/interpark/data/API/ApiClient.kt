@@ -4,6 +4,8 @@ import com.example.interpark.data.CancelRequest
 import com.example.interpark.data.ReservationRequest
 import com.example.interpark.data.ReservationResponse
 import com.example.interpark.data.SeatResponse
+import com.example.interpark.data.types.Comment
+import com.example.interpark.data.types.CommentRequestBody
 import com.example.interpark.data.types.Performance
 import com.example.interpark.data.types.PerformanceEvent
 import com.example.interpark.data.types.Review
@@ -99,6 +101,14 @@ interface ApiClient {
         @Path("performanceId") performanceId: String
     ): Response<List<Review>>
 
+    @POST("/api/v1/review/{reviewId}/reply")
+    suspend fun writeComment(
+        @Path("reviewId") reviewId: String,
+        @Body request: CommentRequestBody
+    ): Response<Comment>
 
-
+    @GET("/api/v1/review/{reviewId}/reply")
+    suspend fun readComment(
+        @Path("reviewId") reviewId: String
+    ): Response<List<Comment>>
 }

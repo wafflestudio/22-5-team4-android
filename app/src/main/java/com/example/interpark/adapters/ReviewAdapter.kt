@@ -17,7 +17,8 @@ import com.google.api.Distribution.BucketOptions.Linear
 
 class ReviewAdapter(
     private val reviews: List<Review>,
-    private val onClick: (Review) -> Unit
+    private val writeComment: (reviewId: String, content: String) -> Unit,
+
 ) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     private var selectedPosition: Int = RecyclerView.NO_POSITION
@@ -56,6 +57,8 @@ class ReviewAdapter(
         private val content: TextView = itemView.findViewById(R.id.reviewContent)
         private val commentLayout: LinearLayout = itemView.findViewById(R.id.CommentWriteLayout)
         private val commentButton: Button = itemView.findViewById(R.id.commentButton)
+        private val commentWriteButton: Button = itemView.findViewById(R.id.commentWriteButton)
+        private val commentWriteEditText: EditText = itemView.findViewById(R.id.commentWriteEditText)
         fun bind(review: Review) {
             ratingBar.rating = review.rating
             reviewTitle.text = review.title
@@ -68,6 +71,10 @@ class ReviewAdapter(
                     View.VISIBLE -> View.GONE
                     else -> View.VISIBLE
                 }
+            }
+            commentWriteButton.setOnClickListener {
+                Log.d("clicked", "clicked")
+                writeComment(reviews[position].id, commentWriteEditText.text.toString())
             }
         }
     }
