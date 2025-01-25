@@ -11,8 +11,9 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.navArgs
 import com.example.interpark.R
+import com.example.interpark.data.types.RequestData
 
-import com.example.interpark.data.ReservationRequest
+import com.example.interpark.data.types.ReservationRequest
 import com.example.interpark.viewModels.SeatSelectionViewModel
 import com.example.interpark.viewModels.SeatSelectionViewModelFactory
 
@@ -36,9 +37,10 @@ class PaymentFragment : Fragment(R.layout.fragment_payment) {
         // 결제 버튼 클릭 이벤트
         view.findViewById<View>(R.id.payButton).setOnClickListener {
             val reservationRequest = ReservationRequest(
-                request = ReservationRequest.Request(reservationId = args.title),
-                user = null
+                reservationId = args.title
+
             )
+
 
             paymentViewModel.reserveSeat(reservationRequest)
         }

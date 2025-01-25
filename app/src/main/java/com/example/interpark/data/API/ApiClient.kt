@@ -2,11 +2,17 @@ package com.example.interpark.data.API
 
 import com.example.interpark.data.CancelRequest
 import com.example.interpark.data.MyReservationResponse
-import com.example.interpark.data.ReservationRequest
 import com.example.interpark.data.ReservationResponse
 import com.example.interpark.data.SeatResponse
+import com.example.interpark.data.types.AdminPerformanceEventRequest
+import com.example.interpark.data.types.AdminPerformanceEventResponse
+import com.example.interpark.data.types.AdminPerformanceHallRequest
+import com.example.interpark.data.types.AdminPerformanceHallResponse
+import com.example.interpark.data.types.AdminPerformanceRequest
+import com.example.interpark.data.types.AdminPerformanceResponse
 import com.example.interpark.data.types.Performance
 import com.example.interpark.data.types.PerformanceEvent
+import com.example.interpark.data.types.ReservationRequest
 import com.example.interpark.data.types.Review
 import com.example.interpark.data.types.ReviewRequestBody
 import com.example.interpark.data.types.SignInRequest
@@ -76,7 +82,7 @@ interface ApiClient {
 
     @POST("/api/v1/reservation/reserve")
     suspend fun reserveSeat(
-        @Body reservationRequest: ReservationRequest
+        @Body reservationId : ReservationRequest
     ): Response<ReservationResponse>
 
     @GET("/api/v1/me/reservation")
@@ -110,4 +116,13 @@ interface ApiClient {
         @Query("user") user: User
     ): Response<List<Review>>
 
+
+    @POST("/admin/v1/performance")
+    suspend fun createPerformance(@Body request: AdminPerformanceRequest): AdminPerformanceResponse
+
+    @POST("/admin/v1/performance-hall")
+    suspend fun createPerformanceHall(@Body request: AdminPerformanceHallRequest): AdminPerformanceHallResponse
+
+    @POST("/admin/v1/performance-event")
+    suspend fun createPerformanceEvent(@Body request: AdminPerformanceEventRequest): AdminPerformanceEventResponse
 }

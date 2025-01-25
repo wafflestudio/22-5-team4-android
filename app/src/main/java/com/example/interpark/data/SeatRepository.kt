@@ -2,6 +2,7 @@ package com.example.interpark.data
 
 import android.util.Log
 import com.example.interpark.data.API.ApiClient
+import com.example.interpark.data.types.ReservationRequest
 import com.example.interpark.data.types.User
 import com.google.android.gms.common.api.Response
 
