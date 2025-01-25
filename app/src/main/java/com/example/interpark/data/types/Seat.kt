@@ -4,7 +4,9 @@ data class Seat(
     val row: Int,
     val number: Int,
     var isAvailable: Boolean,
-    var isSelected: Boolean = false // 사용자가 선택하면 true로 변경
+    var isSelected: Boolean = false, // 사용자가 선택하면 true로 변경
+//    val reservationId: String // 좌석별 고유 reservationId 추가
+
 )
 
 
@@ -38,4 +40,27 @@ data class SeatDetail(
 data class SeatNumber(
     val first: Int,
     val second: Int
+)
+
+data class ReservedSeat(
+    val id: String,
+    val performanceTitle: String,
+    val posterUri: String,
+    val performanceHallName: String,
+    val seat: SeatDetail,
+    val performanceStartAt: String,
+    val performanceEndAt: String,
+    val reservationDate: String
+)
+
+data class MyReservationResponse(
+    val myReservations: List<MyReservation>
+)
+
+data class MyReservation(
+    val id: String,
+    val performanceTitle: String,
+    val posterUri: String,
+    val performanceDate: String,
+    val reservationDate: String
 )

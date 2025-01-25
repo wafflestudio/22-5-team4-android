@@ -32,3 +32,7 @@ data class PerformanceEvent(
     val startAt: String,
     val endAt: String
 )
+
+data class PerformanceEventResponse(
+    val performances: List<PerformanceEvent>
+)

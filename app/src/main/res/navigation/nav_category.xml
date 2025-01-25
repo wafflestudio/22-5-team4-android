@@ -12,7 +12,22 @@
             android:id="@+id/action_categoryFragment_to_emptyFragment"
             app:destination="@id/emptyFragment" />
     </fragment>
+    <fragment
+        android:id="@+id/AuthFrament"
+        android:name="com.example.interpark.fragments.MyPage.AuthFragment">
+    </fragment>
 
+    <fragment
+        android:id="@+id/AdminPerformanceHallFragment"
+        android:name="com.example.interpark.fragments.MyPage.AdminPerformanceHallFragment">
+
+    </fragment>
+
+    <fragment
+        android:id="@+id/AdminPerformanceEventFragment"
+        android:name="com.example.interpark.fragments.MyPage.AdminPerformanceEventFragment">
+
+    </fragment>
     <fragment
         android:id="@+id/emptyFragment"
         android:name="com.example.interpark.fragments.CategoryPage.EmptyFragment"
@@ -125,6 +140,10 @@
             app:argType="string" />
     </fragment>
 
-
+    <fragment
+        android:id="@+id/ReservedSeatListFragment"
+        android:name="com.example.interpark.fragments.MyPage.ReservedSeatListFragment"
+        android:label="카테고리">
+    </fragment>
 
 </navigation>

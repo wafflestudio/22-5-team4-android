@@ -14,7 +14,42 @@
         <action
         android:id="@+id/action_MyFragment_to_MyFragmentAccount"
         app:destination="@id/MyFragmentAccount" />
+        <action
+            android:id="@+id/action_MyFragment_to_ReservedSeatListFragment"
+            app:destination="@id/ReservedSeatListFragment"/>
+        <action
+            android:id="@+id/action_MyFragment_to_AuthFragment"
+            app:destination="@id/AuthFragment"/>
 
+
+    </fragment>
+
+    <fragment
+        android:id="@+id/AuthFragment"
+        android:name="com.example.interpark.fragments.MyPage.AuthFragment">
+        <action
+            android:id="@+id/action_AuthFragment_to_AdminPerformanceHallFragment"
+            app:destination="@id/AdminPerformanceHallFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/AdminPerformanceHallFragment"
+        android:name="com.example.interpark.fragments.MyPage.AdminPerformanceHallFragment">
+        <action
+            android:id="@+id/action_AuthFragment_to_AdminPerformanceHallFragment"
+            app:destination="@id/LoginFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/AdminPerformanceEventFragment"
+        android:name="com.example.interpark.fragments.MyPage.AdminPerformanceEventFragment">
+
+    </fragment>
+
+    <fragment
+        android:id="@+id/ReservedSeatListFragment"
+        android:name="com.example.interpark.fragments.MyPage.ReservedSeatListFragment"
+        android:label="카테고리">
     </fragment>
     <fragment
         android:id="@+id/MyFragmentAccount"

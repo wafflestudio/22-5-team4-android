@@ -1,6 +1,9 @@
 package com.example.interpark.fragments.MyPage
 
+import android.content.ContentValues.TAG
+import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -15,6 +18,8 @@ import com.example.interpark.R
 import com.example.interpark.databinding.FragmentMyLoginBinding
 import com.example.interpark.viewModels.MyPageViewModel
 import com.example.interpark.viewModels.MyPageViewModelFactory
+import com.kakao.sdk.auth.model.OAuthToken
+import com.kakao.sdk.user.UserApiClient
 
 
 class LoginFragment : Fragment() {
@@ -36,7 +41,6 @@ class LoginFragment : Fragment() {
 
         binding.btnLogin.setOnClickListener{
             myPageViewModel.login(binding.etUsername.text.toString(), binding.etPassword.text.toString())
-
         }
 
         binding.textSignup.setOnClickListener {
@@ -45,6 +49,12 @@ class LoginFragment : Fragment() {
                 .actionLoginFragmentToSignUpFragment()
             navController.navigate(action)
         }
+
+        binding.kakaoLogin.setOnClickListener {
+            loginWithKakao()
+        }
+
+
 
         binding.logoInterpark.setOnClickListener {
             val navController = requireActivity().findNavController(R.id.myNavHost)
@@ -67,5 +77,23 @@ class LoginFragment : Fragment() {
             }
         }
 
+
+
+    }
+
+    private fun loginWithKakao() {
+        val callback: (OAuthToken?, Throwable?) -> Unit = { token, error ->
+            if (error != null) {
+                Log.e(TAG, "로그인 실패", error)
+            } else if (token != null) {
+                Log.i(TAG, "로그인 성공: ${token.accessToken}")
+            }
+        }
+
+        if (UserApiClient.instance.isKakaoTalkLoginAvailable(requireContext())) {
+            UserApiClient.instance.loginWithKakaoTalk(requireContext(), callback = callback)
+        } else {
+            UserApiClient.instance.loginWithKakaoAccount(requireContext(), callback = callback)
+        }
     }
 }

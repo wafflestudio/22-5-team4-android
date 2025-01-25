@@ -6,6 +6,12 @@ import android.util.Log
 import androidx.annotation.RequiresApi
 import com.example.interpark.auth.AuthManager
 import com.example.interpark.data.API.ApiClient
+import com.example.interpark.data.types.AdminPerformanceEventRequest
+import com.example.interpark.data.types.AdminPerformanceEventResponse
+import com.example.interpark.data.types.AdminPerformanceHallRequest
+import com.example.interpark.data.types.AdminPerformanceHallResponse
+import com.example.interpark.data.types.AdminPerformanceRequest
+import com.example.interpark.data.types.AdminPerformanceResponse
 import com.example.interpark.data.types.Performance
 import com.example.interpark.data.types.PerformanceEvent
 import com.example.interpark.data.types.Review
@@ -76,14 +82,17 @@ class PerformanceRepository(private val ApiClient: ApiClient) {
     suspend fun getPerformanceEvent(
         token: String?,
         performanceId: String,
-        performanceDate: String,
-        user: User
-    ): PerformanceEvent? {
+        performanceDate: String
+    ): List<PerformanceEvent>? {
         return try {
-            val response = ApiClient.getPerformanceEvent("Bearer $token",performanceId, performanceDate, user)
+            // API 호출
+            val response = ApiClient.getPerformanceEvent("Bearer $token", performanceId, performanceDate)
+
             if (response.isSuccessful) {
+                // 응답 본문을 리스트로 파싱
                 response.body()
             } else {
+                Log.e("API Error", "Response failed with code: ${response.code()}")
                 null
             }
         } catch (e: Exception) {
@@ -91,10 +100,22 @@ class PerformanceRepository(private val ApiClient: ApiClient) {
             null
         }
     }
+
     suspend fun getPosterUris(category: String?, title: String?): List<String>? {
         val performances = getPerformances(category, title) // 기존 getPerformances 호출
         return performances?.mapNotNull { it.posterUrl } // posterUri만 추출
     }
 
+    suspend fun adminCreatePerformance(request: AdminPerformanceRequest): AdminPerformanceResponse {
+        return ApiClient.createPerformance(request)
+    }
+
+    suspend fun adminCreatePerformanceHall(request: AdminPerformanceHallRequest): AdminPerformanceHallResponse {
+        return ApiClient.createPerformanceHall(request)
+    }
+
+    suspend fun adminCreatePerformanceEvent(request: AdminPerformanceEventRequest): AdminPerformanceEventResponse {
+        return ApiClient.createPerformanceEvent(request)
+    }
 
 }

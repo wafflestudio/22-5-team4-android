@@ -11,8 +11,9 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.navArgs
 import com.example.interpark.R
+import com.example.interpark.data.types.RequestData
 
-import com.example.interpark.data.ReservationRequest
+import com.example.interpark.data.types.ReservationRequest
 import com.example.interpark.viewModels.SeatSelectionViewModel
 import com.example.interpark.viewModels.SeatSelectionViewModelFactory
 
@@ -35,7 +36,13 @@ class PaymentFragment : Fragment(R.layout.fragment_payment) {
 
         // 결제 버튼 클릭 이벤트
         view.findViewById<View>(R.id.payButton).setOnClickListener {
-            reserveSeats()
+            val reservationRequest = ReservationRequest(
+                reservationId = args.title
+
+            )
+
+
+            paymentViewModel.reserveSeat(reservationRequest)
         }
 
         // 예약 성공/실패 처리
@@ -53,21 +60,6 @@ class PaymentFragment : Fragment(R.layout.fragment_payment) {
         }
     }
 
-    private fun reserveSeats() {
-        val reservationRequest = createReservationRequest()
-        paymentViewModel.reserveSeat(reservationRequest)
-    }
 
-    private fun createReservationRequest(): ReservationRequest {
-        return ReservationRequest(
-            request = ReservationRequest.Request(reservationId = "null"),
-            user = ReservationRequest.User(
-                id = "user123",
-                username = "JohnDoe",
-                nickname = "Johnny",
-                phoneNumber = "01012345678",
-                email = "john.doe@example.com"
-            )
-        )
-    }
+
 }

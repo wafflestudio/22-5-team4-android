@@ -38,15 +38,18 @@ class PerformanceViewModel(private val repository: PerformanceRepository) : View
         }
     }
 
-    private val _performanceEvent = MutableLiveData<PerformanceEvent?>()
-    val performanceEvent: LiveData<PerformanceEvent?> get() = _performanceEvent
+    private val _performanceEvents = MutableLiveData<List<PerformanceEvent>?>()
+    val performanceEvents: LiveData<List<PerformanceEvent>?> = _performanceEvents
 
-    fun fetchPerformanceEvent(performanceId: String, performanceDate: String, user: User) {
-        val token = AuthManager.getAuthToken()
-
+    fun fetchPerformanceEvents(performanceId: String, performanceDate: String) {
         viewModelScope.launch {
-            val result = repository.getPerformanceEvent(token, performanceId, performanceDate, user)
-            _performanceEvent.postValue(result)
+            val token = AuthManager.getAuthToken()
+            val events = repository.getPerformanceEvent(token, performanceId, performanceDate)
+            if (events != null) {
+                _performanceEvents.postValue(events)
+            } else {
+                Log.e("PerformanceViewModel", "Failed to fetch performance events")
+            }
         }
     }
     fun loadPosterUris(category: String?, title: String?) {

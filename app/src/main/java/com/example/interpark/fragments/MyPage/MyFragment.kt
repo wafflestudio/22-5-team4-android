@@ -13,6 +13,10 @@ import androidx.navigation.findNavController
 import com.example.interpark.R
 import com.example.interpark.viewModels.MyPageViewModel
 import com.example.interpark.viewModels.MyPageViewModelFactory
+import com.example.interpark.viewModels.PerformanceDetailViewModel
+import com.example.interpark.viewModels.PerformanceDetailViewModelFactory
+import com.example.interpark.viewModels.SeatSelectionViewModel
+import com.example.interpark.viewModels.SeatSelectionViewModelFactory
 
 
 class MyFragment : Fragment() {
@@ -36,6 +40,9 @@ class MyFragment : Fragment() {
         val nickNamePrompt = view.findViewById<TextView>(R.id.logged_in_prompt)
         val footerView = view.findViewById<LinearLayout>(R.id.footer)
         val logOutTextView = view.findViewById<TextView>(R.id.btn_logout)
+        val reserveHistory = view.findViewById<TextView>(R.id.reserve_history)
+        val authPage = view.findViewById<TextView>(R.id.btn_inquiry)
+
         // "로그인 해주세요" 전체 클릭 이벤트 설정
         loginPromptLayout.setOnClickListener {
             val navController = requireActivity().findNavController(R.id.myNavHost)
@@ -47,6 +54,22 @@ class MyFragment : Fragment() {
         logOutTextView.setOnClickListener {
             myPageViewModel.logout()
         }
+
+        reserveHistory.setOnClickListener{
+            val navController = requireActivity().findNavController(R.id.myNavHost)
+            val action = MyFragmentDirections
+                .actionMyFragmentToReservedSeatListFragment()
+            navController.navigate(action)
+        }
+
+        authPage.setOnClickListener{
+            val navController = requireActivity().findNavController(R.id.myNavHost)
+            val action = MyFragmentDirections
+                .actionMyFragmentToAuthFragment()
+            navController.navigate(action)
+        }
+
+
 
         myPageViewModel.userName.observe(viewLifecycleOwner){ user ->
             Log.d("user-value: ", user.toString())
@@ -67,6 +90,7 @@ class MyFragment : Fragment() {
                 footerView.visibility = View.GONE
             }
         }
+
 
 //        view.findViewById<TextView>(R.id.account).setOnClickListener {
 //

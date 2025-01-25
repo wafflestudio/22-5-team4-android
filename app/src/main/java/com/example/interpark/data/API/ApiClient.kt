@@ -1,13 +1,23 @@
 package com.example.interpark.data.API
 
 import com.example.interpark.data.CancelRequest
-import com.example.interpark.data.ReservationRequest
+import com.example.interpark.data.MyReservationResponse
 import com.example.interpark.data.ReservationResponse
 import com.example.interpark.data.SeatResponse
+
 import com.example.interpark.data.types.Comment
 import com.example.interpark.data.types.CommentRequestBody
+
+import com.example.interpark.data.types.AdminPerformanceEventRequest
+import com.example.interpark.data.types.AdminPerformanceEventResponse
+import com.example.interpark.data.types.AdminPerformanceHallRequest
+import com.example.interpark.data.types.AdminPerformanceHallResponse
+import com.example.interpark.data.types.AdminPerformanceRequest
+import com.example.interpark.data.types.AdminPerformanceResponse
+
 import com.example.interpark.data.types.Performance
 import com.example.interpark.data.types.PerformanceEvent
+import com.example.interpark.data.types.ReservationRequest
 import com.example.interpark.data.types.Review
 import com.example.interpark.data.types.ReviewRequestBody
 import com.example.interpark.data.types.SignInRequest
@@ -70,12 +80,22 @@ interface ApiClient {
     ): Response<Performance>
 
     @GET("api/v1/seat/{performanceEventId}/available")
-    suspend fun getAvailableSeats(@Query("eventId") eventId: String): SeatResponse
+    suspend fun getAvailableSeats(
+        @Path("performanceEventId") eventId:String
+//        @Query("eventId") eventId: String
+    ): SeatResponse
 
     @POST("/api/v1/reservation/reserve")
     suspend fun reserveSeat(
-        @Body reservationRequest: ReservationRequest
+        @Body reservationId : ReservationRequest
     ): Response<ReservationResponse>
+
+    @GET("/api/v1/me/reservation")
+    suspend fun getReservations(
+        @Query("user") user: User?
+    ): Response<MyReservationResponse>
+
+
 
     @POST("/api/v1/reservation/cancel")
     suspend fun cancelReservation(
@@ -87,8 +107,7 @@ interface ApiClient {
         @Header("Authorization") token:String,
         @Path("performanceId") performanceId: String,
         @Path("performanceDate") performanceDate: String,
-        @Query("user") user: User
-    ): Response<PerformanceEvent>
+    ): Response<List<PerformanceEvent>>
 
     @POST("/api/v1/performance/{performanceId}/review")
     suspend fun writeReview(
@@ -101,6 +120,7 @@ interface ApiClient {
         @Path("performanceId") performanceId: String
     ): Response<List<Review>>
 
+
     @POST("/api/v1/review/{reviewId}/reply")
     suspend fun writeComment(
         @Path("reviewId") reviewId: String,
@@ -111,4 +131,14 @@ interface ApiClient {
     suspend fun readComment(
         @Path("reviewId") reviewId: String
     ): Response<List<Comment>>
+
+    @POST("/admin/v1/performance")
+    suspend fun createPerformance(@Body request: AdminPerformanceRequest): AdminPerformanceResponse
+
+    @POST("/admin/v1/performance-hall")
+    suspend fun createPerformanceHall(@Body request: AdminPerformanceHallRequest): AdminPerformanceHallResponse
+
+    @POST("/admin/v1/performance-event")
+    suspend fun createPerformanceEvent(@Body request: AdminPerformanceEventRequest): AdminPerformanceEventResponse
+
 }

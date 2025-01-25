@@ -35,6 +35,7 @@ class SeatAdapter(
                     Toast.makeText(itemView.context, "해당 좌석은 예약할 수 없습니다.", Toast.LENGTH_SHORT).show()
                 }
             }
+
         }
     }
 

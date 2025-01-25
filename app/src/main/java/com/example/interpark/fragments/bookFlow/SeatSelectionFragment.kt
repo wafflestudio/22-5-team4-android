@@ -1,5 +1,6 @@
 package com.example.interpark.fragments.bookFlow
 
+
 import android.app.AlertDialog
 import android.os.Bundle
 import android.util.Log
@@ -33,6 +34,7 @@ class SeatSelectionFragment : Fragment(R.layout.fragment_seat_selection) {
     private val viewModel: SeatSelectionViewModel by viewModels {
         SeatSelectionViewModelFactory(requireContext())
     }
+    private lateinit var reserveId: String
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -67,11 +69,11 @@ class SeatSelectionFragment : Fragment(R.layout.fragment_seat_selection) {
             else if (selectedSeats.isEmpty()) {
 //                Toast.makeText(requireContext(), "좌석을 선택해주세요.", Toast.LENGTH_SHORT).show()
                 val action = SeatSelectionFragmentDirections
-                    .actionSeatSelectionFragmentToPaymentFragment(selectedSeats.toTypedArray(), args.title)
+                    .actionSeatSelectionFragmentToPaymentFragment(selectedSeats.toTypedArray(), reserveId)
                 findNavController().navigate(action)
             } else {
                 val action = SeatSelectionFragmentDirections
-                    .actionSeatSelectionFragmentToPaymentFragment(selectedSeats.toTypedArray(), args.title)
+                    .actionSeatSelectionFragmentToPaymentFragment(selectedSeats.toTypedArray(),reserveId)
                 findNavController().navigate(action)
             }
         }
@@ -86,7 +88,7 @@ class SeatSelectionFragment : Fragment(R.layout.fragment_seat_selection) {
                 seat.isSelected = !seat.isSelected
                 seatAdapter.notifyDataSetChanged() // UI 갱신
                 val seatRequest = SeatRequest(seat.row, seat.number)
-//                viewModel.reserveSeat(seatRequest)
+//               viewModel.reserveSeat(seatRequest)
             } else {
                 Toast.makeText(requireContext(), "해당 좌석은 예약할 수 없습니다.", Toast.LENGTH_SHORT).show()
             }
@@ -101,6 +103,12 @@ class SeatSelectionFragment : Fragment(R.layout.fragment_seat_selection) {
         // 서버에서 좌석 데이터 가져오기
         val eventId = args.title
         viewModel.fetchAvailableSeats(eventId)
+
+        viewModel.reservationId.observe(viewLifecycleOwner) { reservationId ->
+            Log.d("ReservationIdObserver", "Observed reservationId: $reservationId")
+            reserveId = reservationId[0]
+        }
+
 
         // 좌석 데이터 관찰 및 UI 업데이트
         viewModel.seats.observe(viewLifecycleOwner) { seats ->
