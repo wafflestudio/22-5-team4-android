@@ -9,16 +9,20 @@ import android.widget.EditText
 import android.widget.LinearLayout
 import android.widget.RatingBar
 import android.widget.TextView
+import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.interpark.R
+import com.example.interpark.data.types.Comment
 import com.example.interpark.data.types.Review
+import com.example.interpark.viewModels.ReviewViewModel
 import com.google.api.Distribution.BucketOptions.Linear
 
 
 class ReviewAdapter(
     private val reviews: List<Review>,
+    private val reviewViewModel: ReviewViewModel,
     private val writeComment: (reviewId: String, content: String) -> Unit,
-
+    private val readComment: (reviewId: String) -> Unit
 ) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     private var selectedPosition: Int = RecyclerView.NO_POSITION
@@ -59,6 +63,7 @@ class ReviewAdapter(
         private val commentButton: Button = itemView.findViewById(R.id.commentButton)
         private val commentWriteButton: Button = itemView.findViewById(R.id.commentWriteButton)
         private val commentWriteEditText: EditText = itemView.findViewById(R.id.commentWriteEditText)
+        private val commentRecyclerView: RecyclerView = itemView.findViewById(R.id.commentRecyclerView)
         fun bind(review: Review) {
             ratingBar.rating = review.rating
             reviewTitle.text = review.title
@@ -75,6 +80,12 @@ class ReviewAdapter(
             commentWriteButton.setOnClickListener {
                 Log.d("clicked", "clicked")
                 writeComment(reviews[position].id, commentWriteEditText.text.toString())
+            }
+            commentRecyclerView.layoutManager = LinearLayoutManager(itemView.context)
+            commentRecyclerView.adapter = CommentAdapter(reviewViewModel.comment.value?: listOf())
+            reviewViewModel.comment.observeForever { comment ->
+                Log.d("asdf", comment.toString())
+                commentRecyclerView.adapter = CommentAdapter(comment)
             }
         }
     }
@@ -105,6 +116,7 @@ class ReviewAdapter(
             } else {
                 position
             }
+            readComment(reviews[position].id)
             notifyItemChanged(previousPosition)
             notifyItemChanged(selectedPosition)
         }
