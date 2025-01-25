@@ -33,13 +33,25 @@ class SignUpFragment : Fragment() {
 
         fun EditText.value() = this.text.toString()
 
-        binding.btnSignup.setOnClickListener{
+        binding.btnSignup.setOnClickListener {
+            // Switch 상태 확인 (관리자 여부)
+            val role = if (binding.switchAdminLogin.isChecked) 1 else 0
+
+            // ViewModel에 데이터 전달
             myPageViewModel.signup(
-                binding.etUsername.value(),
-                binding.etPassword.value(),
-                binding.etName.value(),
-                binding.etEmail.value(),
-                binding.etPhone.value()
+//                username = binding.etUsername.text.toString(),
+//                password = binding.etPassword.text.toString(),
+//                nickname = binding.etName.text.toString(),
+//                phoneNumber = binding.etPhone.text.toString(),
+//                email = binding.etEmail.text.toString(),
+//                role = role
+                username = "adminname_value",
+                password = "760131Ab!",
+                nickname = "test_admin",
+                phoneNumber = "000-0000-0000",
+                email = "test@example.com",
+                role = "ADMIN"
+
             )
         }
 
