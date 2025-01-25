@@ -84,4 +84,10 @@ class MyPageViewModel(private val repository: PerformanceRepository, private val
         _passwordSame.value = password == passwordCheck
     }
 
+    fun refresh_token(){
+        viewModelScope.launch {
+            repository.refresh_token()
+        }
+    }
+
 }

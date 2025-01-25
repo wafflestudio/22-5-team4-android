@@ -26,6 +26,10 @@ data class SignInRequest(
     val password: String
 )
 
+data class RefreshTokenResponse(
+    val accessToken: String
+)
+
 data class SignInResponse(
     val user: User,
     val accessToken: String
