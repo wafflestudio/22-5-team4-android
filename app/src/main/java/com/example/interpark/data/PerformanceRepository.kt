@@ -48,8 +48,8 @@ class PerformanceRepository(private val ApiClient: ApiClient) {
         }
     }
 
-    suspend fun signUp(username: String, password: String, nickname: String, phoneNumber: String, email: String): SignUpResponse? {
-        val result = ApiClient.signup(SignUpRequest(username, password, nickname, phoneNumber, email))
+    suspend fun signUp(username: String, password: String, nickname: String, phoneNumber: String, email: String, role: String): SignUpResponse? {
+        val result = ApiClient.signup(SignUpRequest(username, password, nickname, phoneNumber, email, role))
         Log.d("SignUp", result.body().toString())
         return result.body()
     }
