@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="category_options">
+        <item>뮤지컬</item>
+        <item>콘서트</item>
+        <item>연극</item>
+        <item>클래식</item>
+        <item>스포츠</item>
+    </string-array>
+</resources>

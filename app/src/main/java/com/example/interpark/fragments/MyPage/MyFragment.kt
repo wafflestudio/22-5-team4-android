@@ -41,6 +41,8 @@ class MyFragment : Fragment() {
         val footerView = view.findViewById<LinearLayout>(R.id.footer)
         val logOutTextView = view.findViewById<TextView>(R.id.btn_logout)
         val reserveHistory = view.findViewById<TextView>(R.id.reserve_history)
+        val authPage = view.findViewById<TextView>(R.id.btn_inquiry)
+
         // "로그인 해주세요" 전체 클릭 이벤트 설정
         loginPromptLayout.setOnClickListener {
             val navController = requireActivity().findNavController(R.id.myNavHost)
@@ -59,6 +61,15 @@ class MyFragment : Fragment() {
                 .actionMyFragmentToReservedSeatListFragment()
             navController.navigate(action)
         }
+
+        authPage.setOnClickListener{
+            val navController = requireActivity().findNavController(R.id.myNavHost)
+            val action = MyFragmentDirections
+                .actionMyFragmentToAuthFragment()
+            navController.navigate(action)
+        }
+
+
 
         myPageViewModel.userName.observe(viewLifecycleOwner){ user ->
             Log.d("user-value: ", user.toString())

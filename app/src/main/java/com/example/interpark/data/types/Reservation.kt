@@ -2,12 +2,12 @@ package com.example.interpark.data.types
 
 // 요청 본문 매핑
 data class ReservationRequest(
-    val request: RequestData,
-    val user: UserData
+    //val request: RequestData // request를 객체로 변경
+    val reservationId: String
 )
 
 data class RequestData(
-    val reservationId: String
+    val reservationId: String // reservationId를 포함하는 데이터 클래스
 )
 
 data class UserData(

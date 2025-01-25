@@ -6,6 +6,12 @@ import android.util.Log
 import androidx.annotation.RequiresApi
 import com.example.interpark.auth.AuthManager
 import com.example.interpark.data.API.ApiClient
+import com.example.interpark.data.types.AdminPerformanceEventRequest
+import com.example.interpark.data.types.AdminPerformanceEventResponse
+import com.example.interpark.data.types.AdminPerformanceHallRequest
+import com.example.interpark.data.types.AdminPerformanceHallResponse
+import com.example.interpark.data.types.AdminPerformanceRequest
+import com.example.interpark.data.types.AdminPerformanceResponse
 import com.example.interpark.data.types.Performance
 import com.example.interpark.data.types.PerformanceEvent
 import com.example.interpark.data.types.Review
@@ -116,5 +122,16 @@ class PerformanceRepository(private val ApiClient: ApiClient) {
         return performances?.mapNotNull { it.posterUrl } // posterUri만 추출
     }
 
+    suspend fun adminCreatePerformance(request: AdminPerformanceRequest): AdminPerformanceResponse {
+        return ApiClient.createPerformance(request)
+    }
+
+    suspend fun adminCreatePerformanceHall(request: AdminPerformanceHallRequest): AdminPerformanceHallResponse {
+        return ApiClient.createPerformanceHall(request)
+    }
+
+    suspend fun adminCreatePerformanceEvent(request: AdminPerformanceEventRequest): AdminPerformanceEventResponse {
+        return ApiClient.createPerformanceEvent(request)
+    }
 
 }

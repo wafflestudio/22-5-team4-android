@@ -4,7 +4,9 @@ data class Seat(
     val row: Int,
     val number: Int,
     var isAvailable: Boolean,
-    var isSelected: Boolean = false // 사용자가 선택하면 true로 변경
+    var isSelected: Boolean = false, // 사용자가 선택하면 true로 변경
+//    val reservationId: String // 좌석별 고유 reservationId 추가
+
 )
 
 

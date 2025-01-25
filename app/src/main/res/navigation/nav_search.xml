@@ -91,7 +91,22 @@
             android:id="@+id/action_timeSelection_to_seatSelectionFragment"
             app:destination="@id/seatSelectionFragment" />
     </fragment>
+    <fragment
+        android:id="@+id/AuthFrament"
+        android:name="com.example.interpark.fragments.MyPage.AuthFragment">
+    </fragment>
 
+    <fragment
+        android:id="@+id/AdminPerformanceHallFragment"
+        android:name="com.example.interpark.fragments.MyPage.AdminPerformanceHallFragment">
+
+    </fragment>
+
+    <fragment
+        android:id="@+id/AdminPerformanceEventFragment"
+        android:name="com.example.interpark.fragments.MyPage.AdminPerformanceEventFragment">
+
+    </fragment>
     <fragment
         android:id="@+id/seatSelectionFragment"
         android:name="com.example.interpark.fragments.bookFlow.SeatSelectionFragment"

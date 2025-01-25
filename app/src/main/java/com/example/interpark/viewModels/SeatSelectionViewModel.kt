@@ -14,8 +14,8 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import androidx.navigation.fragment.navArgs
 import com.example.interpark.data.MyReservation
-import com.example.interpark.data.ReservationRequest
 import com.example.interpark.data.ReservationResponse
+import com.example.interpark.data.types.ReservationRequest
 import com.example.interpark.data.types.User
 
 
@@ -24,8 +24,8 @@ class SeatSelectionViewModel(private val repository: SeatRepository) : ViewModel
     private val _seats = MutableLiveData<List<Seat>>()
     val seats: LiveData<List<Seat>> get() = _seats
 
-    private val _reservationId = MutableLiveData<String>()
-    val reservationId : LiveData<String> get() = _reservationId
+    private val _reservationId = MutableLiveData<List<String>>()
+    val reservationId : LiveData<List<String>> get() = _reservationId
 
     private val _reservationResult = MutableLiveData<SeatResponse>()
     val reservationResult: LiveData<SeatResponse> get() = _reservationResult
@@ -36,6 +36,7 @@ class SeatSelectionViewModel(private val repository: SeatRepository) : ViewModel
     private val _reservationFailed = MutableLiveData<Boolean>()
     val reservationFailed: LiveData<Boolean> get() = _reservationFailed
 
+
     fun fetchAvailableSeats(eventId: String) {
         viewModelScope.launch {
             val seats = withContext(Dispatchers.IO) {
@@ -43,9 +44,8 @@ class SeatSelectionViewModel(private val repository: SeatRepository) : ViewModel
                     val response = repository.fetchAvailableSeats(eventId)
 
                     // reservationId 추출
-                    val reservationId = response.availableSeats.firstOrNull()?.reservationId ?: ""
-                    // reservationId를 LiveData에 저장
-                    _reservationId.postValue(reservationId)
+                    val reservationIds = response.availableSeats.map { it.reservationId }
+                    _reservationId.postValue(reservationIds)
 
                     response.availableSeats.map { availableSeat ->
                         Seat(
@@ -65,6 +65,8 @@ class SeatSelectionViewModel(private val repository: SeatRepository) : ViewModel
             _seats.postValue(seats)
         }
     }
+
+
     fun reserveSeat(reservationRequest: ReservationRequest) {
         viewModelScope.launch {
             try {

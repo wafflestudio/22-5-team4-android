@@ -1,7 +1,5 @@
 package com.example.interpark.adapters
 
-import android.os.Parcel
-import android.os.Parcelable
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -11,7 +9,6 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.interpark.R
 import com.example.interpark.data.MyReservation
-import com.example.interpark.data.ReservedSeat
 
 class ReservedSeatAdapter(private var reservedSeats: List<MyReservation>) :
     RecyclerView.Adapter<ReservedSeatAdapter.ReservationViewHolder>() {
