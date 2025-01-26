@@ -76,10 +76,49 @@
         android:textSize="18sp"
         android:paddingBottom="16dp" />
 
-    <CalendarView
-        android:id="@+id/calendarView"
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center"
+        android:padding="8dp">
+
+        <ImageView
+            android:id="@+id/prevMonthButton"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:src="@drawable/arrow_left"
+            android:contentDescription="Previous Month"
+            android:clickable="true"
+            android:focusable="true"
+            android:layout_marginEnd="48dp" /> <!-- 오른쪽 간격 추가 -->
+
+        <TextView
+            android:id="@+id/currentMonthText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="48dp"
+            android:layout_marginEnd="48dp"
+            android:textSize="18sp" />
+
+        <ImageView
+            android:id="@+id/nextMonthButton"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:src="@drawable/arrow_right"
+            android:contentDescription="Next Month"
+            android:clickable="true"
+            android:focusable="true"
+            android:layout_marginStart="48dp" /> <!-- 왼쪽 간격 추가 -->
+    </LinearLayout>
+
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/calendarRecyclerView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="8dp" />
+
 
     <Button
         android:id="@+id/confirmDateButton"

@@ -2,31 +2,20 @@ package com.example.interpark.data.types
 
 import java.time.LocalDateTime
 
-
-data class Review(
+data class Comment(
     val id: String,
     val author: String,
-    val rating: Float,
-    val title: String,
     val content: String,
     val createdAt: String,
-    val updatedAt: String,
-    val likeCount: Int,
-    val replyCount: Int
+    val updatedAt: String
 )
 
-data class ReviewRequestBody(
-    val rating: Int,
-    val title: String,
+data class CommentRequestBody(
     val content: String
 )
 
-data class ReviewRequest(
-    val request: ReviewRequestBody,
-    val user: User
-)
 
-sealed class ReviewError {
+sealed class CommentError {
     object Unauthorized : ReviewError() // 로그인이 안 되어 있는 경우
     object ServerError : ReviewError() // 서버 문제
     object NetworkError : ReviewError() // 네트워크 문제

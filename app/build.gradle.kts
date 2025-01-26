@@ -110,4 +110,6 @@ dependencies {
     annotationProcessor(libs.glide.compiler)
     implementation("com.kakao.sdk:v2-user:2.20.0") // 카카오 로그인 모듈
 
+
+
 }
