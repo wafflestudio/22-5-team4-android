@@ -56,6 +56,8 @@ class HomeFragment : Fragment() {
 
         setupCategoryRecyclerView()
         setupCategoryRankRecyclerView()
+
+
     }
 
     private fun setupObservers() {

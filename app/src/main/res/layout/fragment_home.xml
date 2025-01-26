@@ -1,3 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
 <androidx.coordinatorlayout.widget.CoordinatorLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
@@ -6,68 +7,77 @@
     xmlns:tools="http://schemas.android.com/tools"
     tools:context=".fragments.HomeFragment">
 
-    <!-- AppBarLayout 고정된 상단 바 -->
+    <!-- AppBarLayout: 상단 고정 바 -->
     <com.google.android.material.appbar.AppBarLayout
         android:layout_width="match_parent"
-        android:layout_height="60dp">
+        android:layout_height="wrap_content"
+        android:background="?attr/colorPrimary"
+        android:elevation="4dp">
 
-        <!-- Toolbar 또는 다른 상단 바 내용 -->
+        <!-- Toolbar -->
         <androidx.appcompat.widget.Toolbar
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:paddingStart="8dp"
-            android:paddingEnd="8dp"
-            app:contentInsetStartWithNavigation="0dp">
+            android:layout_height="56dp"
+            android:paddingStart="16dp"
+            android:paddingEnd="16dp"
+            app:contentInsetStartWithNavigation="0dp"
+            android:theme="?attr/actionBarTheme">
 
-            <!-- 이미지 로고 -->
+            <!-- 로고 -->
             <ImageView
                 android:id="@+id/logo"
-                android:layout_width="80dp"
-                android:layout_height="match_parent"
+                android:layout_width="72dp"
+                android:layout_height="56dp"
                 android:adjustViewBounds="true"
-                android:layout_gravity="center_vertical"
+                android:layout_gravity="start|center_vertical"
                 android:src="@drawable/main_logo"
-                android:layout_marginEnd="8dp" />
+                android:contentDescription="로고 이미지" />
 
+            <!-- 제목 -->
+            <TextView
+                android:id="@+id/toolbarTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:text="Interpark Ticket"
+                android:textColor="@android:color/black"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                android:ellipsize="end"
+                android:maxLines="1" />
 
-            <EditText
-                android:layout_width="match_parent"
-                android:layout_height="50dp"
-                android:inputType="text"
-                android:layout_gravity="end"
-                android:background="@drawable/search_bar_background"
-                android:text="검색어를 입력하세요"/>
         </androidx.appcompat.widget.Toolbar>
+
     </com.google.android.material.appbar.AppBarLayout>
 
-
-    <!-- 스크롤 가능한 콘텐츠 -->
+    <!-- NestedScrollView: 스크롤 가능한 콘텐츠 -->
     <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        app:layout_behavior="@string/appbar_scrolling_view_behavior">
+        app:layout_behavior="@string/appbar_scrolling_view_behavior"
+        android:clipToPadding="false"
+        android:padding="16dp">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:padding="16dp">
+            android:orientation="vertical">
 
-            <!-- 회색 배경을 위한 FrameLayout -->
+            <!-- 배너 슬라이더 -->
             <FrameLayout
                 android:layout_width="match_parent"
-                android:layout_height="300dp"
+                android:layout_height="200dp"
                 android:background="#F0F0F0">
 
-            <!-- ViewPager2 -->
-            <androidx.viewpager2.widget.ViewPager2
-                android:id="@+id/viewPager"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:clipToPadding="false"
-                android:paddingStart="0dp"
-                android:paddingEnd="0dp" />
-        </FrameLayout>
+                <!-- ViewPager2 -->
+                <androidx.viewpager2.widget.ViewPager2
+                    android:id="@+id/viewPager"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:clipToPadding="false"
+                    android:paddingStart="0dp"
+                    android:paddingEnd="0dp" />
+            </FrameLayout>
 
             <!-- 포스터 인디케이터 -->
             <com.google.android.material.tabs.TabLayout
@@ -111,7 +121,10 @@
                 android:layout_marginTop="8dp"
                 android:clipToPadding="false"
                 android:scrollbars="horizontal" />
+
         </LinearLayout>
     </androidx.core.widget.NestedScrollView>
-</androidx.coordinatorlayout.widget.CoordinatorLayout>
 
+
+
+</androidx.coordinatorlayout.widget.CoordinatorLayout>
