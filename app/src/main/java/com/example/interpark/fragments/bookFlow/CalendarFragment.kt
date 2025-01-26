@@ -9,12 +9,13 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
+import androidx.recyclerview.widget.GridLayoutManager
+import com.example.interpark.adapters.CalendarAdapter
 import com.example.interpark.databinding.FragmentCalendarBinding
 import com.example.interpark.viewModels.CalendarViewModel
 import com.example.interpark.viewModels.CalendarViewModelFactory
 import java.text.SimpleDateFormat
 import java.util.*
-
 class CalendarFragment : Fragment() {
 
     private var _binding: FragmentCalendarBinding? = null
@@ -23,6 +24,8 @@ class CalendarFragment : Fragment() {
 
     private var selectedDate: String? = null
     private lateinit var viewModel: CalendarViewModel
+    private lateinit var adapter: CalendarAdapter
+    private val calendar: Calendar = Calendar.getInstance()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -45,11 +48,18 @@ class CalendarFragment : Fragment() {
             findNavController().navigateUp()
         }
 
+        // RecyclerView 초기화
+        adapter = CalendarAdapter(emptyList(), emptySet()) { selectedDate ->
+            onDateSelected(selectedDate)
+        }
+        binding.calendarRecyclerView.layoutManager = GridLayoutManager(requireContext(), 7)
+        binding.calendarRecyclerView.adapter = adapter
+
         // ViewModel에서 performanceDates 가져오기
         viewModel.performanceDates.observe(viewLifecycleOwner) { availableDates ->
             if (availableDates != null) {
                 Log.d("CalendarFragment", "Available dates: $availableDates")
-                setupCalendar(availableDates)
+                updateCalendar(availableDates)
             } else {
                 Log.d("CalendarFragment", "No available dates")
             }
@@ -59,10 +69,33 @@ class CalendarFragment : Fragment() {
         val performanceId = args.movieid
         Log.d("CalendarFragment", "Performance ID: $performanceId")
         viewModel.fetchPerformanceDates(performanceId)
+
+        // 월 변경 버튼
+        binding.prevMonthButton.setOnClickListener {
+            calendar.add(Calendar.MONTH, -1)
+            updateCalendarFromCurrentMonth()
+        }
+
+        binding.nextMonthButton.setOnClickListener {
+            calendar.add(Calendar.MONTH, 1)
+            updateCalendarFromCurrentMonth()
+        }
+
+        // 초기 캘린더 데이터 설정
+        updateCalendarFromCurrentMonth()
     }
 
-    private fun setupCalendar(availableDates: List<String>) {
-        // 날짜 형식 설정
+    private fun updateCalendarFromCurrentMonth() {
+        val year = calendar.get(Calendar.YEAR)
+        val month = calendar.get(Calendar.MONTH)
+        binding.currentMonthText.text = SimpleDateFormat("MMMM yyyy", Locale.getDefault()).format(calendar.time)
+
+        viewModel.performanceDates.value?.let { availableDates ->
+            updateCalendar(availableDates)
+        }
+    }
+
+    private fun updateCalendar(availableDates: List<String>) {
         val formatter = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
         val validDates = availableDates.mapNotNull {
             try {
@@ -71,43 +104,65 @@ class CalendarFragment : Fragment() {
                 Log.e("CalendarFragment", "Invalid date format: $it", e)
                 null
             }
-        }
+        }.toSet()
 
-        Log.d("CalendarFragment", "Setting up calendar with valid dates: $validDates")
+        Log.d("CalendarFragment", "Valid dates: $validDates") // 유효한 날짜 확인
 
-        // 날짜 선택 이벤트 처리
-        binding.calendarView.setOnDateChangeListener { _, year, month, dayOfMonth ->
-            val selectedCalendar = Calendar.getInstance()
-            selectedCalendar.set(year, month, dayOfMonth)
-            selectedCalendar.set(Calendar.HOUR_OF_DAY, 0)
-            selectedCalendar.set(Calendar.MINUTE, 0)
-            selectedCalendar.set(Calendar.SECOND, 0)
-            selectedCalendar.set(Calendar.MILLISECOND, 0)
-            val selectedDate = selectedCalendar.time
+        val year = calendar.get(Calendar.YEAR)
+        val month = calendar.get(Calendar.MONTH)
+        val dates = generateCalendarDates(year, month)
+        adapter.updateDates(dates, validDates)
+    }
 
-            if (validDates.contains(selectedDate)) {
-                val formattedDate = formatter.format(selectedDate)
-                this.selectedDate = formattedDate
-                binding.selectedDateText.text = "선택한 날짜: $formattedDate"
-                binding.confirmDateButton.visibility = View.VISIBLE
-                Log.d("CalendarFragment", "Date available: $formattedDate")
-            } else {
-                binding.selectedDateText.text = "선택할 수 없는 날짜입니다."
-                binding.confirmDateButton.visibility = View.GONE
-                Log.d("CalendarFragment", "Date not available: $selectedDate")
+    private fun onDateSelected(date: Date) {
+        val formatter = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
+        selectedDate = formatter.format(date)
+
+        if (adapter.isAvailableDate(date)) { // 선택된 날짜가 availableDates에 포함된 경우
+            binding.selectedDateText.text = "선택한 날짜: $selectedDate"
+            binding.confirmDateButton.visibility = View.VISIBLE
+
+            // "확인" 버튼 동작
+            binding.confirmDateButton.setOnClickListener {
+                selectedDate?.let { date ->
+                    val action = CalendarFragmentDirections
+                        .actionCalendarFragmentToTimeSelectionFragment(date, args.movieid)
+                    findNavController().navigate(action)
+                }
             }
-        }
-
-        // "확인" 버튼 동작 처리
-        binding.confirmDateButton.setOnClickListener {
-            selectedDate?.let { date ->
-                val action = CalendarFragmentDirections
-                    .actionCalendarFragmentToTimeSelectionFragment(date, args.movieid)
-                findNavController().navigate(action)
-            }
+        } else {
+            binding.selectedDateText.text = "선택할 수 없는 날짜입니다."
+            binding.confirmDateButton.visibility = View.GONE
         }
     }
 
+    private fun generateCalendarDates(year: Int, month: Int): List<Date?> {
+        val calendar = Calendar.getInstance()
+        calendar.set(year, month, 1)
+
+        val firstDayOfWeek = calendar.get(Calendar.DAY_OF_WEEK)
+        val maxDay = calendar.getActualMaximum(Calendar.DAY_OF_MONTH)
+
+        val dates = mutableListOf<Date?>()
+
+        // 이전 달 빈 칸 채우기
+        for (i in 1 until firstDayOfWeek) {
+            dates.add(null)
+        }
+
+        // 현재 달의 날짜 채우기
+        for (day in 1..maxDay) {
+            calendar.set(Calendar.DAY_OF_MONTH, day)
+            dates.add(calendar.time)
+        }
+
+        // 다음 달 빈 칸 채우기
+        while (dates.size % 7 != 0) {
+            dates.add(null)
+        }
+
+        return dates
+    }
 
     override fun onDestroyView() {
         super.onDestroyView()

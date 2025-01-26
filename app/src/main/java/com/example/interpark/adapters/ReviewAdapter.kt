@@ -1,18 +1,28 @@
 package com.example.interpark.adapters
 
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
+import android.widget.EditText
+import android.widget.LinearLayout
 import android.widget.RatingBar
 import android.widget.TextView
+import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.interpark.R
+import com.example.interpark.data.types.Comment
 import com.example.interpark.data.types.Review
+import com.example.interpark.viewModels.ReviewViewModel
+import com.google.api.Distribution.BucketOptions.Linear
 
 
 class ReviewAdapter(
     private val reviews: List<Review>,
-    private val onClick: (Review) -> Unit
+    private val reviewViewModel: ReviewViewModel,
+    private val writeComment: (reviewId: String, content: String) -> Unit,
+    private val readComment: (reviewId: String) -> Unit
 ) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     private var selectedPosition: Int = RecyclerView.NO_POSITION
@@ -48,13 +58,35 @@ class ReviewAdapter(
         private val author: TextView = itemView.findViewById(R.id.author)
         private val replies: TextView = itemView.findViewById(R.id.replies)
         private val views: TextView = itemView.findViewById(R.id.views)
-
+        private val content: TextView = itemView.findViewById(R.id.reviewContent)
+        private val commentLayout: LinearLayout = itemView.findViewById(R.id.CommentWriteLayout)
+        private val commentButton: Button = itemView.findViewById(R.id.commentButton)
+        private val commentWriteButton: Button = itemView.findViewById(R.id.commentWriteButton)
+        private val commentWriteEditText: EditText = itemView.findViewById(R.id.commentWriteEditText)
+        private val commentRecyclerView: RecyclerView = itemView.findViewById(R.id.commentRecyclerView)
         fun bind(review: Review) {
             ratingBar.rating = review.rating
             reviewTitle.text = review.title
             author.text = review.author
             replies.text = "댓글 0"
             views.text = "조회 10"
+            content.text = review.content
+            commentButton.setOnClickListener {
+                commentLayout.visibility = when(commentLayout.visibility){
+                    View.VISIBLE -> View.GONE
+                    else -> View.VISIBLE
+                }
+            }
+            commentWriteButton.setOnClickListener {
+                Log.d("clicked", "clicked")
+                writeComment(reviews[position].id, commentWriteEditText.text.toString())
+            }
+            commentRecyclerView.layoutManager = LinearLayoutManager(itemView.context)
+            commentRecyclerView.adapter = CommentAdapter(reviewViewModel.comment.value?: listOf())
+            reviewViewModel.comment.observeForever { comment ->
+                Log.d("asdf", comment.toString())
+                commentRecyclerView.adapter = CommentAdapter(comment)
+            }
         }
     }
 
@@ -84,10 +116,12 @@ class ReviewAdapter(
             } else {
                 position
             }
+            readComment(reviews[position].id)
             notifyItemChanged(previousPosition)
             notifyItemChanged(selectedPosition)
         }
     }
 
     override fun getItemCount(): Int = reviews.size
+
 }

@@ -32,10 +32,10 @@ class MyPageViewModel(private val repository: PerformanceRepository, private val
     private val _signInFailed = MutableLiveData<Boolean>(false)
     val signInFailed: LiveData<Boolean> get() = _signInFailed
 
-    fun signup(username: String, password: String, nickname: String, phoneNumber: String, email: String) {
+    fun signup(username: String, password: String, nickname: String, phoneNumber: String, email: String, role: String) {
         viewModelScope.launch {
             val result: SignUpResponse? = withContext(Dispatchers.IO){
-                repository.signUp(username, password, nickname, phoneNumber, email)
+                repository.signUp(username, password, nickname, phoneNumber, email, role)
             }
             if(result == null) _signUpFailed.value = true
             else _signUpSuccess.value = true
