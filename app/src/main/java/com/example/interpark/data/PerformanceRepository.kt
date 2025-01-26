@@ -20,7 +20,6 @@ import com.example.interpark.data.types.SignInResponse
 import com.example.interpark.data.types.SignUpRequest
 import com.example.interpark.data.types.SignUpResponse
 import com.example.interpark.data.types.User
-import java.time.LocalDateTime
 
 class PerformanceRepository(private val ApiClient: ApiClient) {
 
@@ -76,23 +75,8 @@ class PerformanceRepository(private val ApiClient: ApiClient) {
     }
 
     suspend fun refresh_token(): String?{
-        val result = ApiClient.refresh_token()
+        val result = ApiClient.refreshToken()
         return result.body()?.accessToken
-    }
-
-    @RequiresApi(Build.VERSION_CODES.O)
-    suspend fun fetchPerformanceReview(perfId: String?): List<Review>{
-
-        val result = listOf(Review("1234", "qdrptd", "perf_id", 4.5f, "title_string", "content_string", "2025-01-21T09:44:17.456Z", "2025-01-21T09:44:17.456Z"),
-            Review("1234", "qdrptd", "perf_id", 4.5f, "title_string", "content_string", "2025-01-21T09:44:17.456Z", "2025-01-21T09:44:17.456Z"),
-            Review("1234", "qdrptd", "perf_id", 4.5f, "title_string", "content_string", "2025-01-21T09:44:17.456Z", "2025-01-21T09:44:17.456Z"),
-            Review("1234", "qdrptd", "perf_id", 4.5f, "title_string", "content_string", "2025-01-21T09:44:17.456Z", "2025-01-21T09:44:17.456Z"),
-            Review("1234", "qdrptd", "perf_id", 4.5f, "title_string", "content_string", "2025-01-21T09:44:17.456Z", "2025-01-21T09:44:17.456Z"),
-            Review("1234", "qdrptd", "perf_id", 4.5f, "title_string", "content_string", "2025-01-21T09:44:17.456Z", "2025-01-21T09:44:17.456Z"),
-            Review("1234", "qdrptd", "perf_id", 4.5f, "title_string", "content_string", "2025-01-21T09:44:17.456Z", "2025-01-21T09:44:17.456Z"),
-            Review("1234", "qdrptd", "perf_id", 4.5f, "title_string", "content_string", "2025-01-21T09:44:17.456Z", "2025-01-21T09:44:17.456Z"))
-
-        return result
     }
 
     suspend fun getPerformanceEvent(

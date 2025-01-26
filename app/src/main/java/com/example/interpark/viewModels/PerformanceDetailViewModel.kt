@@ -32,15 +32,5 @@ class PerformanceDetailViewModel(private val repository: PerformanceRepository) 
         }
     }
 
-    @RequiresApi(Build.VERSION_CODES.O)
-    fun fetchPerformanceReviews(id: String){
-        viewModelScope.launch {
-            val reviews = withContext(Dispatchers.IO) {
-                repository.fetchPerformanceReview(id) // 서버에서 ID로 공연 정보 가져오기
-            }
-            Log.d("viewmodel:", reviews.toString())
-            _performanceReviews.postValue(reviews)
-        }
-    }
 
 }

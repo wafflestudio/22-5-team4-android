@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_height="wrap_content"
+    android:layout_width="match_parent"
+    android:background="@drawable/bg_review_opened">
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="start"
+        android:padding="12dp"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+            <TextView
+                android:id="@+id/commentSign"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="ㄴ"
+                android:layout_marginEnd="15dp"
+                android:textSize="20sp"/>
+
+            <TextView
+                android:id="@+id/commentContent"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="qdrp**"
+                android:layout_marginEnd="20dp"
+                android:textSize="20sp"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+            <TextView
+                android:id="@+id/author"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="qdr***"
+                android:layout_marginStart="33.5dp"
+                android:layout_marginEnd="20dp"
+                android:textSize="14sp"
+                android:textColor="#6F6F6F"/>
+
+            <TextView
+                android:id="@+id/date"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="2025.01.24"
+                android:layout_marginEnd="20dp"
+                android:textSize="14sp"/>
+        </LinearLayout>
+    </LinearLayout>
+
+</FrameLayout>

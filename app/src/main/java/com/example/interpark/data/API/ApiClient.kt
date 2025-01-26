@@ -4,12 +4,17 @@ import com.example.interpark.data.CancelRequest
 import com.example.interpark.data.MyReservationResponse
 import com.example.interpark.data.ReservationResponse
 import com.example.interpark.data.SeatResponse
+
+import com.example.interpark.data.types.Comment
+import com.example.interpark.data.types.CommentRequestBody
+
 import com.example.interpark.data.types.AdminPerformanceEventRequest
 import com.example.interpark.data.types.AdminPerformanceEventResponse
 import com.example.interpark.data.types.AdminPerformanceHallRequest
 import com.example.interpark.data.types.AdminPerformanceHallResponse
 import com.example.interpark.data.types.AdminPerformanceRequest
 import com.example.interpark.data.types.AdminPerformanceResponse
+
 import com.example.interpark.data.types.Performance
 import com.example.interpark.data.types.PerformanceEvent
 import com.example.interpark.data.types.ReservationRequest
@@ -53,8 +58,8 @@ interface ApiClient {
     suspend fun signout(
     ): Response<Unit>
 
-    @POST("/api/v1/refresh_token")
-    suspend fun refresh_token(
+    @POST("/api/v1/auth/refresh_token")
+    suspend fun refreshToken(
 
     ): Response<SignInResponse>
 
@@ -112,10 +117,20 @@ interface ApiClient {
 
     @GET("/api/v1/performance/{performanceId}/review")
     suspend fun readReview(
-        @Path("performanceId") performanceId: String,
-        @Query("user") user: User
+        @Path("performanceId") performanceId: String
     ): Response<List<Review>>
 
+
+    @POST("/api/v1/review/{reviewId}/reply")
+    suspend fun writeComment(
+        @Path("reviewId") reviewId: String,
+        @Body request: CommentRequestBody
+    ): Response<Comment>
+
+    @GET("/api/v1/review/{reviewId}/reply")
+    suspend fun readComment(
+        @Path("reviewId") reviewId: String
+    ): Response<List<Comment>>
 
     @POST("/admin/v1/performance")
     suspend fun createPerformance(@Body request: AdminPerformanceRequest): AdminPerformanceResponse
@@ -125,4 +140,5 @@ interface ApiClient {
 
     @POST("/admin/v1/performance-event")
     suspend fun createPerformanceEvent(@Body request: AdminPerformanceEventRequest): AdminPerformanceEventResponse
+
 }
