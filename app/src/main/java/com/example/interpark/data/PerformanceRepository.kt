@@ -75,7 +75,7 @@ class PerformanceRepository(private val ApiClient: ApiClient) {
     }
 
     suspend fun refresh_token(): String?{
-        val result = ApiClient.refreshToken()
+        val result = ApiClient.refresh_token()
         return result.body()?.accessToken
     }
 
