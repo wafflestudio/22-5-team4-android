@@ -17,6 +17,7 @@ import com.example.interpark.data.types.AdminPerformanceResponse
 
 import com.example.interpark.data.types.Performance
 import com.example.interpark.data.types.PerformanceEvent
+import com.example.interpark.data.types.RefreshTokenResponse
 import com.example.interpark.data.types.ReservationRequest
 import com.example.interpark.data.types.Review
 import com.example.interpark.data.types.ReviewRequestBody
@@ -59,9 +60,9 @@ interface ApiClient {
     ): Response<Unit>
 
     @POST("/api/v1/auth/refresh_token")
-    suspend fun refreshToken(
+    suspend fun refresh_token(
 
-    ): Response<SignInResponse>
+    ): Response<RefreshTokenResponse>
 
     @GET("/api/v1/users/me")
     suspend fun me(

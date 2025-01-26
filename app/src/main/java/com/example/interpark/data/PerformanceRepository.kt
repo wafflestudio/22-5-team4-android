@@ -56,7 +56,7 @@ class PerformanceRepository(private val ApiClient: ApiClient) {
     suspend fun signIn(username: String, password: String, context: Context): SignInResponse?{
         val result = ApiClient.signin(SignInRequest(username, password))
         if(result.code().toString().first() == '2'){
-            AuthManager.login(context, result.body()!!.user.nickname, result.body()!!.accessToken, result.body()!!.user)
+            AuthManager.login(context, result.body()!!.user.nickname, result.headers()["Set-Cookie"] ?: "" , result.body()!!.accessToken, result.body()!!.user)
         }
         return result.body()
     }
