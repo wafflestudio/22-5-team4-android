@@ -106,8 +106,8 @@ class PerformanceRepository(private val ApiClient: ApiClient) {
         return performances?.mapNotNull { it.posterUrl } // posterUri만 추출
     }
 
-    suspend fun adminCreatePerformance(request: AdminPerformanceRequest): AdminPerformanceResponse {
-        return ApiClient.createPerformance(request)
+    suspend fun adminCreatePerformance(token: String?,request: AdminPerformanceRequest): AdminPerformanceResponse {
+        return ApiClient.createPerformance("Bearer $token", request)
     }
 
     suspend fun adminCreatePerformanceHall(request: AdminPerformanceHallRequest): AdminPerformanceHallResponse {

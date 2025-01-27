@@ -6,6 +6,8 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
+import com.example.interpark.R
 import com.example.interpark.data.types.AdminPerformanceRequest
 import com.example.interpark.databinding.FragmentAuthBinding
 import com.example.interpark.viewModels.AdminViewModel
@@ -48,10 +50,18 @@ class AuthFragment : Fragment() {
                 backdropImageUri = backdropImageUri
             )
 
-
-            viewModel.createPerformance(performanceRequest) {
-//                findNavController().navigate(R.id.action_authFragment_to_performanceHallFragment)
+            binding.proceedButton.setOnClickListener {
+                viewModel.createPerformance(performanceRequest) {
+                    findNavController().navigate(R.id.action_AuthFragment_to_AdminPerformanceHallFragment)
+                }
             }
+            binding.backButton.setOnClickListener{
+                findNavController().navigateUp()
+            }
+//
+//            viewModel.createPerformance(performanceRequest) {
+//                findNavController().navigate(R.id.action_AuthFragment_to_AdminPerformanceHallFragment)
+//            }
         }
     }
 

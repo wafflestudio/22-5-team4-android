@@ -2,6 +2,7 @@ package com.example.interpark.viewModels
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.interpark.auth.AuthManager
 import com.example.interpark.data.PerformanceRepository
 import com.example.interpark.data.types.AdminPerformanceEventRequest
 import com.example.interpark.data.types.AdminPerformanceHallRequest
@@ -28,7 +29,8 @@ class AdminViewModel(private val repository: PerformanceRepository) : ViewModel(
         viewModelScope.launch {
             try {
                 _loading.value = true
-                val response = repository.adminCreatePerformance(request)
+                val token = AuthManager.getAuthToken()
+                val response = repository.adminCreatePerformance(token, request)
                 _performanceId.value = response.id
                 onSuccess()
             } catch (e: Exception) {

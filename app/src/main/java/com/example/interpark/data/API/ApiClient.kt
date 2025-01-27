@@ -133,7 +133,7 @@ interface ApiClient {
     ): Response<List<Comment>>
 
     @POST("/admin/v1/performance")
-    suspend fun createPerformance(@Body request: AdminPerformanceRequest): AdminPerformanceResponse
+    suspend fun createPerformance(@Header("Authorization") token:String, @Body request: AdminPerformanceRequest): AdminPerformanceResponse
 
     @POST("/admin/v1/performance-hall")
     suspend fun createPerformanceHall(@Body request: AdminPerformanceHallRequest): AdminPerformanceHallResponse

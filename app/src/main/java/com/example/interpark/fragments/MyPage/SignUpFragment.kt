@@ -39,17 +39,17 @@ class SignUpFragment : Fragment() {
 
             // ViewModel에 데이터 전달
             myPageViewModel.signup(
-//                username = binding.etUsername.text.toString(),
-//                password = binding.etPassword.text.toString(),
-//                nickname = binding.etName.text.toString(),
-//                phoneNumber = binding.etPhone.text.toString(),
-//                email = binding.etEmail.text.toString(),
+                username = binding.etUsername.text.toString(),
+                password = binding.etPassword.text.toString(),
+                nickname = binding.etName.text.toString(),
+                phoneNumber = binding.etPhone.text.toString(),
+                email = binding.etEmail.text.toString(),
 //                role = role
-                username = "adminname_value",
-                password = "760131Ab!",
-                nickname = "test_admin",
-                phoneNumber = "000-0000-0000",
-                email = "test@example.com",
+//                username = "adminname_value",
+//                password = "760131Ab!",
+//                nickname = "test_admin",
+//                phoneNumber = "000-0000-0000",
+//                email = "test@example.com",
                 role = "ADMIN"
 
             )
