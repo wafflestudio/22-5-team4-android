@@ -110,12 +110,12 @@ class PerformanceRepository(private val ApiClient: ApiClient) {
         return ApiClient.createPerformance("Bearer $token", request)
     }
 
-    suspend fun adminCreatePerformanceHall(request: AdminPerformanceHallRequest): AdminPerformanceHallResponse {
-        return ApiClient.createPerformanceHall(request)
+    suspend fun adminCreatePerformanceHall(token: String?,request: AdminPerformanceHallRequest): AdminPerformanceHallResponse {
+        return ApiClient.createPerformanceHall("Bearer $token",request)
     }
 
-    suspend fun adminCreatePerformanceEvent(request: AdminPerformanceEventRequest): AdminPerformanceEventResponse {
-        return ApiClient.createPerformanceEvent(request)
+    suspend fun adminCreatePerformanceEvent(token: String?,request: AdminPerformanceEventRequest): AdminPerformanceEventResponse {
+        return ApiClient.createPerformanceEvent("Bearer $token",request)
     }
 
 }

@@ -63,20 +63,20 @@
             android:id="@+id/startEditText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="공연장 이름" />
+            android:hint="시작 날짜" />
 
         <EditText
             android:id="@+id/endEditText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="공연장 주소" />
+            android:hint="종료 날짜" />
 
 
         <Button
             android:id="@+id/proceedButton"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="다음 단계" />
+            android:text="로그인 페이지로" />
     </LinearLayout>
 
 

@@ -20,12 +20,30 @@
     <fragment
         android:id="@+id/AdminPerformanceHallFragment"
         android:name="com.example.interpark.fragments.MyPage.AdminPerformanceHallFragment">
+        <argument
+            android:name="performanceId1"
+            app:argType="string"
+            app:nullable="false" />
+        <action
+            android:id="@+id/action_AdminPerformanceHallFragment_to_AdminPerformanceEventFragment"
+            app:destination="@id/AdminPerformanceEventFragment" />
 
     </fragment>
 
     <fragment
         android:id="@+id/AdminPerformanceEventFragment"
         android:name="com.example.interpark.fragments.MyPage.AdminPerformanceEventFragment">
+        <argument
+            android:name="performanceId2"
+            app:argType="string"
+            app:nullable="false" />
+        <argument
+            android:name="HallId"
+            app:argType="string"
+            app:nullable="false" />
+        <action
+            android:id="@+id/action_AdminPerformanceEventFragment_to_LoginFragment"
+            app:destination="@id/LoginFragment" />
 
     </fragment>
     <fragment

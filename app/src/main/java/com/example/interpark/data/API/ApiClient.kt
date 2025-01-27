@@ -60,7 +60,6 @@ interface ApiClient {
 
     @POST("/api/v1/auth/refresh_token")
     suspend fun refreshToken(
-
     ): Response<SignInResponse>
 
     @GET("/api/v1/users/me")
@@ -136,9 +135,9 @@ interface ApiClient {
     suspend fun createPerformance(@Header("Authorization") token:String, @Body request: AdminPerformanceRequest): AdminPerformanceResponse
 
     @POST("/admin/v1/performance-hall")
-    suspend fun createPerformanceHall(@Body request: AdminPerformanceHallRequest): AdminPerformanceHallResponse
+    suspend fun createPerformanceHall(@Header("Authorization") token:String, @Body request: AdminPerformanceHallRequest): AdminPerformanceHallResponse
 
     @POST("/admin/v1/performance-event")
-    suspend fun createPerformanceEvent(@Body request: AdminPerformanceEventRequest): AdminPerformanceEventResponse
+    suspend fun createPerformanceEvent(@Header("Authorization") token:String, @Body request: AdminPerformanceEventRequest): AdminPerformanceEventResponse
 
 }
