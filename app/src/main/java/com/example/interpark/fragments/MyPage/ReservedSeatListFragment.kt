@@ -43,14 +43,25 @@ class ReservedSeatListFragment : Fragment() {
         adapter = ReservedSeatAdapter(emptyList(), seatSelectionViewModel)
         binding.recyclerViewReservedSeats.layoutManager = LinearLayoutManager(requireContext())
         binding.recyclerViewReservedSeats.adapter = adapter
-
-        // ViewModel에서 데이터 가져오기
-        seatSelectionViewModel.fetchReservations()
+        binding.emptyText.visibility = View.VISIBLE
+        binding.recyclerViewReservedSeats.visibility = View.GONE
 
         // 데이터 관찰 및 UI 업데이트
         seatSelectionViewModel.reservations.observe(viewLifecycleOwner) { reservedSeats ->
             adapter.updateData(reservedSeats)
+            binding.emptyText.visibility = when(reservedSeats.isEmpty()){
+                true -> View.VISIBLE
+                else -> View.GONE
+            }
+            binding.recyclerViewReservedSeats.visibility = when(reservedSeats.isEmpty()){
+                true -> View.GONE
+                else -> View.VISIBLE
+            }
+
         }
+
+        // ViewModel에서 데이터 가져오기
+        seatSelectionViewModel.fetchReservations()
 
         // 뒤로가기 버튼 클릭 이벤트
         binding.backArrow.setOnClickListener {
