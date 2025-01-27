@@ -40,7 +40,7 @@ class ReservedSeatListFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         // RecyclerView 설정
-        adapter = ReservedSeatAdapter(emptyList())
+        adapter = ReservedSeatAdapter(emptyList(), seatSelectionViewModel)
         binding.recyclerViewReservedSeats.layoutManager = LinearLayoutManager(requireContext())
         binding.recyclerViewReservedSeats.adapter = adapter
 
