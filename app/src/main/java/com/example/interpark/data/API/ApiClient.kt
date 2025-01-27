@@ -60,6 +60,7 @@ interface ApiClient {
     ): Response<Unit>
 
     @POST("/api/v1/auth/refresh_token")
+
     suspend fun refresh_token(
 
     ): Response<RefreshTokenResponse>
@@ -134,12 +135,12 @@ interface ApiClient {
     ): Response<List<Comment>>
 
     @POST("/admin/v1/performance")
-    suspend fun createPerformance(@Body request: AdminPerformanceRequest): AdminPerformanceResponse
+    suspend fun createPerformance(@Header("Authorization") token:String, @Body request: AdminPerformanceRequest): AdminPerformanceResponse
 
     @POST("/admin/v1/performance-hall")
-    suspend fun createPerformanceHall(@Body request: AdminPerformanceHallRequest): AdminPerformanceHallResponse
+    suspend fun createPerformanceHall(@Header("Authorization") token:String, @Body request: AdminPerformanceHallRequest): AdminPerformanceHallResponse
 
     @POST("/admin/v1/performance-event")
-    suspend fun createPerformanceEvent(@Body request: AdminPerformanceEventRequest): AdminPerformanceEventResponse
+    suspend fun createPerformanceEvent(@Header("Authorization") token:String, @Body request: AdminPerformanceEventRequest): AdminPerformanceEventResponse
 
 }

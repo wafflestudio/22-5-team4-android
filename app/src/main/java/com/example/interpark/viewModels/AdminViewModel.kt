@@ -1,7 +1,9 @@
 package com.example.interpark.viewModels
 
+import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.interpark.auth.AuthManager
 import com.example.interpark.data.PerformanceRepository
 import com.example.interpark.data.types.AdminPerformanceEventRequest
 import com.example.interpark.data.types.AdminPerformanceHallRequest
@@ -28,37 +30,67 @@ class AdminViewModel(private val repository: PerformanceRepository) : ViewModel(
         viewModelScope.launch {
             try {
                 _loading.value = true
-                val response = repository.adminCreatePerformance(request)
+                val token = AuthManager.getAuthToken()
+
+                // API 호출 및 응답 처리
+                val response = repository.adminCreatePerformance(token, request)
+
+                // Performance ID 저장
                 _performanceId.value = response.id
+
+                // 로그 출력
+                Log.d("AdminViewModel", "Performance ID 설정됨 (Response ID): ${response.id}")
+                Log.d("AdminViewModel", "Performance ID 설정됨 (StateFlow 값): ${_performanceId.value}")
+
+                // 성공 콜백 실행
                 onSuccess()
             } catch (e: Exception) {
+                // 에러 처리
                 _error.value = e.message
+                Log.e("AdminViewModel", "에러 발생: ${e.message}")
             } finally {
                 _loading.value = false
             }
         }
     }
+
 
     fun createPerformanceHall(request: AdminPerformanceHallRequest, onSuccess: () -> Unit) {
         viewModelScope.launch {
             try {
                 _loading.value = true
-                val response = repository.adminCreatePerformanceHall(request)
+                val token = AuthManager.getAuthToken()
+
+                // API 호출 및 응답 처리
+                val response = repository.adminCreatePerformanceHall(token, request)
+
+                // Hall ID 저장
                 _hallId.value = response.id
+
+                // 로그 출력
+                Log.d("AdminViewModel", "Hall ID 설정됨 (Response ID): ${response.id}")
+                Log.d("AdminViewModel", "Hall ID 설정됨 (StateFlow 값): ${_hallId.value}")
+
+                // 성공 콜백 실행
                 onSuccess()
             } catch (e: Exception) {
+                // 에러 처리
                 _error.value = e.message
+                Log.e("AdminViewModel", "에러 발생: ${e.message}")
             } finally {
                 _loading.value = false
             }
         }
     }
 
+
     fun createPerformanceEvent(request: AdminPerformanceEventRequest, onSuccess: () -> Unit) {
         viewModelScope.launch {
             try {
                 _loading.value = true
-                repository.adminCreatePerformanceEvent(request)
+                val token = AuthManager.getAuthToken()
+
+                repository.adminCreatePerformanceEvent(token, request)
                 onSuccess()
             } catch (e: Exception) {
                 _error.value = e.message

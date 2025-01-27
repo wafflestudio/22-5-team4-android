@@ -1,3 +1,10 @@
 <resources>
-    <string name="app_name">interpark</string>
+    <string name="app_name">Interpark</string>
+    <string-array name="category_array">
+        <item>뮤지컬</item>
+        <item>콘서트</item>
+        <item>연극</item>
+        <item>클래식/무용</item>
+        <item>스포츠</item>
+    </string-array>
 </resources>
