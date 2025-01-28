@@ -51,6 +51,7 @@ class LoginFragment : Fragment() {
         }
 
         binding.kakaoLogin.setOnClickListener {
+            Log.d("로그인 버튼 클릭: ", "clicked")
             loginWithKakao()
         }
 

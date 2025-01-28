@@ -117,8 +117,8 @@ class ReviewAdapter(
                 position
             }
             readComment(reviews[position].id)
-            notifyItemChanged(previousPosition)
             notifyItemChanged(selectedPosition)
+            notifyItemChanged(previousPosition)
         }
     }
 
