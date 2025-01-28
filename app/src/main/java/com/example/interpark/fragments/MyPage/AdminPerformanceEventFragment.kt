@@ -1,5 +1,6 @@
 package com.example.interpark.fragments.MyPage
 
+import android.app.DatePickerDialog
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -8,26 +9,21 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
-import androidx.fragment.app.viewModels
-import androidx.lifecycle.ViewModelProvider
-import com.example.interpark.databinding.FragmentAdminPerformanceEventBinding
-import com.example.interpark.viewModels.AdminViewModel
-import com.example.interpark.viewModels.AdminViewModelFactory
-import com.example.interpark.viewModels.PerformanceViewModel
-
-import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.example.interpark.R
 import com.example.interpark.data.types.AdminPerformanceEventRequest
-import kotlinx.coroutines.flow.collect
-import kotlinx.coroutines.launch
+import com.example.interpark.databinding.FragmentAdminPerformanceEventBinding
+import com.example.interpark.viewModels.AdminViewModel
+import com.example.interpark.viewModels.AdminViewModelFactory
+import java.time.format.DateTimeFormatter
+import java.util.Calendar
+import java.util.Locale
 
 class AdminPerformanceEventFragment : Fragment() {
 
     private var _binding: FragmentAdminPerformanceEventBinding? = null
     private val binding get() = _binding!!
-
 
     private val viewModel: AdminViewModel by activityViewModels { AdminViewModelFactory(requireContext()) }
     private val args: AdminPerformanceEventFragmentArgs by navArgs()
@@ -50,28 +46,75 @@ class AdminPerformanceEventFragment : Fragment() {
         Log.d("AdminPerformanceEventFragment", "Performance ID: $performanceId")
         Log.d("AdminPerformanceEventFragment", "Hall ID: $hallId")
 
-        setupProceedButton(performanceId, hallId)
+        // 날짜 선택 기능 설정
+        setupDatePickers()
 
-//        // 갱신된 값 처리
-//        lifecycleScope.launch {
-//            viewModel.performanceId.collect { newPerformanceId ->
-//                viewModel.hallId.collect { newHallId ->
-//                    if (newPerformanceId != null) {
-//                        setupProceedButton(newPerformanceId, newHallId)
-//                    }
-//                }
-//            }
-//        }
+        // Proceed 버튼 설정
+        setupProceedButton(performanceId, hallId)
     }
 
+    private fun setupDatePickers() {
+        val calendar = Calendar.getInstance()
+
+        // Start Date Picker
+        binding.startEditText.setOnClickListener {
+            DatePickerDialog(
+                requireContext(),
+                { _, year, month, dayOfMonth ->
+                    calendar.set(year, month, dayOfMonth)
+                    val formattedDate = String.format(
+                        Locale.getDefault(),
+                        "%04d-%02d-%02d",
+                        year,
+                        month + 1,
+                        dayOfMonth
+                    )
+                    binding.startEditText.setText(formattedDate)
+                },
+                calendar.get(Calendar.YEAR),
+                calendar.get(Calendar.MONTH),
+                calendar.get(Calendar.DAY_OF_MONTH)
+            ).show()
+        }
+
+        // End Date Picker
+        binding.endEditText.setOnClickListener {
+            DatePickerDialog(
+                requireContext(),
+                { _, year, month, dayOfMonth ->
+                    calendar.set(year, month, dayOfMonth)
+                    val formattedDate = String.format(
+                        Locale.getDefault(),
+                        "%04d-%02d-%02d",
+                        year,
+                        month + 1,
+                        dayOfMonth
+                    )
+                    binding.endEditText.setText(formattedDate)
+                },
+                calendar.get(Calendar.YEAR),
+                calendar.get(Calendar.MONTH),
+                calendar.get(Calendar.DAY_OF_MONTH)
+            ).show()
+        }
+    }
 
     private fun setupProceedButton(performanceId: String, hallId: String) {
         binding.proceedButton.setOnClickListener {
-            val startAt = binding.startEditText.text.toString()
-            val endAt = binding.endEditText.text.toString()
+            val startAtInput = binding.startEditText.text.toString()
+            val endAtInput = binding.endEditText.text.toString()
 
+            if (startAtInput.isEmpty() || endAtInput.isEmpty()) {
+                // 입력되지 않은 경우
+                Toast.makeText(requireContext(), "모든 날짜를 선택해주세요.", Toast.LENGTH_SHORT).show()
+                return@setOnClickListener
+            }
 
-//            if (performanceId != null && hallId != null) {
+            try {
+                // ISO 8601 형식으로 변환
+                val startAt = "${startAtInput}T00:00:00Z"
+                val endAt = "${endAtInput}T23:59:59Z"
+
                 val eventRequest = AdminPerformanceEventRequest(
                     performanceId = performanceId,
                     performanceHallId = hallId,
@@ -81,12 +124,15 @@ class AdminPerformanceEventFragment : Fragment() {
 
                 // API 호출
                 viewModel.createPerformanceEvent(eventRequest) {
+                    // 성공한 경우 Toast 메시지
+                    Toast.makeText(requireContext(), "이벤트가 성공적으로 생성되었습니다.", Toast.LENGTH_SHORT).show()
+
                     findNavController().navigate(R.id.action_AdminPerformanceEventFragment_to_LoginFragment)
                 }
-//            } else {
-//                // 예외 처리
-//                Toast.makeText(requireContext(), "ID가 설정되지 않았습니다.", Toast.LENGTH_SHORT).show()
-//            }
+            } catch (e: Exception) {
+                // 오류 발생 시 Toast 메시지
+                Toast.makeText(requireContext(), "이벤트 생성 중 오류가 발생했습니다.", Toast.LENGTH_LONG).show()
+            }
         }
     }
 

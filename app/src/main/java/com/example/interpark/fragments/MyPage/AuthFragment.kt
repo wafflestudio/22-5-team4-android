@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
@@ -31,13 +32,31 @@ class AuthFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-
         binding.proceedButton.setOnClickListener {
             // 사용자 입력 값 가져오기
-            val title = binding.titleEditText.text.toString()
-            val detail = binding.detailEditText.text.toString()
-            val posterUri = binding.posterUriEditText.text.toString()
-            val backdropImageUri = binding.backdropUriEditText.text.toString()
+            val title = binding.titleEditText.text.toString().trim()
+            val detail = binding.detailEditText.text.toString().trim()
+            var posterUri = binding.posterUriEditText.text.toString().trim()
+            var backdropImageUri = binding.backdropUriEditText.text.toString().trim()
+
+            // 필수 입력 값 검증
+            if (title.isEmpty()) {
+                Toast.makeText(requireContext(), "제목을 입력해주세요.", Toast.LENGTH_SHORT).show()
+                return@setOnClickListener
+            }
+            if (detail.isEmpty()) {
+                Toast.makeText(requireContext(), "상세 내용을 입력해주세요.", Toast.LENGTH_SHORT).show()
+                return@setOnClickListener
+            }
+
+            // 기본 이미지 URL 설정
+            val defaultImageUrl = "https://upload.wikimedia.org/wikipedia/commons/a/a3/Image-not-found.png"
+            if (posterUri.isEmpty()) {
+                posterUri = defaultImageUrl
+            }
+            if (backdropImageUri.isEmpty()) {
+                backdropImageUri = defaultImageUrl
+            }
 
             // Spinner에서 선택된 카테고리 가져오기
             val category = when (binding.categorySpinner.selectedItem.toString()) {
@@ -59,46 +78,18 @@ class AuthFragment : Fragment() {
             )
 
             viewModel.createPerformance(performanceRequest) {
-                val action = AuthFragmentDirections.actionAuthFragmentToAdminPerformanceHallFragment(
-                    performanceId1 = viewModel.performanceId.value ?: ""
-                )
+                val action =
+                    AuthFragmentDirections.actionAuthFragmentToAdminPerformanceHallFragment(
+                        performanceId1 = viewModel.performanceId.value ?: ""
+                    )
                 findNavController().navigate(action)
             }
 
         }
-        binding.backButton.setOnClickListener{
+
+        binding.backButton.setOnClickListener {
             findNavController().navigateUp()
         }
-//        binding.proceedButton.setOnClickListener {
-//            // 사용자 입력 값 가져오기
-//            val title = binding.titleEditText.text.toString()
-//            val detail = binding.detailEditText.text.toString()
-//            val category = binding.categoryEditText.text.toString()
-//            val posterUri = binding.posterUriEditText.text.toString()
-//            val backdropImageUri = binding.backdropUriEditText.text.toString()
-//
-//            // API 요청
-//            val performanceRequest = AdminPerformanceRequest(
-//                title = title,
-//                detail = detail,
-//                category = category,
-//                posterUri = posterUri,
-//                backdropImageUri = backdropImageUri
-//            )
-//
-//            binding.proceedButton.setOnClickListener {
-//                viewModel.createPerformance(performanceRequest) {
-//                    findNavController().navigate(R.id.action_AuthFragment_to_AdminPerformanceHallFragment)
-//                }
-//            }
-//            binding.backButton.setOnClickListener{
-//                findNavController().navigateUp()
-//            }
-////
-////            viewModel.createPerformance(performanceRequest) {
-////                findNavController().navigate(R.id.action_AuthFragment_to_AdminPerformanceHallFragment)
-////            }
-//        }
     }
 
     override fun onDestroyView() {

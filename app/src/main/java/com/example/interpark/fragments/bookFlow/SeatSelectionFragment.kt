@@ -39,7 +39,7 @@ class SeatSelectionFragment : Fragment(R.layout.fragment_seat_selection) {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         _binding = FragmentSeatSelectionBinding.inflate(inflater, container, false)
         return binding.root
     }
@@ -50,7 +50,6 @@ class SeatSelectionFragment : Fragment(R.layout.fragment_seat_selection) {
         AuthManager.initialize(requireContext())
 
         binding.backButton.setOnClickListener {
-            Log.d("seat", "herehere")
             findNavController().navigateUp()
         }
 
@@ -58,41 +57,55 @@ class SeatSelectionFragment : Fragment(R.layout.fragment_seat_selection) {
             Log.d("title", "herehere")
             findNavController().navigateUp()
         }
-        binding.proceedToPaymentButton.setOnClickListener {
-            val selectedSeats = seatList
-                .filter { it.isSelected }
-                .map { "Row: ${it.row}, Column: ${it.number}" }
 
-            if (!AuthManager.isLoggedIn()){
-                Toast.makeText(requireContext(), "로그인을 먼저 해주세요.", Toast.LENGTH_SHORT).show()
+        binding.proceedToPaymentButton.setOnClickListener {
+            val selectedSeat = seatList.find { it.isSelected }
+            if (selectedSeat == null) {
+                Toast.makeText(requireContext(), "좌석을 선택해주세요.", Toast.LENGTH_SHORT).show()
+                return@setOnClickListener
             }
-            else if (selectedSeats.isEmpty()) {
-//                Toast.makeText(requireContext(), "좌석을 선택해주세요.", Toast.LENGTH_SHORT).show()
-                val action = SeatSelectionFragmentDirections
-                    .actionSeatSelectionFragmentToPaymentFragment(selectedSeats.toTypedArray(), reserveId)
-                findNavController().navigate(action)
-            } else {
-                val action = SeatSelectionFragmentDirections
-                    .actionSeatSelectionFragmentToPaymentFragment(selectedSeats.toTypedArray(),reserveId)
-                findNavController().navigate(action)
+
+            val seatId = selectedSeat.id // 선택된 좌석의 ID 가져오기
+            val eventId = args.title // 이벤트 ID 가져오기
+
+            if (seatId.isNullOrEmpty()) {
+                Log.e("SeatSelectionFragment", "Seat ID is null or empty")
+                Toast.makeText(requireContext(), "좌석 ID가 없습니다.", Toast.LENGTH_SHORT).show()
+                return@setOnClickListener
             }
+
+            Log.d("SeatSelectionFragment", "Selected Seat ID: $seatId, Event ID: $eventId")
+
+            val action = SeatSelectionFragmentDirections
+                .actionSeatSelectionFragmentToPaymentFragment(
+                    eventId = eventId,
+                    seatId = seatId,
+                    selectedSeat = "Row: ${selectedSeat.row}, Column: ${selectedSeat.number}"
+                )
+            findNavController().navigate(action)
         }
+
+
 
 
         // 좌석 초기화
         initializeSeats()
 
         // SeatAdapter 초기화
-        seatAdapter = SeatAdapter(seatList) { seat ->
-            if (seat.isAvailable) {
-                seat.isSelected = !seat.isSelected
-                seatAdapter.notifyDataSetChanged() // UI 갱신
-                val seatRequest = SeatRequest(seat.row, seat.number)
-//               viewModel.reserveSeat(seatRequest)
+        seatAdapter = SeatAdapter(seatList) { selectedSeat ->
+            if (selectedSeat.isAvailable) {
+                // 모든 좌석 선택 해제
+                seatList.forEach { it.isSelected = false }
+
+                // 선택한 좌석만 활성화
+                selectedSeat.isSelected = true
+                seatAdapter.notifyDataSetChanged()
             } else {
                 Toast.makeText(requireContext(), "해당 좌석은 예약할 수 없습니다.", Toast.LENGTH_SHORT).show()
             }
         }
+
+
 
         // RecyclerView 설정
         binding.recyclerViewSeats.apply {
@@ -112,11 +125,18 @@ class SeatSelectionFragment : Fragment(R.layout.fragment_seat_selection) {
 
         // 좌석 데이터 관찰 및 UI 업데이트
         viewModel.seats.observe(viewLifecycleOwner) { seats ->
-            val availableSeatsSet = seats.map { it.row to it.number }.toSet() // row와 number 쌍으로 Set 생성
-
             seatList.forEach { localSeat ->
-                localSeat.isAvailable = (localSeat.row to localSeat.number) in availableSeatsSet
+                val match = seats.find { it.row == localSeat.row && it.number == localSeat.number }
+                if (match != null) {
+                    Log.d("SeatSelectionFragment", "Match found: ID=${match.id}")
+                    localSeat.id = match.id // Ensure ID is copied
+                    localSeat.isAvailable = match.isAvailable
+                } else {
+                    localSeat.isAvailable = false
+                }
             }
+
+
 
             seatAdapter.notifyDataSetChanged()
         }
@@ -133,7 +153,7 @@ class SeatSelectionFragment : Fragment(R.layout.fragment_seat_selection) {
         val totalColumns = 10
         for (row in 1..totalRows) {
             for (column in 1..totalColumns) {
-                seatList.add(Seat(row, column, isAvailable = true)) // 초기 상태는 모두 available
+                seatList.add(Seat("",row, column, isAvailable = true)) // 초기 상태는 모두 available
             }
         }
     }

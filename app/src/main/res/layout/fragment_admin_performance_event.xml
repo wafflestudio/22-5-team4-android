@@ -76,7 +76,7 @@
             android:id="@+id/proceedButton"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="로그인 페이지로" />
+            android:text="공연 등록" />
     </LinearLayout>
 
 

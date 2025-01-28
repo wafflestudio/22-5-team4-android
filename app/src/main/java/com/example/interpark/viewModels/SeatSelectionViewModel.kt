@@ -17,6 +17,7 @@ import com.example.interpark.data.MyReservation
 import com.example.interpark.data.ReservationResponse
 import com.example.interpark.data.types.ReservationRequest
 import com.example.interpark.data.types.User
+import com.google.protobuf.Api
 
 
 class SeatSelectionViewModel(private val repository: SeatRepository) : ViewModel() {
@@ -41,57 +42,68 @@ class SeatSelectionViewModel(private val repository: SeatRepository) : ViewModel
         viewModelScope.launch {
             val seats = withContext(Dispatchers.IO) {
                 try {
+
                     val response = repository.fetchAvailableSeats(eventId)
 
-                    // reservationId 추출
-                    val reservationIds = response.availableSeats.map { it.reservationId }
-                    _reservationId.postValue(reservationIds)
-
                     response.availableSeats.map { availableSeat ->
+
                         Seat(
-                            row = availableSeat.seat.seatNumber.first,
-                            number = availableSeat.seat.seatNumber.second,
-                            isAvailable = true, // API에 따로 예약 가능 여부가 없으므로 기본값 설정
-                            //price = availableSeat.seat.price
-
+                            id = availableSeat.id, // Seat ID 설정
+                            row = availableSeat.seatNumber.first,
+                            number = availableSeat.seatNumber.second,
+                            isAvailable = true // 기본적으로 예약 가능으로 설정
                         )
-
                     }
                 } catch (e: Exception) {
                     Log.e("SeatSelectionViewModel", "Error fetching seats", e)
                     listOf<Seat>() // 오류 발생 시 빈 리스트 반환
                 }
             }
+
+            Log.d("SeatSelectionViewModel", "Seats loaded: $seats")
             _seats.postValue(seats)
         }
     }
 
 
-    fun reserveSeat(reservationRequest: ReservationRequest) {
+    fun reserveSeat2(eventId: String, seatId: String) {
+        viewModelScope.launch {
+            repository.reserveSeat(eventId, seatId)
+
+        }
+    }
+
+
+    fun reserveSeat(eventId: String, seatId: String, onSuccess: (String) -> Unit, onFailure: (String) -> Unit) {
         viewModelScope.launch {
             try {
-                // Nullable 타입을 처리
-//                val result: ReservationResponse? = withContext(Dispatchers.IO) {
-//                    repository.reserveSeat(reservationRequest)
-//                }
-                val result = repository.reserveSeat(reservationRequest)
-                if (result != null) {
-                    // 성공적으로 예약된 경우
-                    _reservationSuccess.value = true
-                    Log.d("SeatReservationViewModel", "Reservation successful: ${result.reservationId}")
-                } else {
-                    // 실패한 경우
-                    _reservationFailed.value = true
-                    Log.e("SeatReservationViewModel", "Error: Reservation result is null")
+                val response = withContext(Dispatchers.IO) {
+                    repository.reserveSeat(eventId, seatId)
                 }
+                onSuccess(response.reservationId)
             } catch (e: Exception) {
-                // 예외 처리
-                _reservationFailed.value = true
-                Log.e("SeatReservationViewModel", "Error reserving seat", e)
+                onFailure(e.message ?: "예약 중 오류가 발생했습니다.")
             }
         }
     }
 
+
+    fun deleteReservation(reservationId: String, onComplete: (Boolean) -> Unit) {
+        viewModelScope.launch {
+            try {
+                val success = repository.deleteReservation(reservationId)
+                if (success) {
+                    fetchReservations() // 최신 목록 다시 가져오기
+                    onComplete(true)
+                } else {
+                    onComplete(false)
+                }
+            } catch (e: Exception) {
+                Log.e("SeatSelectionViewModel", "예약 삭제 실패", e)
+                onComplete(false)
+            }
+        }
+    }
 
 
     fun cancelReservation(reservationId: String) {

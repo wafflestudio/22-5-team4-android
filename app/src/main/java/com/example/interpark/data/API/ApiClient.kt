@@ -29,6 +29,7 @@ import com.example.interpark.data.types.User
 import com.squareup.moshi.JsonClass
 import retrofit2.Response
 import retrofit2.http.Body
+import retrofit2.http.DELETE
 import retrofit2.http.GET
 import retrofit2.http.Header
 import retrofit2.http.POST
@@ -88,9 +89,11 @@ interface ApiClient {
     ): SeatResponse
 
     @POST("/api/v1/reservation/reserve")
-    suspend fun reserveSeat(
-        @Body reservationId : ReservationRequest
-    ): Response<ReservationResponse>
+    suspend fun reserveSeat(@Body request: ReservationRequest): ReservationResponse
+
+    @DELETE("/api/v1/reservation/{reservationId}")
+    suspend fun deleteReservation(@Path("reservationId") reservationId: String): Response<Unit>
+
 
     @GET("/api/v1/me/reservation")
     suspend fun getReservations(

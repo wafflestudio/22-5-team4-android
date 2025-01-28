@@ -5,6 +5,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
@@ -40,8 +41,20 @@ class AdminPerformanceHallFragment : Fragment() {
         Log.d("AdminPerformanceHallFragment", "전달받은 Performance ID: $performanceId")
 
         binding.proceedButton.setOnClickListener {
-            val name = binding.nameEditText.text.toString()
-            val address = binding.addressEditText.text.toString()
+            val name = binding.nameEditText.text.toString().trim()
+            val address = binding.addressEditText.text.toString().trim()
+
+            // 입력 값 검증
+            if (name.isEmpty()) {
+                Toast.makeText(requireContext(), "공연장 이름을 입력해주세요.", Toast.LENGTH_SHORT).show()
+                return@setOnClickListener
+            }
+
+            if (address.isEmpty()) {
+                Toast.makeText(requireContext(), "공연장 주소를 입력해주세요.", Toast.LENGTH_SHORT).show()
+                return@setOnClickListener
+            }
+
             val hallRequest = AdminPerformanceHallRequest(
                 name = name,
                 address = address,
@@ -60,10 +73,9 @@ class AdminPerformanceHallFragment : Fragment() {
 
                 findNavController().navigate(action)
             }
-
-
         }
-        binding.backButton.setOnClickListener{
+
+        binding.backButton.setOnClickListener {
             findNavController().navigateUp()
         }
     }
