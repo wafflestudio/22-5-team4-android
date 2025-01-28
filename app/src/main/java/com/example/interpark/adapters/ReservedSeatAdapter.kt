@@ -40,9 +40,9 @@ class ReservedSeatAdapter(
         holder.textDate.text = reservedSeat.performanceDate
         holder.reservationId.text = reservedSeat.id
 
-        holder.itemView.findViewById<Button>(R.id.buttonCancel).setOnClickListener {
-            seatSelectionViewModel.cancelReservation(reservedSeat.id)
-        }
+//        holder.itemView.findViewById<Button>(R.id.buttonCancel).setOnClickListener {
+//            seatSelectionViewModel.cancelReservation(reservedSeat.id)
+//        }
         // Glide를 사용하여 이미지 로드
         Glide.with(holder.itemView.context).load(reservedSeat.posterUri).into(holder.imagePoster)
 
