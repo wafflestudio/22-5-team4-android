@@ -49,7 +49,9 @@ class WriteReview : Fragment() {
         }
 
         binding.writeReviewButton.setOnClickListener {
-
+            ReviewViewModel.ratingCheck(binding.ratingBar.rating as Int)
+            ReviewViewModel.contentCheck(binding.etContent.text.toString())
+            ReviewViewModel.titleCheck(binding.etTitle.text.toString())
             if(AuthManager.getUser() == null){
                 Toast.makeText(context, "로그인이 필요합니다.", Toast.LENGTH_SHORT).show()
                 return@setOnClickListener
