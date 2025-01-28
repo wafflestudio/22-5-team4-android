@@ -1,3 +1,4 @@
+
 import java.util.Properties
 import java.io.FileInputStream
 
@@ -22,6 +23,8 @@ android {
             buildConfig = true
         }
     }
+
+
     namespace = "com.example.interpark"
     compileSdk = 35
 

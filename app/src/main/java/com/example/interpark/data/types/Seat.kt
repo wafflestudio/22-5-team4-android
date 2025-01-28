@@ -18,9 +18,7 @@ data class SeatRequest(
 )
 
 data class CancelRequest(
-    val row: String,
-    val number: Int,
-    val performanceEventId: String
+    val reservationId: String
 )
 
 data class SeatResponse(

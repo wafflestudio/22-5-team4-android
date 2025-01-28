@@ -10,13 +10,18 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.interpark.R
 import com.example.interpark.data.MyReservation
+import com.example.interpark.viewModels.SeatSelectionViewModel
+import org.w3c.dom.Text
+
 
 class ReservedSeatAdapter(
     private var reservedSeats: List<MyReservation>,
     private val onDeleteClicked: (String) -> Unit
 ) : RecyclerView.Adapter<ReservedSeatAdapter.ReservationViewHolder>() {
 
+
     inner class ReservationViewHolder(view: View) : RecyclerView.ViewHolder(view) {
+        val reservationId: TextView = view.findViewById(R.id.reservationId)
         val textTitle: TextView = view.findViewById(R.id.textPerformanceTitle)
         val textDate: TextView = view.findViewById(R.id.textPerformanceDate)
         val imagePoster: ImageView = view.findViewById(R.id.imagePoster)
@@ -33,7 +38,11 @@ class ReservedSeatAdapter(
         val reservedSeat = reservedSeats[position]
         holder.textTitle.text = reservedSeat.performanceTitle
         holder.textDate.text = reservedSeat.performanceDate
+        holder.reservationId.text = reservedSeat.id
 
+        holder.itemView.findViewById<Button>(R.id.buttonCancel).setOnClickListener {
+            seatSelectionViewModel.cancelReservation(reservedSeat.id)
+        }
         // Glide를 사용하여 이미지 로드
         Glide.with(holder.itemView.context).load(reservedSeat.posterUri).into(holder.imagePoster)
 
