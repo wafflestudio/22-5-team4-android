@@ -17,6 +17,7 @@ import com.example.interpark.data.MyReservation
 import com.example.interpark.data.ReservationResponse
 import com.example.interpark.data.types.ReservationRequest
 import com.example.interpark.data.types.User
+import com.google.protobuf.Api
 
 
 class SeatSelectionViewModel(private val repository: SeatRepository) : ViewModel() {
@@ -64,6 +65,7 @@ class SeatSelectionViewModel(private val repository: SeatRepository) : ViewModel
         }
     }
 
+
     fun reserveSeat2(eventId: String, seatId: String) {
         viewModelScope.launch {
             repository.reserveSeat(eventId, seatId)
@@ -86,6 +88,22 @@ class SeatSelectionViewModel(private val repository: SeatRepository) : ViewModel
     }
 
 
+    fun deleteReservation(reservationId: String, onComplete: (Boolean) -> Unit) {
+        viewModelScope.launch {
+            try {
+                val success = repository.deleteReservation(reservationId)
+                if (success) {
+                    fetchReservations() // 최신 목록 다시 가져오기
+                    onComplete(true)
+                } else {
+                    onComplete(false)
+                }
+            } catch (e: Exception) {
+                Log.e("SeatSelectionViewModel", "예약 삭제 실패", e)
+                onComplete(false)
+            }
+        }
+    }
 
 
     fun cancelReservation(cancelRequest: CancelRequest) {

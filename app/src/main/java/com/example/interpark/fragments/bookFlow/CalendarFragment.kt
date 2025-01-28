@@ -70,6 +70,10 @@ class CalendarFragment : Fragment() {
         Log.d("CalendarFragment", "Performance ID: $performanceId")
         viewModel.fetchPerformanceDates(performanceId)
 
+        binding.backButton.setOnClickListener {
+            findNavController().navigateUp()
+        }
+
         // 월 변경 버튼
         binding.prevMonthButton.setOnClickListener {
             calendar.add(Calendar.MONTH, -1)

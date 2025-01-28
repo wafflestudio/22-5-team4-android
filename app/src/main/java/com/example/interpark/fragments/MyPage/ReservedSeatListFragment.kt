@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
@@ -28,8 +29,7 @@ class ReservedSeatListFragment : Fragment() {
     }
 
     override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
+        inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
         _binding = FragmentReservedSeatListBinding.inflate(inflater, container, false)
@@ -40,7 +40,11 @@ class ReservedSeatListFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         // RecyclerView 설정
-        adapter = ReservedSeatAdapter(emptyList())
+        adapter = ReservedSeatAdapter(
+            reservedSeats = emptyList(),
+            onDeleteClicked = { reservationId -> cancelReservation(reservationId) } // 삭제 기능 추가
+        )
+
         binding.recyclerViewReservedSeats.layoutManager = LinearLayoutManager(requireContext())
         binding.recyclerViewReservedSeats.adapter = adapter
 
@@ -55,6 +59,17 @@ class ReservedSeatListFragment : Fragment() {
         // 뒤로가기 버튼 클릭 이벤트
         binding.backArrow.setOnClickListener {
             findNavController().navigateUp()
+        }
+    }
+
+    private fun cancelReservation(reservationId: String) {
+        seatSelectionViewModel.deleteReservation(reservationId) { success ->
+            if (success) {
+                Toast.makeText(requireContext(), "예약이 취소되었습니다.", Toast.LENGTH_SHORT).show()
+                seatSelectionViewModel.fetchReservations() // 최신 데이터 가져오기
+            } else {
+                Toast.makeText(requireContext(), "예약 취소 실패. 다시 시도해주세요.", Toast.LENGTH_SHORT).show()
+            }
         }
     }
 

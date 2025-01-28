@@ -39,7 +39,7 @@ class SeatSelectionFragment : Fragment(R.layout.fragment_seat_selection) {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         _binding = FragmentSeatSelectionBinding.inflate(inflater, container, false)
         return binding.root
     }
@@ -50,7 +50,6 @@ class SeatSelectionFragment : Fragment(R.layout.fragment_seat_selection) {
         AuthManager.initialize(requireContext())
 
         binding.backButton.setOnClickListener {
-            Log.d("seat", "herehere")
             findNavController().navigateUp()
         }
 

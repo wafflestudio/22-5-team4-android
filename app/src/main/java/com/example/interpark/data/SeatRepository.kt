@@ -47,4 +47,13 @@ class SeatRepository(private val seatApiService: ApiClient) {
             emptyList()
         }
     }
+
+    suspend fun deleteReservation(reservationId: String): Boolean {
+        return try {
+            val response = seatApiService.deleteReservation(reservationId)
+            response.isSuccessful
+        } catch (e: Exception) {
+            false // 실패 시 false 반환
+        }
+    }
 }
