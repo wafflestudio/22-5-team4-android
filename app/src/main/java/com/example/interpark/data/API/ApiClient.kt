@@ -88,9 +88,8 @@ interface ApiClient {
     ): SeatResponse
 
     @POST("/api/v1/reservation/reserve")
-    suspend fun reserveSeat(
-        @Body reservationId : ReservationRequest
-    ): Response<ReservationResponse>
+    suspend fun reserveSeat(@Body request: ReservationRequest): ReservationResponse
+
 
     @GET("/api/v1/me/reservation")
     suspend fun getReservations(

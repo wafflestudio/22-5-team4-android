@@ -1,6 +1,7 @@
 package com.example.interpark.data
 
 data class Seat(
+    var id: String,
     val row: Int,
     val number: Int,
     var isAvailable: Boolean,
@@ -23,7 +24,7 @@ data class CancelRequest(
 )
 
 data class SeatResponse(
-    val availableSeats: List<AvailableSeat>
+    val availableSeats: List<SeatDetail>
 )
 
 data class AvailableSeat(

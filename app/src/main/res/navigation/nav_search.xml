@@ -151,12 +151,19 @@
 
         <!-- PaymentFragment에서 사용할 argument 정의 -->
         <argument
-            android:name="selectedSeats"
-            app:argType="string[]" />
+            android:name="eventId"
+            app:argType="string"
+            android:defaultValue="" />
 
         <argument
-            android:name="title"
-            app:argType="string" />
+            android:name="seatId"
+            app:argType="string"
+            android:defaultValue="" />
+
+        <argument
+            android:name="selectedSeat"
+            app:argType="string"
+            android:defaultValue="" />
     </fragment>
     <fragment
         android:id="@+id/ReservedSeatListFragment"
