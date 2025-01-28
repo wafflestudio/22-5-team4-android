@@ -94,11 +94,12 @@ class SeatSelectionViewModel(private val repository: SeatRepository) : ViewModel
 
 
 
-    fun cancelReservation(cancelRequest: CancelRequest) {
+    fun cancelReservation(reservationId: String) {
         viewModelScope.launch {
             try {
-                repository.cancelReservation(cancelRequest)
-                fetchAvailableSeats(cancelRequest.performanceEventId) // 좌석 상태 갱신
+                repository.cancelReservation(CancelRequest(reservationId))
+                fetchReservations()
+//                fetchAvailableSeats(cancelRequest.performanceEventId) // 좌석 상태 갱신
             } catch (e: Exception) {
                 e.printStackTrace() // 에러 처리
             }
