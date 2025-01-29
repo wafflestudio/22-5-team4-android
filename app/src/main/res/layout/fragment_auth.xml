@@ -63,13 +63,15 @@
             android:id="@+id/titleEditText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Title" />
+            android:hint="제목 *"
+            android:textSize="16sp" />
+
 
         <EditText
             android:id="@+id/detailEditText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Detail" />
+            android:hint="상세정보 URI" />
 
         <!-- 카테고리를 선택할 수 있는 Spinner 추가 -->
         <Spinner
@@ -87,13 +89,8 @@
             android:id="@+id/posterUriEditText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Poster URI" />
+            android:hint="포스터 URI" />
 
-        <EditText
-            android:id="@+id/backdropUriEditText"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="Backdrop URI" />
 
         <Button
             android:id="@+id/proceedButton"

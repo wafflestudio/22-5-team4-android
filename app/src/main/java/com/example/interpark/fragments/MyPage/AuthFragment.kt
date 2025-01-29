@@ -35,27 +35,30 @@ class AuthFragment : Fragment() {
         binding.proceedButton.setOnClickListener {
             // 사용자 입력 값 가져오기
             val title = binding.titleEditText.text.toString().trim()
-            val detail = binding.detailEditText.text.toString().trim()
+            var detail = binding.detailEditText.text.toString().trim()
             var posterUri = binding.posterUriEditText.text.toString().trim()
-            var backdropImageUri = binding.backdropUriEditText.text.toString().trim()
+//            var backdropImageUri = binding.backdropUriEditText.text.toString().trim()
 
             // 필수 입력 값 검증
             if (title.isEmpty()) {
                 Toast.makeText(requireContext(), "제목을 입력해주세요.", Toast.LENGTH_SHORT).show()
                 return@setOnClickListener
             }
-            if (detail.isEmpty()) {
-                Toast.makeText(requireContext(), "상세 내용을 입력해주세요.", Toast.LENGTH_SHORT).show()
-                return@setOnClickListener
-            }
+//            if (detail.isEmpty()) {
+//                Toast.makeText(requireContext(), "상세 내용을 입력해주세요.", Toast.LENGTH_SHORT).show()
+//                return@setOnClickListener
+//            }
 
             // 기본 이미지 URL 설정
             val defaultImageUrl = "https://upload.wikimedia.org/wikipedia/commons/a/a3/Image-not-found.png"
             if (posterUri.isEmpty()) {
                 posterUri = defaultImageUrl
             }
-            if (backdropImageUri.isEmpty()) {
-                backdropImageUri = defaultImageUrl
+//            if (backdropImageUri.isEmpty()) {
+//                backdropImageUri = defaultImageUrl
+//            }
+            if (detail.isEmpty()) {
+                detail = defaultImageUrl
             }
 
             // Spinner에서 선택된 카테고리 가져오기
@@ -74,7 +77,7 @@ class AuthFragment : Fragment() {
                 detail = detail,
                 category = category,
                 posterUri = posterUri,
-                backdropImageUri = backdropImageUri
+                backdropImageUri = defaultImageUrl
             )
 
             viewModel.createPerformance(performanceRequest) {
