@@ -9,6 +9,7 @@ import android.widget.EditText
 import android.widget.LinearLayout
 import android.widget.RatingBar
 import android.widget.TextView
+import androidx.lifecycle.findViewTreeLifecycleOwner
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.interpark.R
@@ -80,14 +81,19 @@ class ReviewAdapter(
             commentWriteButton.setOnClickListener {
                 Log.d("clicked", "clicked")
                 writeComment(reviews[position].id, commentWriteEditText.text.toString())
+                commentWriteEditText.text = null
+                commentLayout.visibility = when(commentLayout.visibility){
+                    View.VISIBLE -> View.GONE
+                    else -> View.VISIBLE
+                }
+                commentRecyclerView.adapter = CommentAdapter(reviewViewModel.comment.value?: listOf())
             }
             commentRecyclerView.layoutManager = LinearLayoutManager(itemView.context)
-            commentRecyclerView.adapter = CommentAdapter(reviewViewModel.comment.value?: listOf())
             reviewViewModel.comment.observeForever { comment ->
-                Log.d("asdf", comment.toString())
-                commentRecyclerView.adapter = CommentAdapter(comment)
+                commentRecyclerView.adapter = CommentAdapter(reviewViewModel.comment.value?: listOf())
+                }
             }
-        }
+
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
