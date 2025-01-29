@@ -24,14 +24,14 @@ class PerformanceAdapter(
         fun bind(performance: Performance, onClick: (Performance) -> Unit) {
             title.text = performance.title
             location.text = performance.location
-            dateRange.text = performance.performanceDates?.let {
-                "${it.first} - ${it.second}"
-            } ?: "날짜 정보 없음"
+            dateRange.text = performance.getFormattedDate() // ✅ 안전한 날짜 변환
             imageView.load(performance.posterUrl)
-            itemView.setOnClickListener{
+            itemView.setOnClickListener {
                 onClick(performance)
             }
         }
+
+
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {

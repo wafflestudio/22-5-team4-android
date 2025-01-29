@@ -48,7 +48,7 @@ class PerformanceDetailFragment : Fragment() {
         // ViewModel을 통해 공연 상세 정보 가져오기
         performanceDetailViewModel.fetchPerformanceDetail(args.title)
         val titleTextView = view.findViewById<TextView>(R.id.titleTextView)
-        val dateTextView = view.findViewById<TextView>(R.id.dateTextView)
+        val dateRange = view.findViewById<TextView>(R.id.dateTextView)
         val categoryTextView = view.findViewById<TextView>(R.id.categoryTextView)
         val locationTextView = view.findViewById<TextView>(R.id.locationTextView)
         val title = view.findViewById<TextView>(R.id.title)
@@ -60,7 +60,7 @@ class PerformanceDetailFragment : Fragment() {
                     titleTextView.text = it.title
 //                    contentTextView.text = it.content
 //                    detailTextView.text = it.detail
-                    dateTextView.text = "${it.performanceDates?.first ?: "N/A"} - ${it.performanceDates?.second ?: "N/A"}"
+                    dateRange.text = performance.getFormattedDate() // ✅ 안전한 날짜 변환
                     categoryTextView.text = it.category
                     locationTextView.text = it.location
                     posterImageView.load(it.posterUrl)

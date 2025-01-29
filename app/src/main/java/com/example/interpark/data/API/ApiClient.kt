@@ -17,6 +17,7 @@ import com.example.interpark.data.types.AdminPerformanceResponse
 
 import com.example.interpark.data.types.Performance
 import com.example.interpark.data.types.PerformanceEvent
+import com.example.interpark.data.types.PerformanceResponse
 import com.example.interpark.data.types.RefreshTokenResponse
 import com.example.interpark.data.types.ReservationRequest
 import com.example.interpark.data.types.Review
@@ -76,6 +77,14 @@ interface ApiClient {
         @Query("title") category: String?,
         @Query("category") title: String?
     ): Response<List<Performance>>
+
+    @GET("/api/v1/performance/search2")
+    suspend fun getPerformances2(
+        @Query("category") category: String?,
+        @Query("title") title: String?,
+        @Query("page") page: Int,
+        @Query("pageSize") pageSize: Int
+    ): PerformanceResponse
 
     @GET("/api/v1/performance/{performanceId}")
     suspend fun getPerformanceDetail(
