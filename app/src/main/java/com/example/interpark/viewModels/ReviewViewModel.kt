@@ -102,7 +102,9 @@ class ReviewViewModel(private val repository: ReviewRepository) : ViewModel() {
             if(AuthManager.getUser() != null){
                 val response = repository.writeComment(reviewId, content)
                 if(response.isSuccessful){
-
+                    val updatedList = _comment.value.orEmpty().toMutableList()
+                    updatedList.add(0, response.body()!!) // 맨 앞에 추가
+                    _comment.value = updatedList
                 }
             }
             else{
