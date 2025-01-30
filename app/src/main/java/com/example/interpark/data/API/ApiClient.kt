@@ -80,10 +80,9 @@ interface ApiClient {
 
     @GET("/api/v1/performance/search2")
     suspend fun getPerformances2(
-        @Query("category") category: String?,
         @Query("title") title: String?,
-        @Query("page") page: Int,
-        @Query("pageSize") pageSize: Int
+        @Query("category") category: String?,
+        @Query("cursor") cursor: String?
     ): PerformanceResponse
 
     @GET("/api/v1/performance/{performanceId}")

@@ -55,9 +55,7 @@ data class PerformanceEventResponse(
 )
 
 data class PerformanceResponse(
-    val page: Int,
-    val totalPages: Int,
-    val pageSize: Int,
-    val totalResults: Int,
-    val performances: List<Performance>
+    val data: List<Performance>,
+    val nextCursor: String?,
+    val hasNext: Boolean
 )

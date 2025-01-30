@@ -35,7 +35,7 @@ class SignUpFragment : Fragment() {
 
         binding.btnSignup.setOnClickListener {
             // Switch 상태 확인 (관리자 여부)
-            val role = if (binding.switchAdminLogin.isChecked) 1 else 0
+            val role = if (binding.adminCheck.isChecked) "ADMIN" else ""
 
             // ViewModel에 데이터 전달
             myPageViewModel.signup(
@@ -44,13 +44,13 @@ class SignUpFragment : Fragment() {
                 nickname = binding.etName.text.toString(),
                 phoneNumber = binding.etPhone.text.toString(),
                 email = binding.etEmail.text.toString(),
-//                role = role
+                role = role
 //                username = "adminname_value",
 //                password = "760131Ab!",
 //                nickname = "test_admin",
 //                phoneNumber = "000-0000-0000",
 //                email = "test@example.com",
-                role = "ADMIN"
+                //role = "ADMIN"
 
             )
         }

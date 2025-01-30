@@ -5,12 +5,15 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import androidx.paging.PagingData
+import androidx.paging.cachedIn
 import com.example.interpark.auth.AuthManager
 import com.example.interpark.data.types.Performance
 import com.example.interpark.data.PerformanceRepository
 import com.example.interpark.data.types.PerformanceEvent
 import com.example.interpark.data.types.User
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
@@ -23,6 +26,10 @@ class PerformanceViewModel(private val repository: PerformanceRepository) : View
 
     private val _posterUris = MutableLiveData<List<String>>()
     val posterUris: LiveData<List<String>> get() = _posterUris
+
+    val performancePagingData: Flow<PagingData<Performance>> =
+        repository.getPerformancePagingData(null, null)
+            .cachedIn(viewModelScope) // ViewModel 범위에서 캐싱하여 중복 로드 방지
 
     fun fetchPerformanceList(category: String?, title: String?) {
         viewModelScope.launch {
