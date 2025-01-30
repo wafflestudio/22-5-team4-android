@@ -18,9 +18,9 @@ import androidx.browser.customtabs.CustomTabsIntent
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.findNavController
-import androidx.navigation.fragment.findNavController
 import com.example.interpark.BuildConfig
 import com.example.interpark.R
+import com.example.interpark.databinding.FragmentMyLinkBinding
 import com.example.interpark.databinding.FragmentMyLoginBinding
 import com.example.interpark.viewModels.MyPageViewModel
 import com.example.interpark.viewModels.MyPageViewModelFactory
@@ -31,17 +31,16 @@ import com.navercorp.nid.NaverIdLoginSDK.oauthLoginCallback
 import com.navercorp.nid.oauth.OAuthLoginCallback
 import java.net.URLEncoder
 
-class LoginFragment : Fragment() {
+class LinkFragment : Fragment() {
 
     private val myPageViewModel: MyPageViewModel by viewModels { MyPageViewModelFactory(requireContext()) }
-    private var _binding: FragmentMyLoginBinding? = null
+    private var _binding: FragmentMyLinkBinding? = null
     private val binding get() = _binding!!
-    private lateinit var webView: WebView
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        _binding = FragmentMyLoginBinding.inflate(inflater, container, false)
+        _binding = FragmentMyLinkBinding.inflate(inflater, container, false)
         return binding.root
     }
 
@@ -49,28 +48,32 @@ class LoginFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         binding.btnLogin.setOnClickListener{
-            myPageViewModel.login(binding.etUsername.text.toString(), binding.etPassword.text.toString())
+            myPageViewModel.socialLink(binding.etUsername.text.toString(), binding.etPassword.text.toString())
         }
 
         binding.textSignup.setOnClickListener {
             val navController = requireActivity().findNavController(R.id.myNavHost)
-            val action = LoginFragmentDirections
-                .actionLoginFragmentToSignUpFragment()
+            val action = LinkFragmentDirections.actionLinkFragmentToSignUpFragment()
             navController.navigate(action)
         }
 
-        binding.logoInterpark.setOnClickListener {
-            val navController = requireActivity().findNavController(R.id.myNavHost)
-            val action = LoginFragmentDirections.actionLoginFragmentToMyFragment()
-            navController.navigate(action)
-        }
-
-        myPageViewModel.signInFailed.observe(viewLifecycleOwner){ signInFailed ->
-            binding.errorText.visibility = when(signInFailed){
-                true -> View.VISIBLE
-                false -> View.GONE
+        myPageViewModel.linkError.observe(viewLifecycleOwner){ errorText ->
+            Log.d("errorText", errorText.toString())
+            if(errorText == null) {
+                binding.errorText.visibility = View.GONE
+            }
+            else{
+                binding.errorText.visibility = View.VISIBLE
+                binding.errorText.setText(errorText)
             }
         }
+
+//        myPageViewModel.signInFailed.observe(viewLifecycleOwner){ signInFailed ->
+//            binding.errorText.visibility = when(signInFailed){
+//                true -> View.VISIBLE
+//                false -> View.GONE
+//            }
+//        }
 
         myPageViewModel.isLoggedIn.observe(viewLifecycleOwner){ isLoggedIn ->
             if(isLoggedIn){
@@ -80,19 +83,13 @@ class LoginFragment : Fragment() {
             }
         }
 
-        binding.kakaoLogin.setOnClickListener {
-            loginWithKakao()
-        }
+
         myPageViewModel.linkDialog.observe(viewLifecycleOwner){ show ->
             if(show){
                 val builder = AlertDialog.Builder(context)
                 builder.setTitle("알림")
                     .setMessage("소셜 계정을 연동하시겠습니까?")
-                    .setPositiveButton("네", { _, _ ->
-                        val navController = requireActivity().findNavController(R.id.myNavHost)
-                        val action = LoginFragmentDirections.actionLoginFragmentToLinkFragment()
-                        navController.navigate(action)
-                    })
+                    .setPositiveButton("네", null)
                     .setNegativeButton("아니오", null)
                     .show()
             }
@@ -100,23 +97,5 @@ class LoginFragment : Fragment() {
         }
     }
 
-    private fun loginWithKakao(){
-        UserApiClient.instance.loginWithKakaoTalk(requireContext()) { token, error ->
-            if (error != null) {
-                Log.e(TAG, "로그인 실패", error)
-            }
-            else if (token != null) {
-                Log.i(TAG, "로그인 성공 ${token.accessToken}")
-                UserApiClient.instance.accessTokenInfo { tokenInfo, error ->
-                    if(error != null){
-                        Log.d(TAG, tokenInfo.toString())
-                    }
-                    else if (tokenInfo != null) {
-                        myPageViewModel.socialLogin("KAKAO", token.accessToken)
-                        Log.i(TAG, tokenInfo.appId.toString())
-                    }
-                }
-            }
-        }
-    }
+
 }

@@ -6,6 +6,7 @@ import android.util.Log
 import androidx.annotation.RequiresApi
 import com.example.interpark.auth.AuthManager
 import com.example.interpark.data.API.ApiClient
+import com.example.interpark.data.API.moshi
 import com.example.interpark.data.types.AdminPerformanceEventRequest
 import com.example.interpark.data.types.AdminPerformanceEventResponse
 import com.example.interpark.data.types.AdminPerformanceHallRequest
@@ -19,7 +20,15 @@ import com.example.interpark.data.types.SignInRequest
 import com.example.interpark.data.types.SignInResponse
 import com.example.interpark.data.types.SignUpRequest
 import com.example.interpark.data.types.SignUpResponse
+import com.example.interpark.data.types.SocialLinkRequest
+import com.example.interpark.data.types.SocialLinkResult
+import com.example.interpark.data.types.SocialLoginError
+import com.example.interpark.data.types.SocialLoginResponse
+import com.example.interpark.data.types.SocialLoginResult
 import com.example.interpark.data.types.User
+import com.google.protobuf.Api
+import okhttp3.ResponseBody
+import retrofit2.Response
 
 class PerformanceRepository(private val ApiClient: ApiClient) {
 
@@ -116,6 +125,25 @@ class PerformanceRepository(private val ApiClient: ApiClient) {
 
     suspend fun adminCreatePerformanceEvent(token: String?,request: AdminPerformanceEventRequest): AdminPerformanceEventResponse {
         return ApiClient.createPerformanceEvent("Bearer $token",request)
+    }
+
+    suspend fun socialLogin(provider: String, code: String): Response<ResponseBody>? {
+        try {
+            val result = ApiClient.socialLogin(provider, code)
+            return result
+
+        }
+        catch(e: Exception){
+            return null
+        }
+    }
+
+    suspend fun socialLink(username: String, password: String, provider: String?, providerId: String?, context: Context): Response<ResponseBody> {
+        val result = ApiClient.socialLink(SocialLinkRequest(username, password, provider ?: "", providerId ?: ""))
+//        if(result.code() == 200){
+//            AuthManager.login(context, result.body()!!.user.nickname, result.headers()["Set-Cookie"] ?: "" , result.body()!!.accessToken, result.body()!!.user)
+//        }
+        return result
     }
 
 }

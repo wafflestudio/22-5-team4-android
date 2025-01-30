@@ -9,9 +9,11 @@ import com.example.interpark.auth.refreshTokenProvider
 import com.example.interpark.auth.tokenProvider
 import com.example.interpark.data.MoshiDateDeserializer
 import com.example.interpark.data.MoshiDateTimeDeserializer
+import com.example.interpark.data.types.SocialLoginResult
 import com.google.api.Http
 //import com.example.interpark.data.SharedPreferences.SimpleCookieJar
 import com.squareup.moshi.Moshi
+import com.squareup.moshi.adapters.PolymorphicJsonAdapterFactory
 import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
 import okhttp3.Cookie
 import okhttp3.CookieJar

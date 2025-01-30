@@ -1,3 +1,4 @@
+import com.android.ddmlib.Log
 import java.util.Properties
 import java.io.FileInputStream
 
@@ -13,13 +14,16 @@ val localProperties = Properties()
 localProperties.load(FileInputStream(rootProject.file("local.properties")))
 
 val kakaoNativeKey = localProperties["KAKAO_NATIVE_KEY"] as String
-
+val kakaoRESTKey = localProperties["KAKAO_REST_KEY"] as String
+val naverClientID = localProperties["NAVER_CLIENT_ID"] as String
+val naverSecret = localProperties["NAVER_SECRET"] as String
 android {
 
     android {
         buildFeatures {
             viewBinding = true
             buildConfig = true
+            
         }
     }
     namespace = "com.example.interpark"
@@ -32,7 +36,10 @@ android {
         versionCode = 1
         versionName = "1.0"
         manifestPlaceholders["NATIVE_APP_KEY"] = kakaoNativeKey
-        buildConfigField("String", "KAKAO_NATIVE_KEY", "\"$kakaoNativeKey\"")
+        buildConfigField("String", "KAKAO_REST_KEY", "\"${kakaoRESTKey}\"")
+        buildConfigField("String", "KAKAO_NATIVE_KEY", "\"${kakaoNativeKey}\"")
+        buildConfigField("String", "NAVER_CLIENT_ID", "\"${naverClientID}\"")
+        buildConfigField("String", "NAVER_SECRET", "\"${naverSecret}\"")
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
 
@@ -83,6 +90,7 @@ dependencies {
     debugImplementation(libs.androidx.ui.test.manifest)
     implementation(libs.moshi)
     implementation(libs.moshiKotlin)
+    implementation(libs.moshi.adapters)
     implementation(libs.retrofit)
     implementation(libs.gson)
     implementation(libs.retrofit.gson)
@@ -90,6 +98,9 @@ dependencies {
     implementation(libs.okhttp)
     implementation(libs.okhttpLoggingInterceptor)
     implementation(libs.coil)
+    implementation(libs.oauth)
+    implementation(libs.androidx.webkit)
+
     implementation("androidx.work:work-runtime-ktx:2.8.1")
     val fragment_version = "1.8.5"
     // Java language implementation

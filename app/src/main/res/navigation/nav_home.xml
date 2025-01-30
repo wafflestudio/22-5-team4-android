@@ -81,17 +81,7 @@
             app:destination="@id/performanceDetailWriteReviewFragment"/>
     </fragment>
 
-    <fragment
-        android:id="@+id/performanceDetailReviewFragment"
-        android:name="com.example.interpark.fragments.PerformanceDetail.Reviews"
-        android:label="공연 제목">
-        <argument
-            android:name="title"
-            app:argType="string" />
-        <action
-            android:id="@+id/actionReviewListFragmentToWriteReviewFragment"
-            app:destination="@id/performanceDetailWriteReviewFragment"/>
-    </fragment>
+
 
     <fragment
         android:id="@+id/performanceDetailWriteReviewFragment"
@@ -171,5 +161,41 @@
         android:id="@+id/ReservedSeatListFragment"
         android:name="com.example.interpark.fragments.MyPage.ReservedSeatListFragment"
         android:label="카테고리">
+    </fragment>
+
+    <fragment
+        android:id="@+id/LoginFragment"
+        android:name="com.example.interpark.fragments.MyPage.LoginFragment"
+        android:label="loginFragment">
+        <action
+            android:id="@+id/action_LoginFragment_to_SignUpFragment"
+            app:destination="@id/SignUpFragment"/>
+        <action
+            android:id="@+id/action_LoginFragment_to_LinkFragment"
+            app:destination="@id/LinkFragment"/>
+        <action
+            android:id="@+id/action_LoginFragment_to_MyFragment"
+            app:destination="@id/MyFragment"/>
+    </fragment>
+
+    <fragment
+        android:id="@+id/LinkFragment"
+        android:name="com.example.interpark.fragments.MyPage.LinkFragment"
+        android:label="loginFragment">
+        <action
+            android:id="@+id/action_LinkFragment_to_MyFragment"
+            app:destination="@id/MyFragment"/>
+        <action
+            android:id="@+id/action_LinkFragment_to_SignUpFragment"
+            app:destination="@id/SignUpFragment"/>
+    </fragment>
+
+    <fragment
+        android:id="@+id/SignUpFragment"
+        android:name="com.example.interpark.fragments.MyPage.SignUpFragment"
+        android:label="SignUpFragment">
+        <action
+            android:id="@+id/action_SignUpFragment_to_MyFragment"
+            app:destination="@id/MyFragment"/>
     </fragment>
 </navigation>
