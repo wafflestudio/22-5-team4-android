@@ -18,6 +18,7 @@ import com.example.interpark.R
 import com.example.interpark.adapters.PerformanceAdapter
 import com.example.interpark.data.types.Performance
 import com.example.interpark.databinding.FragmentSearchResultBinding
+import com.example.interpark.fragments.CategoryPage.EmptyFragmentDirections
 import com.example.interpark.viewModels.PerformanceViewModel
 import com.example.interpark.viewModels.PerformanceViewModelFactory
 import kotlinx.coroutines.flow.collectLatest
@@ -26,9 +27,9 @@ import kotlinx.coroutines.launch
 class SearchResultFragment : Fragment() {
     private var _binding: FragmentSearchResultBinding? = null
     private val binding get() = _binding!!
-    private val performanceViewModel: PerformanceViewModel by viewModels()
+    private val performanceViewModel: PerformanceViewModel by viewModels { PerformanceViewModelFactory(requireContext()) }
 
-    private lateinit var performanceAdapter: PerformanceAdapter
+    private lateinit var performanceRecyclerView: RecyclerView
     private val args: SearchResultFragmentArgs by navArgs()
 
     override fun onCreateView(
@@ -51,21 +52,18 @@ class SearchResultFragment : Fragment() {
         binding.searchTitleTextView.text = args.searchtitle
 
         // RecyclerView 설정
-        setupRecyclerView()
-
-        // ViewModel에서 검색어 기반으로 데이터 로드
-        lifecycleScope.launch {
-            performanceViewModel.getPerformancePagingData(null, args.searchtitle)
-                .collectLatest { pagingData ->
-                    performanceAdapter.submitData(pagingData)
-                }
+        performanceRecyclerView = view.findViewById(R.id.performanceRecyclerView)
+        performanceRecyclerView.layoutManager = LinearLayoutManager(context)
+        performanceViewModel.performanceList.observe(viewLifecycleOwner){ performanceList ->
+            setupRecyclerView()
         }
+//        performanceViewModel.fetchPerformanceList(category = null, title = args.searchtitle)
     }
 
     private fun setupRecyclerView() {
         val adapter = PerformanceAdapter { performance ->
-            val action = SearchResultFragmentDirections
-                .actionSearchResultFragmentToPerformanceDetailFragment(performance.id)
+            val action = EmptyFragmentDirections
+                .actionEmptyFragmentToPerformanceDetailFragment(performance.id)
             findNavController().navigate(action)
         }
 
@@ -75,9 +73,9 @@ class SearchResultFragment : Fragment() {
         }
 
         lifecycleScope.launch {
-            performanceViewModel.getPerformancePagingData(null, null)
+            performanceViewModel.getPerformancePagingData(null, args.searchtitle)
                 .collectLatest { pagingData ->
-                    adapter.submitData(pagingData) // ✅ PagingDataAdapter는 submitData() 사용해야 함
+                    adapter.submitData(pagingData)
                 }
         }
     }

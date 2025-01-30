@@ -29,7 +29,6 @@ class EmptyFragment : Fragment() {
     private var _binding: FragmentEmptyBinding? = null
     private val binding get() = _binding!!
     private val performanceViewModel: PerformanceViewModel by viewModels { PerformanceViewModelFactory(requireContext()) }
-    private val myPageViewModel: MyPageViewModel by viewModels { MyPageViewModelFactory(requireContext()) }
 
     private lateinit var categoryTitleTextView: TextView
     private lateinit var performanceRecyclerView: RecyclerView
@@ -38,7 +37,7 @@ class EmptyFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         _binding = FragmentEmptyBinding.inflate(inflater, container, false)
         return binding.root
     }
@@ -69,7 +68,7 @@ class EmptyFragment : Fragment() {
         performanceViewModel.performanceList.observe(viewLifecycleOwner){ performanceList ->
             setupRecyclerView()
         }
-        performanceViewModel.fetchPerformanceList(category = args.category, title = null)
+//        performanceViewModel.fetchPerformanceList(category = args.category, title = null)
     }
 
     private fun setupRecyclerView() {
@@ -85,9 +84,9 @@ class EmptyFragment : Fragment() {
         }
 
         lifecycleScope.launch {
-            performanceViewModel.getPerformancePagingData(null, null)
+            performanceViewModel.getPerformancePagingData(args.category, null)
                 .collectLatest { pagingData ->
-                    adapter.submitData(pagingData) // ✅ PagingDataAdapter는 submitData() 사용해야 함
+                    adapter.submitData(pagingData)
                 }
         }
     }
