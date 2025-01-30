@@ -4,7 +4,6 @@ import android.os.Build
 import androidx.annotation.RequiresApi
 import androidx.paging.PagingSource
 import androidx.paging.PagingState
-import com.example.interpark.data.API.ApiClient
 import com.example.interpark.data.API.RetrofitInstance
 import com.example.interpark.data.types.Performance
 

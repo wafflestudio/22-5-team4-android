@@ -41,9 +41,6 @@ class PerformanceViewModel(private val repository: PerformanceRepository) : View
             .cachedIn(viewModelScope)
     }
 
-    val performancePagingData: Flow<PagingData<Performance>> =
-        repository.getPerformancePagingData(null, null)
-            .cachedIn(viewModelScope) // ViewModel 범위에서 캐싱하여 중복 로드 방지
 
     fun fetchPerformanceList(category: String?, title: String?) {
         viewModelScope.launch {
