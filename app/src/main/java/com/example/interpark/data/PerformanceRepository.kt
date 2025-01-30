@@ -128,7 +128,7 @@ class PerformanceRepository(private val ApiClient: ApiClient) {
                 pageSize = 5, // 한 번에 불러올 데이터 개수
                 enablePlaceholders = false
             ),
-            pagingSourceFactory = { PerformancePagingSource(ApiClient, title, category) }
+            pagingSourceFactory = { PerformancePagingSource(title, category) }
         ).flow
     }
 

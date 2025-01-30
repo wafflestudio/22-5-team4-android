@@ -8,6 +8,7 @@ import android.widget.ImageButton
 import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
@@ -21,6 +22,8 @@ import com.example.interpark.viewModels.MyPageViewModel
 import com.example.interpark.viewModels.MyPageViewModelFactory
 import com.example.interpark.viewModels.PerformanceViewModel
 import com.example.interpark.viewModels.PerformanceViewModelFactory
+import kotlinx.coroutines.flow.collectLatest
+import kotlinx.coroutines.launch
 
 class EmptyFragment : Fragment() {
     private var _binding: FragmentEmptyBinding? = null
@@ -64,21 +67,30 @@ class EmptyFragment : Fragment() {
         performanceRecyclerView = view.findViewById(R.id.performanceRecyclerView)
         performanceRecyclerView.layoutManager = LinearLayoutManager(context)
         performanceViewModel.performanceList.observe(viewLifecycleOwner){ performanceList ->
-            setRecyclerView(performanceList)
+            setupRecyclerView()
         }
         performanceViewModel.fetchPerformanceList(category = args.category, title = null)
     }
 
-    private fun setRecyclerView(data: List<Performance>){
-        performanceRecyclerView.adapter = PerformanceAdapter(data) { performance ->
+    private fun setupRecyclerView() {
+        val adapter = PerformanceAdapter { performance ->
             val action = EmptyFragmentDirections
                 .actionEmptyFragmentToPerformanceDetailFragment(performance.id)
             findNavController().navigate(action)
-//            val navController = requireActivity().findNavController(R.id.categoryNavHost)
-//            val action = EmptyFragmentDirections
-//                .actionEmptyFragmentToPerformanceDetailFragment(performance.id)
-//            navController.navigate(action)
+        }
+
+        binding.performanceRecyclerView.apply {
+            layoutManager = LinearLayoutManager(context)
+            this.adapter = adapter
+        }
+
+        lifecycleScope.launch {
+            performanceViewModel.getPerformancePagingData(null, null)
+                .collectLatest { pagingData ->
+                    adapter.submitData(pagingData) // ✅ PagingDataAdapter는 submitData() 사용해야 함
+                }
         }
     }
+
 
 }

@@ -78,7 +78,7 @@ interface ApiClient {
         @Query("category") title: String?
     ): Response<List<Performance>>
 
-    @GET("/api/v1/performance/search2")
+    @GET("/api/v2/performance/search")
     suspend fun getPerformances2(
         @Query("title") title: String?,
         @Query("category") category: String?,
