@@ -147,17 +147,12 @@
                     android:id="@+id/naver_login"
                     android:layout_width="48dp"
                     android:layout_height="48dp"
-                    android:src="@drawable/btn_naver"/>
-
-                <com.navercorp.nid.oauth.view.NidOAuthLoginButton
-                    android:id="@+id/buttonOAuthLoginImg"
-                    android:layout_width="200dp"
-                    android:layout_height="50dp"
-                    android:layout_marginHorizontal="20dp"/>
+                    android:src="@drawable/btn_naver"
+                    android:layout_marginHorizontal="32dp"/>
                 <ImageView
                     android:layout_width="48dp"
                     android:layout_height="48dp"
-                    android:src="@drawable/ic_apple"
+                    android:src="@drawable/ic_google"
                     android:contentDescription="애플 로그인" />
             </LinearLayout>
 
