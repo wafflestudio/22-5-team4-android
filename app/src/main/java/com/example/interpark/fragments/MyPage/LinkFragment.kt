@@ -78,7 +78,7 @@ class LinkFragment : Fragment() {
         myPageViewModel.isLoggedIn.observe(viewLifecycleOwner){ isLoggedIn ->
             if(isLoggedIn){
                 val navController = requireActivity().findNavController(R.id.myNavHost)
-                val action = LoginFragmentDirections.actionLoginFragmentToMyFragment()
+                val action = LinkFragmentDirections.actionLinkFragmentToMyFragment()
                 navController.navigate(action)
             }
         }

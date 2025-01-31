@@ -16,6 +16,7 @@ import com.example.interpark.data.types.SocialLinkResult
 import com.example.interpark.data.types.SocialLoginError
 import com.example.interpark.data.types.SocialLoginResponse
 import com.example.interpark.data.types.SocialLoginResult
+import com.google.rpc.context.AttributeContext.Auth
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
@@ -138,7 +139,8 @@ class MyPageViewModel(private val repository: PerformanceRepository, private val
             _linkError.value = when(result?.code()){
                 200 -> {
                     val result = repository.signIn(username, password, appContext)
-
+                    isLoggedIn.value = AuthManager.isLoggedIn()
+                    userName.value = AuthManager.getUserId()
                     ""
                 }
                 401 -> "비밀번호가 잘못됐습니다."

@@ -13,7 +13,6 @@ import com.example.interpark.data.types.SocialLoginResult
 import com.google.api.Http
 //import com.example.interpark.data.SharedPreferences.SimpleCookieJar
 import com.squareup.moshi.Moshi
-import com.squareup.moshi.adapters.PolymorphicJsonAdapterFactory
 import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
 import okhttp3.Cookie
 import okhttp3.CookieJar
@@ -42,7 +41,7 @@ val cookieStore = mutableMapOf<String, String>()
 @RequiresApi(Build.VERSION_CODES.O)
 object RetrofitInstance {
 
-    private const val BASE_URL_SERVER = "http://172.30.1.6:80/"
+    private const val BASE_URL_SERVER = "http://172.29.48.211/"
 
 
 
