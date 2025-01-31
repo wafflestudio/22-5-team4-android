@@ -24,9 +24,15 @@
                 android:layout_height="120dp"
                 android:src="@drawable/logo_interpark"
                 android:contentDescription="Interpark 로고"
-                android:padding="20dp"
-                android:layout_marginBottom="24dp" />
-
+                android:padding="20dp" />
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:text="KAKAO 계정 연동하기"
+                android:layout_marginBottom="20dp"
+                android:layout_gravity="center"
+                android:gravity="center"
+                android:textSize="20dp"/>
             <!-- 아이디 입력 -->
             <EditText
                 android:id="@+id/et_username"
@@ -64,36 +70,12 @@
                 android:layout_gravity="start"
                 android:visibility="gone" />
 
-            <!-- 로그인 상태 유지 및 혜택 알림 -->
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:gravity="center_vertical"
-                android:layout_marginBottom="16dp">
-
-                <CheckBox
-                    android:id="@+id/cb_keep_login"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="로그인 상태 유지"
-                    android:textSize="14sp"
-                    android:layout_marginEnd="16dp" />
-
-                <CheckBox
-                    android:id="@+id/cb_receive_notifications"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="혜택 알림받기"
-                    android:textSize="14sp" />
-            </LinearLayout>
-
             <!-- 로그인 버튼 -->
             <Button
                 android:id="@+id/btn_login"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="로그인"
+                android:text="연동하기"
                 android:textColor="#FFFFFF"
                 android:backgroundTint="#007AFF"
                 android:padding="12dp"
@@ -110,15 +92,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="아이디찾기"
-                    android:textColor="#007AFF"
-                    android:layout_marginEnd="16dp" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="비밀번호찾기"
-                    android:textColor="#007AFF"
+                    android:text="인터파크 계정이 없으신가요?"
                     android:layout_marginEnd="16dp" />
 
                 <TextView
@@ -127,33 +101,6 @@
                     android:layout_height="wrap_content"
                     android:text="회원가입"
                     android:textColor="#007AFF" />
-            </LinearLayout>
-
-            <!-- 간편 로그인 아이콘 -->
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:gravity="center"
-                android:layout_marginTop="24dp">
-
-                <ImageView
-                    android:id="@+id/kakao_login"
-                    android:layout_width="48dp"
-                    android:layout_height="48dp"
-                    android:src="@drawable/ic_kakao"
-                    android:contentDescription="카카오 로그인"/>
-                <ImageView
-                    android:id="@+id/naver_login"
-                    android:layout_width="48dp"
-                    android:layout_height="48dp"
-                    android:src="@drawable/btn_naver"
-                    android:layout_marginHorizontal="32dp"/>
-                <ImageView
-                    android:layout_width="48dp"
-                    android:layout_height="48dp"
-                    android:src="@drawable/ic_google"
-                    android:contentDescription="애플 로그인" />
             </LinearLayout>
 
             <!-- 하단 광고 텍스트 -->

@@ -9,6 +9,7 @@ import com.example.interpark.auth.refreshTokenProvider
 import com.example.interpark.auth.tokenProvider
 import com.example.interpark.data.MoshiDateDeserializer
 import com.example.interpark.data.MoshiDateTimeDeserializer
+import com.example.interpark.data.types.SocialLoginResult
 import com.google.api.Http
 //import com.example.interpark.data.SharedPreferences.SimpleCookieJar
 import com.squareup.moshi.Moshi
@@ -40,7 +41,9 @@ val cookieStore = mutableMapOf<String, String>()
 @RequiresApi(Build.VERSION_CODES.O)
 object RetrofitInstance {
 
-    private const val BASE_URL_SERVER = "http://172.30.1.100:80/"
+    private const val BASE_URL_SERVER = "http://172.30.1.85/"
+
+
 
     private val client = OkHttpClient.Builder()
         .addInterceptor { chain ->
