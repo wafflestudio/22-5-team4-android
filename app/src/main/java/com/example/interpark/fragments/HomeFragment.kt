@@ -3,6 +3,7 @@ package com.example.interpark.fragments
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -136,7 +137,9 @@ class HomeFragment : Fragment() {
     }
 
     private fun categoryRankCategoryListClicked(category: Category) {
-        // TODO: 랭킹 카테고리 클릭 이벤트 처리
+        val navController = requireActivity().findNavController(R.id.homeNavHost)
+        val action = HomeFragmentDirections.actionHomeFragmentToRankingFragment()
+        navController.navigate(action)
     }
 
     override fun onDestroyView() {
