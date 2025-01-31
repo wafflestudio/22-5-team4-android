@@ -143,6 +143,11 @@
                     android:layout_height="48dp"
                     android:src="@drawable/ic_kakao"
                     android:contentDescription="카카오 로그인"/>
+                <ImageView
+                    android:id="@+id/naver_login"
+                    android:layout_width="48dp"
+                    android:layout_height="48dp"
+                    android:src="@drawable/btn_naver"/>
 
                 <com.navercorp.nid.oauth.view.NidOAuthLoginButton
                     android:id="@+id/buttonOAuthLoginImg"

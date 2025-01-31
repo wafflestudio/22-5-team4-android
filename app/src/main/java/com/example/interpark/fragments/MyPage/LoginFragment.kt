@@ -1,7 +1,10 @@
 package com.example.interpark.fragments.MyPage
 
+import android.app.Activity.RESULT_CANCELED
+import android.app.Activity.RESULT_OK
 import android.app.AlertDialog
 import android.content.ContentValues.TAG
+import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
 import android.os.Message
@@ -14,6 +17,9 @@ import android.webkit.WebResourceRequest
 import android.webkit.WebSettings
 import android.webkit.WebView
 import android.webkit.WebViewClient
+import android.widget.Toast
+import androidx.activity.result.ActivityResult
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.browser.customtabs.CustomTabsIntent
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
@@ -83,6 +89,9 @@ class LoginFragment : Fragment() {
         binding.kakaoLogin.setOnClickListener {
             loginWithKakao()
         }
+
+        setNaverOAuth()
+
         myPageViewModel.linkDialog.observe(viewLifecycleOwner){ show ->
             if(show){
                 val builder = AlertDialog.Builder(context)
@@ -118,5 +127,27 @@ class LoginFragment : Fragment() {
                 }
             }
         }
+    }
+
+    private fun setNaverOAuth(){
+        val oauthLoginCallback = object : OAuthLoginCallback {
+            override fun onSuccess() {
+                val token = NaverIdLoginSDK.getAccessToken()
+                myPageViewModel.socialLogin("NAVER", token?: "")
+                Log.d("token", token.toString())
+            }
+            override fun onFailure(httpStatus: Int, message: String) {
+                val errorCode = NaverIdLoginSDK.getLastErrorCode().code
+                val errorDescription = NaverIdLoginSDK.getLastErrorDescription()
+                Toast.makeText(context,"errorCode:$errorCode, errorDesc:$errorDescription",Toast.LENGTH_SHORT).show()
+            }
+            override fun onError(errorCode: Int, message: String) {
+                onFailure(errorCode, message)
+            }
+        }
+        binding.naverLogin.setOnClickListener {
+            NaverIdLoginSDK.authenticate(requireContext(), oauthLoginCallback)
+        }
+//        binding.buttonOAuthLoginImg.setOAuthLogin(oauthLoginCallback)
     }
 }

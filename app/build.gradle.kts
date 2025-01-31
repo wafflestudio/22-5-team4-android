@@ -37,6 +37,7 @@ android {
         versionCode = 1
         versionName = "1.0"
         manifestPlaceholders["NATIVE_APP_KEY"] = kakaoNativeKey
+        manifestPlaceholders["NAVER_CLIENT_ID"] = naverClientID
         buildConfigField("String", "KAKAO_REST_KEY", "\"${kakaoRESTKey}\"")
         buildConfigField("String", "KAKAO_NATIVE_KEY", "\"${kakaoNativeKey}\"")
         buildConfigField("String", "NAVER_CLIENT_ID", "\"${naverClientID}\"")
@@ -103,7 +104,6 @@ dependencies {
     implementation(libs.coil)
     implementation(libs.oauth)
     implementation(libs.androidx.webkit)
-
     implementation("androidx.work:work-runtime-ktx:2.8.1")
     val fragment_version = "1.8.5"
     // Java language implementation
