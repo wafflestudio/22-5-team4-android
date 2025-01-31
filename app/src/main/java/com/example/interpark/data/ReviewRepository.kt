@@ -1,7 +1,5 @@
 package com.example.interpark.data
 
-import androidx.paging.Pager
-import androidx.paging.PagingConfig
 import com.example.interpark.auth.AuthManager
 import com.example.interpark.data.API.ApiClient
 import com.example.interpark.data.types.Comment
@@ -28,13 +26,5 @@ class ReviewRepository(private val reviewApiService: ApiClient) {
     suspend fun readComment(reviewId: String): Response<List<Comment>>{
         return reviewApiService.readComment(reviewId)
     }
-    fun getReviewPager(performanceId: String): Pager<String, Review> {
-        return Pager(
-            config = PagingConfig(
-                pageSize = 5,
-                enablePlaceholders = false
-            ),
-            pagingSourceFactory = { ReviewPagingSource(performanceId) }
-        )
-    }
+
 }

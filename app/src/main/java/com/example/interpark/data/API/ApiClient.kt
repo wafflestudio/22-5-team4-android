@@ -22,7 +22,6 @@ import com.example.interpark.data.types.RefreshTokenResponse
 import com.example.interpark.data.types.ReservationRequest
 import com.example.interpark.data.types.Review
 import com.example.interpark.data.types.ReviewRequestBody
-import com.example.interpark.data.types.ReviewResponse
 import com.example.interpark.data.types.SignInRequest
 import com.example.interpark.data.types.SignInResponse
 import com.example.interpark.data.types.SignUpRequest
@@ -159,13 +158,6 @@ interface ApiClient {
     @POST("/admin/v1/performance-event")
     suspend fun createPerformanceEvent(@Header("Authorization") token:String, @Body request: AdminPerformanceEventRequest): AdminPerformanceEventResponse
 
-
-    @GET("/api/v2/performance/{performanceId}/review")
-    suspend fun getReviews(
-        @Path("performanceId") performanceId: String,
-        @Query("cursor") cursor: String? = null
-    ): ReviewResponse
-
     @POST("/api/v1/social/{provider}/login")
     suspend fun socialLogin(
         @Path("provider") provider: String,
@@ -176,5 +168,4 @@ interface ApiClient {
     suspend fun socialLink(
         @Body socialLinkRequest: SocialLinkRequest
     ): Response<ResponseBody>
-
 }

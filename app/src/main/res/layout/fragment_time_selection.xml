@@ -72,9 +72,8 @@
         android:id="@+id/selectedDateText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="선택한 날짜가 확인해주세요."
+        android:text="선택한 날짜가 표시됩니다."
         android:textSize="18sp"
-        android:layout_marginTop="18dp"
         android:layout_gravity="center_horizontal"
         android:paddingBottom="16dp" />
     <Button

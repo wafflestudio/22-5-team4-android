@@ -3,8 +3,6 @@ package com.example.interpark.viewModels
 import android.content.Context
 import android.widget.Toast
 import androidx.lifecycle.*
-import androidx.paging.PagingData
-import androidx.paging.cachedIn
 import com.example.interpark.auth.AuthManager
 import kotlinx.coroutines.launch
 import com.example.interpark.data.ReviewRepository
@@ -15,7 +13,6 @@ import com.example.interpark.data.types.ReviewRequestBody
 import com.google.rpc.context.AttributeContext.Auth
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
-import kotlinx.coroutines.flow.collectLatest
 import java.io.IOException
 
 
@@ -34,20 +31,6 @@ class ReviewViewModel(private val repository: ReviewRepository) : ViewModel() {
 
     private val _reviewReadError = MutableStateFlow<ReviewError?>(null)
     val reviewReadError: StateFlow<ReviewError?> = _reviewReadError
-
-    private val _reviews = MutableStateFlow<PagingData<Review>>(PagingData.empty())
-    val reviews: StateFlow<PagingData<Review>> = _reviews
-
-    fun loadReviews(performanceId: String) {
-        viewModelScope.launch {
-            repository.getReviewPager(performanceId)
-                .flow
-                .cachedIn(viewModelScope)
-                .collectLatest { pagingData ->
-                    _reviews.value = pagingData
-                }
-        }
-    }
 
     fun readReview(performanceId: String?){
         if(performanceId == null) return
