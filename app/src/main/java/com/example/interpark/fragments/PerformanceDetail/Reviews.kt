@@ -10,6 +10,7 @@ import android.widget.Toast
 import androidx.annotation.RequiresApi
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -23,18 +24,17 @@ import com.example.interpark.viewModels.PerformanceDetailViewModel
 import com.example.interpark.viewModels.PerformanceDetailViewModelFactory
 import com.example.interpark.viewModels.ReviewViewModel
 import com.example.interpark.viewModels.ReviewViewModelFactory
+import kotlinx.coroutines.flow.collectLatest
+import kotlinx.coroutines.launch
 
 
 class Reviews : Fragment() {
     private var _binding: FragmentPerformanceDetailReviewsBinding? = null
     private val binding get() = _binding!!
     private val args: PerformanceDetailFragmentArgs by navArgs()
-    private lateinit var reviewRecyclerView: RecyclerView
-    private val performanceDetailViewModel: PerformanceDetailViewModel by viewModels {
-        PerformanceDetailViewModelFactory(requireContext())
-    }
+    private lateinit var reviewAdapter: ReviewAdapter
 
-    private val reviewViewModel: ReviewViewModel by viewModels{
+    private val reviewViewModel: ReviewViewModel by viewModels {
         ReviewViewModelFactory(requireContext())
     }
 
@@ -46,44 +46,32 @@ class Reviews : Fragment() {
         return binding.root
     }
 
-    @RequiresApi(Build.VERSION_CODES.O)
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        reviewRecyclerView = view.findViewById(R.id.reviewRecyclerView)
-        reviewRecyclerView.layoutManager = LinearLayoutManager(context)
+        reviewAdapter = ReviewAdapter(
+            writeComment = { reviewId, content -> reviewViewModel.writeComment(requireContext(), reviewId, content) },
+            readComment = { reviewId -> reviewViewModel.readComment(reviewId) }
+        )
 
-        reviewViewModel.reviewList.observe(viewLifecycleOwner) {reviews ->
-            setRecyclerView(reviews)
+        binding.reviewRecyclerView.apply {
+            layoutManager = LinearLayoutManager(context)
+            adapter = reviewAdapter
         }
 
+        lifecycleScope.launch {
+            reviewViewModel.reviews.collectLatest { pagingData ->
+                reviewAdapter.submitData(pagingData)
+            }
+        }
 
         val performanceId = requireArguments().getString("key")
-        reviewViewModel.readReview(performanceId)
+        reviewViewModel.loadReviews(performanceId!!)
 
         binding.NavWriteReviewButton.setOnClickListener {
-            val action = PerformanceDetailFragmentDirections.actionPerformanceDetailFragmentToWriteReviewFragment(performanceId!!)
+            val action = PerformanceDetailFragmentDirections
+                .actionPerformanceDetailFragmentToWriteReviewFragment(performanceId)
             findNavController().navigate(action)
-        }
-    }
-
-    private fun setRecyclerView(data: List<Review>?){
-        if(data == null) return
-        fun writeComment(reviewId: String, content: String) {
-            if(content == ""){
-                Toast.makeText(context, "내용을 입력하세요", Toast.LENGTH_SHORT).show()
-            }
-            reviewViewModel.writeComment(requireContext(), reviewId, content)
-        }
-
-        fun readComment(reviewId: String){
-            reviewViewModel.readComment(reviewId)
-        }
-
-        reviewRecyclerView.adapter = ReviewAdapter(data, reviewViewModel, { reviewId, content ->
-            writeComment(reviewId, content)
-        }) { reviewId ->
-            readComment(reviewId)
         }
     }
 

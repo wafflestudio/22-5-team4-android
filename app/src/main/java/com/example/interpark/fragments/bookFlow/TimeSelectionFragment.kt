@@ -33,8 +33,8 @@ class TimeSelectionFragment : Fragment() {
         _binding = FragmentTimeSelectionBinding.inflate(inflater, container, false)
 
         // 전달받은 날짜 표시
-        binding.selectedDateText.text = "선택한 날짜: ${args.selectedDate}"
         // 예제 데이터
+        binding.timeSelectionButton.text ="${args.selectedDate}"
 
 
 
