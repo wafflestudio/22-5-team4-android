@@ -1,14 +1,22 @@
 package com.example.interpark.viewModels
 
 import android.content.Context
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.interpark.auth.AuthManager
+import com.example.interpark.auth.SocialAuthManager
+import com.example.interpark.data.API.moshi
 import com.example.interpark.data.PerformanceRepository
 import com.example.interpark.data.types.SignInResponse
 import com.example.interpark.data.types.SignUpResponse
+import com.example.interpark.data.types.SocialLinkResult
+import com.example.interpark.data.types.SocialLoginError
+import com.example.interpark.data.types.SocialLoginResponse
+import com.example.interpark.data.types.SocialLoginResult
+import com.google.rpc.context.AttributeContext.Auth
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
@@ -87,6 +95,58 @@ class MyPageViewModel(private val repository: PerformanceRepository, private val
     fun refresh_token(){
         viewModelScope.launch {
             repository.refresh_token()
+        }
+    }
+
+    private val _linkDialog = MutableLiveData(false)
+    val linkDialog: LiveData<Boolean> get() = _linkDialog
+
+    fun socialLogin(provider: String, code: String){
+        viewModelScope.launch {
+            val result = repository.socialLogin(provider, code)
+            Log.d("", result.toString())
+            when(result?.code()) {
+                200 -> {
+                    val adapter = moshi.adapter(SocialLoginResponse::class.java)
+                    val body = adapter.fromJson(result.body()?.string()?:"")
+                    AuthManager.login(appContext, body?.user?.nickname!!, result.headers()["Set-Cookie"] ?: "" , body.accessToken!!, body.user)
+                    isLoggedIn.value = AuthManager.isLoggedIn()
+                    userName.value = AuthManager.getUserId()
+                }
+                404 -> {
+                    val errorBody = result.errorBody()?.string()
+                    val adapter = moshi.adapter(SocialLoginError::class.java)
+                    _linkDialog.value = true
+
+                    SocialAuthManager.provider = SocialLoginResult.Error(adapter.fromJson(errorBody)!!).errorData.provider
+                    SocialAuthManager.providerId = SocialLoginResult.Error(adapter.fromJson(errorBody)!!).errorData.providerId
+                }
+                else -> {
+
+                }
+            }
+        }
+    }
+
+    private val _linkError = MutableLiveData<String?>(null)
+    val linkError: LiveData<String?> get() = _linkError
+
+    fun socialLink(username: String, password: String){
+        viewModelScope.launch {
+            val result = repository.socialLink(username, password, SocialAuthManager.provider, SocialAuthManager.providerId, appContext)
+            Log.d("result", result?.code().toString())
+            Log.d("result", result?.errorBody().toString())
+            _linkError.value = when(result?.code()){
+                200 -> {
+                    val result = repository.signIn(username, password, appContext)
+                    isLoggedIn.value = AuthManager.isLoggedIn()
+                    userName.value = AuthManager.getUserId()
+                    ""
+                }
+                401 -> "비밀번호가 잘못됐습니다."
+                404 -> "존재하지 않는 사용자입니다."
+                else -> "서버 오류가 발생했습니다."
+            }
         }
     }
 

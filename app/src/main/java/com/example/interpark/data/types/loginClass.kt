@@ -1,5 +1,7 @@
 package com.example.interpark.data.types
 
+import com.squareup.moshi.JsonClass
+
 // 요청에 필요한 데이터 클래스 정의
 data class SignUpRequest(
     val username: String,
@@ -10,6 +12,7 @@ data class SignUpRequest(
     val role : String
 )
 
+@JsonClass(generateAdapter = true)
 data class User(
     val id: String,
     val username: String,

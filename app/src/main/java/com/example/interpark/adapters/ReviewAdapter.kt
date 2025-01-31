@@ -116,6 +116,11 @@ class ReviewAdapter(
                 notifyItemChanged(previousPosition)
                 notifyItemChanged(selectedPosition)
             }
+
+            readComment(reviews[position].id)
+            notifyItemChanged(selectedPosition)
+            notifyItemChanged(previousPosition)
+
         }
     }
 

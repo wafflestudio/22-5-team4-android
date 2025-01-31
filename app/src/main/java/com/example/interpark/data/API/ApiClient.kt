@@ -27,8 +27,12 @@ import com.example.interpark.data.types.SignInRequest
 import com.example.interpark.data.types.SignInResponse
 import com.example.interpark.data.types.SignUpRequest
 import com.example.interpark.data.types.SignUpResponse
+import com.example.interpark.data.types.SocialLinkRequest
+import com.example.interpark.data.types.SocialLinkResult
+import com.example.interpark.data.types.SocialLoginResult
 import com.example.interpark.data.types.User
 import com.squareup.moshi.JsonClass
+import okhttp3.ResponseBody
 import retrofit2.Response
 import retrofit2.http.Body
 import retrofit2.http.DELETE
@@ -155,9 +159,22 @@ interface ApiClient {
     @POST("/admin/v1/performance-event")
     suspend fun createPerformanceEvent(@Header("Authorization") token:String, @Body request: AdminPerformanceEventRequest): AdminPerformanceEventResponse
 
+
     @GET("/api/v2/performance/{performanceId}/review")
     suspend fun getReviews(
         @Path("performanceId") performanceId: String,
         @Query("cursor") cursor: String? = null
     ): ReviewResponse
+
+    @POST("/api/v1/social/{provider}/login")
+    suspend fun socialLogin(
+        @Path("provider") provider: String,
+        @Query("code") code: String
+    ): Response<ResponseBody>
+
+    @POST("/api/v1/social/link")
+    suspend fun socialLink(
+        @Body socialLinkRequest: SocialLinkRequest
+    ): Response<ResponseBody>
+
 }
