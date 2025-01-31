@@ -18,12 +18,15 @@ class SeatRepository(private val seatApiService: ApiClient) {
 //        return seatApiService.reserveSeat(reservationRequest)
 //    }
 
-    suspend fun reserveSeat(reservationRequest: ReservationRequest): ReservationResponse? {
-        val result = seatApiService.reserveSeat(reservationRequest)
-        Log.d("ReserveSeat", "Observed reservationId: $reservationRequest")
-        Log.d("ReserveSeat", result.body().toString())
-        return result.body()
+    suspend fun reserveSeat(eventId: String, seatId: String): ReservationResponse {
+        return seatApiService.reserveSeat(
+            ReservationRequest(
+                performanceEventId = eventId,
+                seatId = seatId
+            )
+        )
     }
+
 
 
     suspend fun cancelReservation(cancelRequest: CancelRequest) {
@@ -42,6 +45,15 @@ class SeatRepository(private val seatApiService: ApiClient) {
         } catch (e: Exception) {
             Log.e("ReservationRepository", "Exception occurred", e)
             emptyList()
+        }
+    }
+
+    suspend fun deleteReservation(reservationId: String): Boolean {
+        return try {
+            val response = seatApiService.deleteReservation(reservationId)
+            response.isSuccessful
+        } catch (e: Exception) {
+            false // 실패 시 false 반환
         }
     }
 }

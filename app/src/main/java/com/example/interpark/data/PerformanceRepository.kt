@@ -4,6 +4,9 @@ import android.content.Context
 import android.os.Build
 import android.util.Log
 import androidx.annotation.RequiresApi
+import androidx.paging.Pager
+import androidx.paging.PagingConfig
+import androidx.paging.PagingData
 import com.example.interpark.auth.AuthManager
 import com.example.interpark.data.API.ApiClient
 import com.example.interpark.data.API.moshi
@@ -26,6 +29,7 @@ import com.example.interpark.data.types.SocialLoginError
 import com.example.interpark.data.types.SocialLoginResponse
 import com.example.interpark.data.types.SocialLoginResult
 import com.example.interpark.data.types.User
+import kotlinx.coroutines.flow.Flow
 import com.google.protobuf.Api
 import okhttp3.ResponseBody
 import retrofit2.Response
@@ -126,6 +130,17 @@ class PerformanceRepository(private val ApiClient: ApiClient) {
     suspend fun adminCreatePerformanceEvent(token: String?,request: AdminPerformanceEventRequest): AdminPerformanceEventResponse {
         return ApiClient.createPerformanceEvent("Bearer $token",request)
     }
+
+    fun getPerformancePagingData(title: String?, category: String?): Flow<PagingData<Performance>> {
+        return Pager(
+            config = PagingConfig(
+                pageSize = 5, // 한 번에 불러올 데이터 개수
+                enablePlaceholders = false
+            ),
+            pagingSourceFactory = { PerformancePagingSource(title, category) }
+        ).flow
+    }
+
 
     suspend fun socialLogin(provider: String, code: String): Response<ResponseBody>? {
         try {

@@ -67,4 +67,9 @@
             android:backgroundTint="?attr/colorPrimary"
             android:textColor="@color/black" />
     </LinearLayout>
+    <TextView
+        android:id="@+id/reservationId"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="gone"/>
 </LinearLayout>

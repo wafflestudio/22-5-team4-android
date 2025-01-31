@@ -37,8 +37,19 @@
 
     <!-- RecyclerView -->
     <androidx.recyclerview.widget.RecyclerView
+        android:visibility="gone"
         android:id="@+id/recyclerViewReservedSeats"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:padding="8dp" />
+
+    <TextView
+        android:visibility="gone"
+        android:id="@+id/emptyText"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:text="예매 내역이 없습니다."
+        android:textSize="30dp"
+        android:gravity="center"
+        />
 </LinearLayout>

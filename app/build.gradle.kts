@@ -1,4 +1,3 @@
-import com.android.ddmlib.Log
 import java.util.Properties
 import java.io.FileInputStream
 
@@ -23,9 +22,11 @@ android {
         buildFeatures {
             viewBinding = true
             buildConfig = true
-            
+
         }
     }
+
+
     namespace = "com.example.interpark"
     compileSdk = 35
 
@@ -81,6 +82,8 @@ dependencies {
     implementation(libs.androidx.navigation.fragment.ktx)
     implementation(libs.androidx.navigation.ui.ktx)
     implementation(libs.firebase.firestore.ktx)
+    implementation(libs.androidx.paging.common.android)
+    implementation(libs.androidx.paging.runtime.ktx)
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)

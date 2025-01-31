@@ -8,7 +8,9 @@ import android.widget.ImageButton
 import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.findNavController
+import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -16,22 +18,24 @@ import com.example.interpark.R
 import com.example.interpark.adapters.PerformanceAdapter
 import com.example.interpark.data.types.Performance
 import com.example.interpark.databinding.FragmentSearchResultBinding
+import com.example.interpark.fragments.CategoryPage.EmptyFragmentDirections
 import com.example.interpark.viewModels.PerformanceViewModel
 import com.example.interpark.viewModels.PerformanceViewModelFactory
+import kotlinx.coroutines.flow.collectLatest
+import kotlinx.coroutines.launch
 
 class SearchResultFragment : Fragment() {
     private var _binding: FragmentSearchResultBinding? = null
     private val binding get() = _binding!!
     private val performanceViewModel: PerformanceViewModel by viewModels { PerformanceViewModelFactory(requireContext()) }
 
-    private lateinit var searchTitleTextView: TextView
     private lateinit var performanceRecyclerView: RecyclerView
-    private val args: SearchResultFragmentArgs by navArgs() // Safe Args로 전달된 데이터
+    private val args: SearchResultFragmentArgs by navArgs()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         _binding = FragmentSearchResultBinding.inflate(inflater, container, false)
         return binding.root
     }
@@ -39,38 +43,43 @@ class SearchResultFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        // 뒤로가기 버튼 동작 연결
-        val backButton: ImageButton = view.findViewById(R.id.backButton)
-        backButton.setOnClickListener {
-            val navController = requireActivity().findNavController(R.id.searchNavHost)
-            navController.navigateUp() // 이전 화면으로 이동
+        // 뒤로가기 버튼 설정
+        binding.backButton.setOnClickListener {
+            requireActivity().findNavController(R.id.searchNavHost).navigateUp()
         }
 
-        // TextView 초기화 (검색어 표시)
-        searchTitleTextView = view.findViewById(R.id.searchTitleTextView)
-        searchTitleTextView.text = args.searchtitle // Safe Args로 전달받은 검색어
+        // 검색어 표시
+        binding.searchTitleTextView.text = args.searchtitle
 
         // RecyclerView 설정
         performanceRecyclerView = view.findViewById(R.id.performanceRecyclerView)
         performanceRecyclerView.layoutManager = LinearLayoutManager(context)
-
-        // ViewModel을 통해 공연 데이터 가져오기
-        performanceViewModel.performanceList.observe(viewLifecycleOwner) { performanceList ->
-            setRecyclerView(performanceList)
+        performanceViewModel.performanceList.observe(viewLifecycleOwner){ performanceList ->
+            setupRecyclerView()
         }
-
-        // ViewModel을 통해 검색어에 해당하는 공연 목록 가져오기
-        performanceViewModel.fetchPerformanceList(category = null, title = args.searchtitle)
+//        performanceViewModel.fetchPerformanceList(category = null, title = args.searchtitle)
     }
 
-    private fun setRecyclerView(data: List<Performance>) {
-        performanceRecyclerView.adapter = PerformanceAdapter(data) { performance ->
-            val navController = requireActivity().findNavController(R.id.searchNavHost)
-            val action = SearchResultFragmentDirections
-                .actionSearchResultFragmentToPerformanceDetailFragment(performance.id)
-            navController.navigate(action)
+    private fun setupRecyclerView() {
+        val adapter = PerformanceAdapter { performance ->
+            val action = EmptyFragmentDirections
+                .actionEmptyFragmentToPerformanceDetailFragment(performance.id)
+            findNavController().navigate(action)
+        }
+
+        binding.performanceRecyclerView.apply {
+            layoutManager = LinearLayoutManager(context)
+            this.adapter = adapter
+        }
+
+        lifecycleScope.launch {
+            performanceViewModel.getPerformancePagingData(null, args.searchtitle)
+                .collectLatest { pagingData ->
+                    adapter.submitData(pagingData)
+                }
         }
     }
+
 
     override fun onDestroyView() {
         super.onDestroyView()

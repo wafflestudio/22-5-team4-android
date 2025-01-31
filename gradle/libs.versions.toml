@@ -27,6 +27,8 @@ coil = "2.1.0"
 firebaseFirestoreKtx = "25.1.1"
 webkit = "1.12.1"
 youtube-player = "1.2.2"
+pagingCommonAndroid = "3.3.5"
+pagingRuntimeKtx = "3.3.5"
 
 [libraries]
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
@@ -69,6 +71,8 @@ glide = { module = "com.github.bumptech.glide:glide", version = "4.15.1" }
 glide-compiler = { module = "com.github.bumptech.glide:compiler", version = "4.15.1" }
 firebase-firestore-ktx = { group = "com.google.firebase", name = "firebase-firestore-ktx", version.ref = "firebaseFirestoreKtx" }
 youtube-player = { module = "com.google.android.youtube:player", version.ref = "youtube-player" }
+androidx-paging-common-android = { group = "androidx.paging", name = "paging-common-android", version.ref = "pagingCommonAndroid" }
+androidx-paging-runtime-ktx = { group = "androidx.paging", name = "paging-runtime-ktx", version.ref = "pagingRuntimeKtx" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }

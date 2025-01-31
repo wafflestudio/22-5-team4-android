@@ -15,6 +15,7 @@ import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.RecyclerView
 import com.example.interpark.R
+import com.example.interpark.auth.AuthManager
 import com.example.interpark.data.types.Review
 import com.example.interpark.data.types.ReviewError
 import com.example.interpark.databinding.FragmentPerformanceDetailWriteReviewBinding
@@ -48,6 +49,14 @@ class WriteReview : Fragment() {
         }
 
         binding.writeReviewButton.setOnClickListener {
+            ReviewViewModel.ratingCheck(binding.ratingBar.rating.toInt())
+            ReviewViewModel.contentCheck(binding.etContent.text.toString())
+            ReviewViewModel.titleCheck(binding.etTitle.text.toString())
+            if(AuthManager.getUser() == null){
+                Toast.makeText(context, "로그인이 필요합니다.", Toast.LENGTH_SHORT).show()
+                return@setOnClickListener
+            }
+
             Log.d("body title:", args.title)
             Log.d("rating: ", binding.ratingBar.rating.toString())
             ReviewViewModel.writeReview(args.title,
@@ -61,7 +70,7 @@ class WriteReview : Fragment() {
                 }
             }
         }
-
+//
 //        lifecycleScope.launchWhenStarted {
 //            ReviewViewModel.reviewWriteError.collect { error ->
 //                when (error) {
