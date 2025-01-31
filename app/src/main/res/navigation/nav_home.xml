@@ -10,7 +10,16 @@
         <action
             android:id="@+id/action_homeFragment_to_emptyFragment"
             app:destination="@id/emptyFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_rankingFragment"
+            app:destination="@id/RankingFragment" />
     </fragment>
+
+    <fragment
+        android:id="@+id/RankingFragment"
+        android:name="com.example.interpark.fragments.PerformanceDetail.RankingFragment" >
+    </fragment>
+
     <fragment
         android:id="@+id/AuthFrament"
         android:name="com.example.interpark.fragments.MyPage.AuthFragment">
