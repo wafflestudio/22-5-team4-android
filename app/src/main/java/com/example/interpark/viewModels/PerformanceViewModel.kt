@@ -5,12 +5,18 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import androidx.paging.Pager
+import androidx.paging.PagingConfig
+import androidx.paging.PagingData
+import androidx.paging.cachedIn
 import com.example.interpark.auth.AuthManager
+import com.example.interpark.data.PerformancePagingSource
 import com.example.interpark.data.types.Performance
 import com.example.interpark.data.PerformanceRepository
 import com.example.interpark.data.types.PerformanceEvent
 import com.example.interpark.data.types.User
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
@@ -23,6 +29,18 @@ class PerformanceViewModel(private val repository: PerformanceRepository) : View
 
     private val _posterUris = MutableLiveData<List<String>>()
     val posterUris: LiveData<List<String>> get() = _posterUris
+
+    fun getPerformancePagingData(category: String?, title: String?): Flow<PagingData<Performance>> {
+        return Pager(
+            config = PagingConfig(
+                pageSize = 5,
+                enablePlaceholders = false
+            ),
+            pagingSourceFactory = { PerformancePagingSource(category, title) }
+        ).flow
+            .cachedIn(viewModelScope)
+    }
+
 
     fun fetchPerformanceList(category: String?, title: String?) {
         viewModelScope.launch {
