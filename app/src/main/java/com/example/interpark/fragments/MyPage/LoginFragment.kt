@@ -96,7 +96,7 @@ class LoginFragment : Fragment() {
             if(show){
                 val builder = AlertDialog.Builder(context)
                 builder.setTitle("알림")
-                    .setMessage("소셜 계정을 연동하시겠습니까?")
+                    .setMessage("기존 계정의 아이디/비밀번호를 입력하고 \n소셜 계정을 연동하시겠습니까?")
                     .setPositiveButton("네", { _, _ ->
                         val navController = requireActivity().findNavController(R.id.myNavHost)
                         val action = LoginFragmentDirections.actionLoginFragmentToLinkFragment()
@@ -147,8 +147,8 @@ class LoginFragment : Fragment() {
             }
         }
         binding.naverLogin.setOnClickListener {
-            Toast.makeText(context, "현재 지원하지 않는 기능입니다.", Toast.LENGTH_SHORT).show()
-//            NaverIdLoginSDK.authenticate(requireContext(), oauthLoginCallback)
+//            Toast.makeText(context, "현재 지원하지 않는 기능입니다.", Toast.LENGTH_SHORT).show()
+            NaverIdLoginSDK.authenticate(requireContext(), oauthLoginCallback)
         }
 
         binding.googleLogin.setOnClickListener {

@@ -70,6 +70,7 @@
         android:layout_marginStart="20dp"
         android:layout_marginTop="10dp"
         android:imeOptions="actionSearch"
+        android:inputType="text"
         app:layout_constraintEnd_toStartOf="@id/buttonSearch"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/appBarLayout" />

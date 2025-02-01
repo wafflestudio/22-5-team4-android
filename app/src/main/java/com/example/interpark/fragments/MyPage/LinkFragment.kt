@@ -20,6 +20,7 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.findNavController
 import com.example.interpark.BuildConfig
 import com.example.interpark.R
+import com.example.interpark.auth.SocialAuthManager
 import com.example.interpark.databinding.FragmentMyLinkBinding
 import com.example.interpark.databinding.FragmentMyLoginBinding
 import com.example.interpark.viewModels.MyPageViewModel
@@ -46,6 +47,8 @@ class LinkFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        binding.linkTitle.text = "${SocialAuthManager.provider} 계정 연동하기"
 
         binding.btnLogin.setOnClickListener{
             myPageViewModel.socialLink(binding.etUsername.text.toString(), binding.etPassword.text.toString())
