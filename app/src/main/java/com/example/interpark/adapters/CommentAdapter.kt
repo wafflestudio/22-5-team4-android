@@ -22,6 +22,7 @@ class CommentAdapter(
 
     class CommentViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val commentText: TextView = itemView.findViewById(R.id.commentContent)
+        val authorText: TextView = itemView.findViewById(R.id.author)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CommentViewHolder {
@@ -32,6 +33,7 @@ class CommentAdapter(
     override fun onBindViewHolder(holder: CommentViewHolder, position: Int) {
         val comment = comments[position]
         holder.commentText.text = comment.content
+        holder.authorText.text = comment.author
     }
 
     override fun getItemCount() = comments.size

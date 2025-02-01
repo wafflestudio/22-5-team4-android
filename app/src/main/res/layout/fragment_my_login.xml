@@ -150,6 +150,7 @@
                     android:src="@drawable/btn_naver"
                     android:layout_marginHorizontal="32dp"/>
                 <ImageView
+                    android:id="@+id/google_login"
                     android:layout_width="48dp"
                     android:layout_height="48dp"
                     android:src="@drawable/ic_google"

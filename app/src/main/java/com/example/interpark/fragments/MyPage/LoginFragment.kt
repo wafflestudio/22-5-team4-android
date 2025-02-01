@@ -113,6 +113,7 @@ class LoginFragment : Fragment() {
         UserApiClient.instance.loginWithKakaoTalk(requireContext()) { token, error ->
             if (error != null) {
                 Log.e(TAG, "로그인 실패", error)
+                Toast.makeText(context, "먼저 카카오톡에 로그인 해 주세요!", Toast.LENGTH_SHORT).show()
             }
             else if (token != null) {
                 Log.i(TAG, "로그인 성공 ${token.accessToken}")
@@ -146,7 +147,12 @@ class LoginFragment : Fragment() {
             }
         }
         binding.naverLogin.setOnClickListener {
-            NaverIdLoginSDK.authenticate(requireContext(), oauthLoginCallback)
+            Toast.makeText(context, "현재 지원하지 않는 기능입니다.", Toast.LENGTH_SHORT).show()
+//            NaverIdLoginSDK.authenticate(requireContext(), oauthLoginCallback)
+        }
+
+        binding.googleLogin.setOnClickListener {
+            Toast.makeText(context, "현재 지원하지 않는 기능입니다.", Toast.LENGTH_SHORT).show()
         }
 //        binding.buttonOAuthLoginImg.setOAuthLogin(oauthLoginCallback)
     }
