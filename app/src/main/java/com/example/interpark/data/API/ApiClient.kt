@@ -161,7 +161,7 @@ interface ApiClient {
     @POST("/api/v1/social/{provider}/login")
     suspend fun socialLogin(
         @Path("provider") provider: String,
-        @Query("code") code: String
+        @Query("token") code: String
     ): Response<ResponseBody>
 
     @POST("/api/v1/social/link")

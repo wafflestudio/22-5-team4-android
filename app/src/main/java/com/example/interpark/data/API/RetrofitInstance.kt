@@ -41,7 +41,7 @@ val cookieStore = mutableMapOf<String, String>()
 @RequiresApi(Build.VERSION_CODES.O)
 object RetrofitInstance {
 
-    private const val BASE_URL_SERVER = "http://172.30.1.85/"
+    private const val BASE_URL_SERVER = "http://15.164.225.121/"
 
 
 
