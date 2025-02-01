@@ -12,8 +12,8 @@ import kotlinx.coroutines.withContext
 
 class CalendarViewModel(private val repository: PerformanceRepository) : ViewModel() {
 
-    private val _performanceDates = MutableLiveData<List<String>>()
-    val performanceDates: LiveData<List<String>> get() = _performanceDates
+    private val _performanceDates = MutableLiveData<List<String>?>()
+    val performanceDates: MutableLiveData<List<String>?> get() = _performanceDates
 
     // 특정 공연 ID에 대한 날짜 가져오기
     fun fetchPerformanceDates(id: String) {

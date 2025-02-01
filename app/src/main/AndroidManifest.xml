@@ -32,6 +32,8 @@
 
                 <category android:name="android.intent.category.LAUNCHER" />
                 <!-- Redirect URI: "kakao${NATIVE_APP_KEY}://oauth" -->
+            </intent-filter>
+            <intent-filter>
                 <data android:scheme="https"
                     android:host="qdrptd.com"
                     android:pathPrefix="/kakao/callback" />
