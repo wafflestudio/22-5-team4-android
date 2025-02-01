@@ -22,7 +22,7 @@ interpark 클론 코딩 프로젝트입니다.
 
 ## 📸 **와이어프레임 (Wireframe)**
 아래는 **Waffle Ticket**의 전체적인 사용자 흐름을 시각화한 와이어프레임입니다.
-<img src="https://github.com/user-attachments/assets/69d06d24-6978-4d95-aa22-94af1615a6fa" width="100%" alt="Waffle Ticket Wireframe">
+<img src="https://github.com/user-attachments/assets/69d06d24-6978-4d95-aa22-94af1615a6fa" width="1400px" alt="Waffle Ticket Wireframe">
 
 
 
