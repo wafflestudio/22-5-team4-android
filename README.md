@@ -146,14 +146,11 @@ interpark 클론 코딩 프로젝트입니다.
 
 ```plaintext
 UI (Activity / Fragment) → ViewModel → Repository → API (Remote)
-
 ```
 
 
 ## ✅ **추가 고려 사항**
 
-```plaintext
 - CI/CD 파이프라인 적용 예정 (GitHub Actions)
 - 테스트 코드 적용 (Unit Test, UI Test)
 - Jetpack Compose 적용 가능성 고려 중
-```
