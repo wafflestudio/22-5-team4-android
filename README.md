@@ -55,7 +55,7 @@ interpark 클론 코딩 프로젝트입니다.
 
 
 
-## 🏗 아키텍처 개요
+## 🏗 **아키텍처 개요**
 이 앱은 **MVVM (Model-View-ViewModel) 패턴**을 기반으로 하며, 다음과 같은 주요 기술을 활용하여 개발되었습니다.
 
 - **언어:** Kotlin  
@@ -67,7 +67,7 @@ interpark 클론 코딩 프로젝트입니다.
 - **OAuth 로그인:** Kakao API 사용  
 
 
-### **📂 폴더 구조**
+## 📂 **폴더 구조**
 
 ```plaintext
 📂 app
@@ -137,16 +137,21 @@ interpark 클론 코딩 프로젝트입니다.
  ├── ReviewViewModel.kt  # 리뷰 작성 및 목록 조회
  └── ViewModelFactory.kt  # ViewModel을 직접 생성하기 위한 Factory 패턴 적용 
 
+
+
+
 ---
 
-## **🏗 아키텍처 흐름**
+## 🏗 **아키텍처 흐름**
 
 ```plaintext
 UI (Activity / Fragment) → ViewModel → Repository → API (Remote)
 
+
+
 ---
 
-## **✅ 추가 고려 사항**
+## ✅ **추가 고려 사항**
 ```plaintext
 - CI/CD 파이프라인 적용 예정 (GitHub Actions)
 - 테스트 코드 적용 (Unit Test, UI Test)
