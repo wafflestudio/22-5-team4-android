@@ -137,7 +137,7 @@ interpark 클론 코딩 프로젝트입니다.
  ├── ReviewViewModel.kt  # 리뷰 작성 및 목록 조회
  └── ViewModelFactory.kt  # ViewModel을 직접 생성하기 위한 Factory 패턴 적용 
 
-
+```
 
 
 ---
@@ -146,7 +146,7 @@ interpark 클론 코딩 프로젝트입니다.
 
 ```plaintext
 UI (Activity / Fragment) → ViewModel → Repository → API (Remote)
-
+```
 
 
 ---
@@ -156,4 +156,4 @@ UI (Activity / Fragment) → ViewModel → Repository → API (Remote)
 - CI/CD 파이프라인 적용 예정 (GitHub Actions)
 - 테스트 코드 적용 (Unit Test, UI Test)
 - Jetpack Compose 적용 가능성 고려 중
-
+```
