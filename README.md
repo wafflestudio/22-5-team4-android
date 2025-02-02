@@ -61,7 +61,7 @@ interpark 클론 코딩 프로젝트입니다.
 - **언어:** Kotlin  
 - **UI:** XML 기반  
 - **패턴:** MVVM  
-- **DI (의존성 주입):** ViewModel Factory 사용 (Hilt 미사용)  
+- **DI (의존성 주입):** ViewModel Factory 사용
 - **네트워크:** Retrofit + OkHttp  
 - **페이징:** Paging 3 라이브러리  
 - **OAuth 로그인:** Kakao API 사용  
